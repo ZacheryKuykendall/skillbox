@@ -1,0 +1,40 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: prompt
+
+metadata:
+  namespace: skillbox
+  # Lowercase, digits, and internal hyphens. 2 to 64 characters.
+  name: REPLACE-ME
+  version: 0.1.0
+  # 10 to 200 characters, one line. This is what shows in search results.
+  description: TODO describe what this prompt does.
+  tags:
+    - TODO
+
+spec:
+  entrypoint: prompt.md
+  # Every file the resource owns. The entrypoint must be listed here.
+  files:
+    - prompt.md
+    - README.md
+  install:
+    target: .skillbox/prompts/REPLACE-ME
+  format: markdown
+
+  inputs:
+    - name: TODO
+      type: string
+      required: true
+      description: TODO describe this input.
+
+  outputs:
+    - name: TODO
+      type: string
+      description: TODO describe this output.
+
+  # Minimum needed. Shown to users before installation.
+  permissions:
+    - model:invoke
+
+  compatibility:
+    skillbox: ">=0.1.0"

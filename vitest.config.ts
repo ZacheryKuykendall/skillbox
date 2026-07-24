@@ -20,7 +20,14 @@ export default defineConfig({
   test: {
     globals: false,
     environment: 'node',
-    include: ['packages/*/src/**/*.test.ts', 'packages/*/test/**/*.test.ts'],
+    // Catalog tests run too: a component that ships a test file should have it
+    // actually pass, not merely exist. Templates are excluded because their
+    // placeholder tests are meant to be filled in, not run.
+    include: [
+      'packages/*/src/**/*.test.ts',
+      'packages/*/test/**/*.test.ts',
+      'registry/**/*.test.ts',
+    ],
     exclude: ['**/node_modules/**', '**/dist/**'],
 
     // Filesystem tests create real temporary directories. Forks give each file a

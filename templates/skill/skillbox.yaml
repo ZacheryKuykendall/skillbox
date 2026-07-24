@@ -1,0 +1,44 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: skill
+
+metadata:
+  namespace: skillbox
+  name: REPLACE-ME
+  version: 0.1.0
+  description: TODO describe what capability this skill provides.
+  tags:
+    - TODO
+
+spec:
+  entrypoint: SKILL.md
+  files:
+    - SKILL.md
+    - README.md
+    - reference/TODO.md
+  install:
+    target: .skillbox/skills/REPLACE-ME
+
+  # Defaults to the entrypoint. Set only if instructions live elsewhere.
+  instructions: SKILL.md
+
+  # Files the skill reads at use time rather than up front. Keeping detail out of
+  # the entrypoint keeps the working instruction set small.
+  resources:
+    - reference/TODO.md
+
+  inputs:
+    - name: TODO
+      type: string
+      required: true
+      description: TODO describe this input.
+
+  outputs:
+    - name: TODO
+      type: string
+      description: TODO describe this output.
+
+  permissions:
+    - model:invoke
+
+  compatibility:
+    skillbox: ">=0.1.0"

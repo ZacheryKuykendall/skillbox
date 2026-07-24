@@ -1,0 +1,83 @@
+lockfileVersion: 1
+resources:
+  skillbox/code-review:
+    files:
+      .skillbox/prompts/code-review/README.md: sha256-oOVCiBaEQAIT6hz1JMROdCuBdmOoLhty55Q22vkq6eQ=
+      .skillbox/prompts/code-review/prompt.md: sha256-wjesKIhSNd+3XJxjetFOhnlZEbx8DfVBblzLxWQA9Bw=
+    integrity: sha256-bX8kPR/FHUwLlnNMIuq6yPYfoWOhfKu15CT024iSu7c=
+    kind: prompt
+    requestedBy: skillbox/plan-implement-review
+    source:
+      path: prompts/code-review
+      type: local
+    target: .skillbox/prompts/code-review
+    version: 0.1.0
+  skillbox/implementation-planner:
+    dependencies:
+      - skillbox/code-review
+    files:
+      .skillbox/agents/implementation-planner/README.md: sha256-+cqqzclFKc6FNiJYxlau0Kl9axZVaa4lfZvtkJAdOLg=
+      .skillbox/agents/implementation-planner/agent.md: sha256-+z11OdpChYoZv6SaItLseP+5+G7KSqrncQvHVQLmHGw=
+    integrity: sha256-xknPJkWAvu3JfFL0EntV5X+B5nyvKG7cOjN0XWFLhlk=
+    kind: agent
+    requestedBy: skillbox/plan-implement-review
+    source:
+      path: agents/implementation-planner
+      type: local
+    target: .skillbox/agents/implementation-planner
+    version: 0.1.0
+  skillbox/plan-implement-review:
+    dependencies:
+      - skillbox/code-review
+      - skillbox/implementation-planner
+      - skillbox/technical-documentation
+    files:
+      .skillbox/workflows/plan-implement-review/README.md: sha256-GP7oWyjw34EbYBxCXutJEya84YmFEewBffezS+QcFbg=
+      .skillbox/workflows/plan-implement-review/workflow.md: sha256-/1cqdk4Csp8HPgSpMVt0JDZ3ePzP1xSFQeFWE3ObG1c=
+    integrity: sha256-IjLX/7UQJrrYSj1kcQ52w3KnqwJx542Wf/Voo/KI7tw=
+    kind: workflow
+    requestedBy: direct
+    source:
+      path: workflows/plan-implement-review
+      type: local
+    target: .skillbox/workflows/plan-implement-review
+    version: 0.1.0
+  skillbox/project-summary:
+    files:
+      .skillbox/scripts/project-summary/README.md: sha256-IhNmUy+Qw9ZFm83DgKoZ0DeRvkyvov/ycCshLLR1tUg=
+      .skillbox/scripts/project-summary/summarize.mjs: sha256-/9CJzSUsb9v6ARM4pzYKkfhg28W8eN/NlAl2UAIYpew=
+    integrity: sha256-jEUAI7+/9p/5lR3ziUu/tCNkD+e0/YGPpnvj72R+/a0=
+    kind: script
+    requestedBy: direct
+    source:
+      path: scripts/project-summary
+      type: local
+    target: .skillbox/scripts/project-summary
+    version: 0.1.0
+  skillbox/structured-logger:
+    files:
+      src/components/structured-logger/README.md: sha256-HA3gkXwm7vqTSU4AQwBJzRCm8vCHLrgsw8FOQJi4Wpg=
+      src/components/structured-logger/logger.test.ts: sha256-sz2xkRb3+5loDyvWqzifs3u8ytVjVl0qcFTvOX19qKA=
+      src/components/structured-logger/logger.ts: sha256-OzkF5R4xcTFC8nQmc64F210gq4QxibSoiPoYPBAQ2HQ=
+    integrity: sha256-y6DPSXCdXYXuKm8kk1aTii0sVtN7vPbEkxizEOlunsM=
+    kind: component
+    requestedBy: direct
+    source:
+      path: components/structured-logger
+      type: local
+    target: src/components/structured-logger
+    version: 0.1.0
+  skillbox/technical-documentation:
+    files:
+      .skillbox/skills/technical-documentation/README.md: sha256-8YdNkh2Wt5uTpzeL5dI7k8PvliWtk+mNDTMbbzJ//YU=
+      .skillbox/skills/technical-documentation/SKILL.md: sha256-Z3yOjb2/H48oaujNsa6L5+EJkn/5Eer+BWPJNAgQ7vc=
+      .skillbox/skills/technical-documentation/reference/document-types.md: sha256-iL6zJwodkIcg93rF7cqIhy0DNM/Lq1abhhalY/jLqp0=
+      .skillbox/skills/technical-documentation/reference/style-guide.md: sha256-Y5IwXl0TstjyqCGrpFTWhDEMgnvQkZMZLQ0lxIbCnWM=
+    integrity: sha256-2E/9vaww69RTvyeNnUWX5OaUeNsas7zs111WM9yfCL0=
+    kind: skill
+    requestedBy: skillbox/plan-implement-review
+    source:
+      path: skills/technical-documentation
+      type: local
+    target: .skillbox/skills/technical-documentation
+    version: 0.1.0

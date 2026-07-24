@@ -1,0 +1,49 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: workflow
+
+metadata:
+  namespace: skillbox
+  name: REPLACE-ME
+  version: 0.1.0
+  description: TODO describe what process this workflow carries out.
+  tags:
+    - workflow
+    - TODO
+
+spec:
+  entrypoint: workflow.md
+  files:
+    - workflow.md
+    - README.md
+  install:
+    target: .skillbox/workflows/REPLACE-ME
+
+  # At least one step. Every "uses" reference must also appear in dependencies,
+  # or the step's resource will not be installed.
+  steps:
+    - name: TODO
+      uses: skillbox/TODO
+      description: TODO describe what this step accomplishes.
+      with:
+        TODO: "{{TODO}}"
+
+  dependencies:
+    - resource: skillbox/TODO
+      version: ^0.1.0
+
+  inputs:
+    - name: TODO
+      type: string
+      required: true
+      description: TODO describe this input.
+
+  outputs:
+    - name: summary
+      type: string
+      description: TODO describe what the workflow reports on completion.
+
+  permissions:
+    - model:invoke
+
+  compatibility:
+    skillbox: ">=0.1.0"

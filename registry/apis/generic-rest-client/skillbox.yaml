@@ -1,0 +1,60 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: api
+
+metadata:
+  namespace: skillbox
+  name: generic-rest-client
+  version: 0.1.0
+  description: A typed REST client with retries, timeouts, and normalized errors.
+  tags:
+    - api
+    - http
+    - integration
+  license: MIT
+
+spec:
+  entrypoint: src/client.ts
+  files:
+    - src/client.ts
+    - src/errors.ts
+    - README.md
+  install:
+    target: src/integrations/rest-client
+  protocol: rest
+  baseUrlEnv: SKILLBOX_EXAMPLE_API_BASE_URL
+  auth:
+    type: bearer
+    tokenEnv: SKILLBOX_EXAMPLE_API_TOKEN
+  env:
+    - name: SKILLBOX_EXAMPLE_API_BASE_URL
+      description: Base URL of the REST service, without a trailing slash.
+      required: true
+    - name: SKILLBOX_EXAMPLE_API_TOKEN
+      description: Bearer token for the REST service.
+      required: true
+      secret: true
+  operations:
+    - name: get
+      method: GET
+      description: Send a GET request and parse the JSON response.
+    - name: post
+      method: POST
+      description: Send a POST request with a JSON body.
+    - name: put
+      method: PUT
+      description: Send a PUT request with a JSON body.
+    - name: remove
+      method: DELETE
+      description: Send a DELETE request.
+  outputs:
+    - name: client
+      type: object
+      description: A configured client exposing the declared operations.
+  permissions:
+    - network:outbound
+    - env:read
+  runtime:
+    type: node
+    version: ">=20.19.0"
+  compatibility:
+    skillbox: ">=0.1.0"

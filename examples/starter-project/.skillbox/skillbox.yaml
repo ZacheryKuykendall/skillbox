@@ -1,0 +1,12 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: Project
+metadata:
+  name: starter-project
+spec:
+  resources:
+    - resource: skillbox/plan-implement-review
+      version: ^0.1.0
+    - resource: skillbox/project-summary
+      version: ^0.1.0
+    - resource: skillbox/structured-logger
+      version: ^0.1.0

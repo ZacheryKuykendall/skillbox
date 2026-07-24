@@ -10,7 +10,11 @@ export default tseslint.config(
       '**/node_modules/**',
       '**/*.tsbuildinfo',
       'schemas/**',
-      'examples/**/.skillbox/**',
+      // Everything under examples/ is installed output: a copy of a catalog
+      // resource, placed there to show what installation produces. The originals
+      // under registry/ are linted; linting the copies would report the same
+      // findings twice and would fail the moment a consumer's target differs.
+      'examples/**',
     ],
   },
 
@@ -136,11 +140,23 @@ export default tseslint.config(
   // TypeScript projects, so type-aware rules cannot run on it. The spread's own
   // `rules` must be merged in explicitly — a bare `rules` key would replace it.
   {
-    files: ['**/*.js'],
+    files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
     ...tseslint.configs.disableTypeChecked,
     rules: {
       ...tseslint.configs.disableTypeChecked.rules,
       'no-console': 'off',
+    },
+  },
+
+  // Catalog and template content is written for a consumer's project, not for
+  // this repository. It is typechecked so the examples are proven to compile,
+  // but rules about our own conventions do not apply to it: a template's unused
+  // placeholder is the point, and a shipped script writes to stdout by design.
+  {
+    files: ['registry/**/*.ts', 'templates/**/*.ts'],
+    rules: {
+      'no-console': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
 );

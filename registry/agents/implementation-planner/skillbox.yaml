@@ -1,0 +1,51 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: agent
+
+metadata:
+  namespace: skillbox
+  name: implementation-planner
+  version: 0.1.0
+  description: Turns a requirement into an ordered, verifiable implementation plan.
+  tags:
+    - planning
+    - development
+  license: MIT
+
+spec:
+  entrypoint: agent.md
+  files:
+    - agent.md
+    - README.md
+  install:
+    target: .skillbox/agents/implementation-planner
+  role: Breaks a requirement into ordered steps that can each be verified independently.
+  tools:
+    - read-file
+    - list-files
+    - search
+  prompts:
+    - skillbox/code-review
+  dependencies:
+    - resource: skillbox/code-review
+      version: ^0.1.0
+  inputs:
+    - name: requirement
+      type: string
+      required: true
+      description: What needs to be built or changed.
+    - name: constraints
+      type: string
+      required: false
+      description: Anything the plan must respect, such as an existing architecture.
+  outputs:
+    - name: plan
+      type: array
+      description: Ordered steps, each with an acceptance check.
+    - name: risks
+      type: array
+      description: What could go wrong, and how the plan reduces it.
+  permissions:
+    - filesystem:read
+    - model:invoke
+  compatibility:
+    skillbox: ">=0.1.0"

@@ -1,0 +1,49 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: prompt
+
+metadata:
+  namespace: skillbox
+  name: code-review
+  version: 0.1.0
+  description: Reviews a code change and produces actionable, severity-ranked findings.
+  tags:
+    - development
+    - code-review
+  license: MIT
+
+spec:
+  entrypoint: prompt.md
+  files:
+    - prompt.md
+    - README.md
+  install:
+    target: .skillbox/prompts/code-review
+  format: markdown
+  inputs:
+    - name: diff
+      type: string
+      required: true
+      description: The unified diff to review.
+    - name: context
+      type: string
+      required: false
+      description: What the change is meant to accomplish.
+    - name: severity
+      type: enum
+      values:
+        - low
+        - medium
+        - high
+      default: low
+      description: Lowest severity worth reporting.
+  outputs:
+    - name: findings
+      type: array
+      description: Findings, each with a location, a severity, and a suggested fix.
+    - name: verdict
+      type: string
+      description: An overall accept or request-changes decision with a reason.
+  permissions:
+    - model:invoke
+  compatibility:
+    skillbox: ">=0.1.0"

@@ -12,5 +12,10 @@ schemas/
 # would break that guarantee.
 **/.skillbox/skillbox.lock
 
+# Installed output. Reformatting a copy would change its digest and make the
+# example project report as modified.
+examples/*/.skillbox/
+examples/*/src/
+
 # Cursor rule frontmatter is not standard YAML front matter Prettier handles well.
 .cursor/rules/

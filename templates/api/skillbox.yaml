@@ -1,0 +1,61 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: api
+
+metadata:
+  namespace: skillbox
+  name: REPLACE-ME
+  version: 0.1.0
+  description: TODO describe what service this integrates with.
+  tags:
+    - api
+    - TODO
+
+spec:
+  entrypoint: src/client.ts
+  files:
+    - src/client.ts
+    - README.md
+  install:
+    target: src/integrations/REPLACE-ME
+
+  protocol: rest
+
+  # The NAME of the environment variable holding the base URL. Never a URL literal,
+  # and never one carrying credentials.
+  baseUrlEnv: REPLACE_ME_API_BASE_URL
+
+  auth:
+    type: bearer
+    # The NAME of the environment variable holding the token.
+    tokenEnv: REPLACE_ME_API_TOKEN
+
+  # Names only. There is no field for a value, and no way to add one.
+  env:
+    - name: REPLACE_ME_API_BASE_URL
+      description: TODO base URL of the service, without a trailing slash.
+      required: true
+    - name: REPLACE_ME_API_TOKEN
+      description: TODO bearer token for the service.
+      required: true
+      secret: true
+
+  operations:
+    - name: TODO
+      method: GET
+      description: TODO describe this operation.
+
+  outputs:
+    - name: client
+      type: object
+      description: A configured client exposing the declared operations.
+
+  permissions:
+    - network:outbound
+    - env:read
+
+  runtime:
+    type: node
+    version: ">=20.19.0"
+
+  compatibility:
+    skillbox: ">=0.1.0"

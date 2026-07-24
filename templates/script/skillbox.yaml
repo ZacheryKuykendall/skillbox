@@ -1,0 +1,47 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: script
+
+metadata:
+  namespace: skillbox
+  name: REPLACE-ME
+  version: 0.1.0
+  description: TODO describe what this script does.
+  tags:
+    - TODO
+
+spec:
+  entrypoint: run.mjs
+  files:
+    - run.mjs
+    - README.md
+  install:
+    target: .skillbox/scripts/REPLACE-ME
+
+  # How a user would run this. Skillbox never acts on it: installing a script and
+  # running one are separate actions.
+  interpreter: node
+
+  # Hints that the file should be marked executable on POSIX. Default false.
+  executable: false
+
+  args:
+    - name: TODO
+      type: string
+      required: false
+      description: TODO describe this argument.
+
+  outputs:
+    - name: TODO
+      type: string
+      description: TODO describe what the script produces.
+
+  # Declare only what the script actually does.
+  permissions:
+    - filesystem:read
+
+  runtime:
+    type: node
+    version: ">=20.19.0"
+
+  compatibility:
+    skillbox: ">=0.1.0"

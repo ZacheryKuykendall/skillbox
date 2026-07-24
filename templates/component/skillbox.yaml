@@ -1,0 +1,50 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: component
+
+metadata:
+  namespace: skillbox
+  name: REPLACE-ME
+  version: 0.1.0
+  description: TODO describe what this component provides.
+  tags:
+    - TODO
+
+spec:
+  entrypoint: index.ts
+  files:
+    - index.ts
+    - index.test.ts
+    - README.md
+  # Components default into the project source tree, since they are code the
+  # consumer compiles and owns.
+  install:
+    target: src/components/REPLACE-ME
+
+  language: typescript
+
+  exports:
+    - TODO
+
+  # Informational. Skillbox reports these but does not install language packages.
+  peerDependencies:
+    typescript: ">=5.0.0"
+
+  inputs:
+    - name: TODO
+      type: string
+      required: false
+      description: TODO describe this option.
+
+  outputs:
+    - name: TODO
+      type: object
+      description: TODO describe what the component exposes.
+
+  permissions: []
+
+  runtime:
+    type: node
+    version: ">=20.19.0"
+
+  compatibility:
+    skillbox: ">=0.1.0"

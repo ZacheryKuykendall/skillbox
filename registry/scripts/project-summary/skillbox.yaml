@@ -1,0 +1,43 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: script
+
+metadata:
+  namespace: skillbox
+  name: project-summary
+  version: 0.1.0
+  description: Summarizes a project's structure and file counts as a Markdown report.
+  tags:
+    - automation
+    - reporting
+  license: MIT
+
+spec:
+  entrypoint: summarize.mjs
+  files:
+    - summarize.mjs
+    - README.md
+  install:
+    target: .skillbox/scripts/project-summary
+  interpreter: node
+  executable: false
+  args:
+    - name: root
+      type: path
+      required: false
+      description: Directory to summarize. Defaults to the working directory.
+    - name: depth
+      type: number
+      required: false
+      default: 3
+      description: How many directory levels to descend.
+  outputs:
+    - name: report
+      type: string
+      description: A Markdown report written to standard output.
+  permissions:
+    - filesystem:read
+  runtime:
+    type: node
+    version: ">=20.19.0"
+  compatibility:
+    skillbox: ">=0.1.0"

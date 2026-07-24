@@ -1,0 +1,11 @@
+{
+  "name": "skillbox-starter-project",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A demonstration project with Skillbox resources installed.",
+  "license": "MIT",
+  "scripts": {
+    "summary": "node .skillbox/scripts/project-summary/summarize.mjs --depth 2"
+  }
+}

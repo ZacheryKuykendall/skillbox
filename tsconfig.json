@@ -26,10 +26,15 @@
       "@skillbox/testing": ["./packages/testing/src/index.ts"]
     }
   },
+  // Catalog and template TypeScript is included so the shipped examples are
+  // proven to compile rather than merely claimed to. They are excluded from the
+  // build, since they are content to be copied into a consumer's project.
   "include": [
     "packages/*/src/**/*.ts",
     "packages/*/test/**/*.ts",
     "scripts/**/*.ts",
+    "registry/**/*.ts",
+    "templates/**/*.ts",
     "*.ts"
   ],
   "exclude": ["**/dist/**", "**/node_modules/**", "coverage"]

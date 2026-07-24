@@ -1,0 +1,57 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: skill
+
+metadata:
+  namespace: skillbox
+  name: technical-documentation
+  version: 0.1.0
+  description: Writes and reviews technical documentation that readers can act on.
+  tags:
+    - documentation
+    - writing
+  license: MIT
+
+spec:
+  entrypoint: SKILL.md
+  files:
+    - SKILL.md
+    - README.md
+    - reference/style-guide.md
+    - reference/document-types.md
+  install:
+    target: .skillbox/skills/technical-documentation
+  instructions: SKILL.md
+  resources:
+    - reference/style-guide.md
+    - reference/document-types.md
+  inputs:
+    - name: subject
+      type: string
+      required: true
+      description: What the document is about.
+    - name: audience
+      type: enum
+      values:
+        - user
+        - contributor
+        - operator
+      default: user
+      description: Who the document is written for.
+    - name: document-type
+      type: enum
+      values:
+        - guide
+        - reference
+        - explanation
+        - readme
+      default: guide
+      description: Which kind of document to produce.
+  outputs:
+    - name: document
+      type: string
+      description: The finished Markdown document.
+  permissions:
+    - filesystem:read
+    - model:invoke
+  compatibility:
+    skillbox: ">=0.1.0"

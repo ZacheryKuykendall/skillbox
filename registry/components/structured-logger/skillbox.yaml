@@ -1,0 +1,52 @@
+apiVersion: skillbox.dev/v1alpha1
+kind: component
+
+metadata:
+  namespace: skillbox
+  name: structured-logger
+  version: 0.1.0
+  description: A dependency-free structured JSON logger with redaction for Node services.
+  tags:
+    - logging
+    - observability
+  license: MIT
+
+spec:
+  entrypoint: logger.ts
+  files:
+    - logger.ts
+    - logger.test.ts
+    - README.md
+  install:
+    target: src/components/structured-logger
+  language: typescript
+  exports:
+    - createLogger
+    - LOG_LEVELS
+  peerDependencies:
+    typescript: ">=5.0.0"
+  inputs:
+    - name: level
+      type: enum
+      values:
+        - debug
+        - info
+        - warn
+        - error
+      default: info
+      description: Lowest level to emit.
+    - name: redact
+      type: array
+      required: false
+      description: Field names whose values are replaced with a placeholder.
+  outputs:
+    - name: logger
+      type: object
+      description: A logger exposing debug, info, warn, error, and child.
+  permissions:
+    - filesystem:write
+  runtime:
+    type: node
+    version: ">=20.19.0"
+  compatibility:
+    skillbox: ">=0.1.0"
