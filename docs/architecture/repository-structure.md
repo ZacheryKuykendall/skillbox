@@ -190,3 +190,5 @@ templates/                   Copyable manifest templates, one per kind
 `.gitignore` covers `node_modules/`, build output (`dist/`, `*.tsbuildinfo`), coverage output, editor state, OS metadata, and `.env*` files except `.env.example`. Environment files are excluded categorically so a real credential cannot be committed by accident.
 
 Committed on purpose: `pnpm-lock.yaml`, generated `schemas/`, and `examples/starter-project/.skillbox/`. That last one is committed precisely because a project's Skillbox configuration and lockfile belong in version control — the example demonstrates that.
+
+`.gitattributes` is also load-bearing rather than cosmetic. It normalizes line endings to LF in the working tree, which is what keeps integrity digests and the generated `schemas/` artifacts stable on a Windows clone. See [ADR-0004](decisions/ADR-0004-lockfile-design.md).

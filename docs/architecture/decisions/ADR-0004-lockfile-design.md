@@ -52,7 +52,11 @@ Enforced by a test that serializes the same state twice and compares bytes, plus
 
 Digests are SRI-style `sha256-<base64>`, matching the [Subresource Integrity](https://www.w3.org/TR/SRI/) format that npm and Yarn also use. Each installed file gets a digest, and each resource gets an aggregate digest computed over its sorted file list, so any change to any file changes the resource digest.
 
-Path separators are normalized to `/` before hashing so digests match across Windows and POSIX. Git is configured with `core.autocrlf false` so line endings do not change content between platforms.
+Path separators are normalized to `/` before hashing so digests match across Windows and POSIX.
+
+Line endings are normalized to LF in the working tree by a committed `.gitattributes` containing `* text=auto eol=lf`. This is part of the decision, not an incidental setting: a file checked out with CRLF hashes differently from the same file checked out with LF, so without it every installed file would report as modified on a Windows clone. `.gitattributes` is used rather than `core.autocrlf` because it travels with the repository and therefore applies to every clone regardless of a contributor's global git configuration.
+
+This was found by the fresh-clone verification in SBX-084, not by reasoning: the repository passed locally because `core.autocrlf false` had been set by hand at initialization, and failed on a clean clone with the common Windows default of `core.autocrlf=true`.
 
 ## Alternatives considered
 
@@ -85,7 +89,7 @@ Negative:
 - No record of when a resource was installed. Recoverable from git history; accepted.
 - Sorted-key serialization requires a deliberate serializer rather than a default dump.
 - YAML determinism is a property of the emission options, so it must be tested rather than assumed. It is.
-- Digests of text files are sensitive to line endings, which is why `core.autocrlf false` is required and documented.
+- Digests of text files are sensitive to line endings, which is why a committed `.gitattributes` enforcing `eol=lf` is required rather than optional.
 
 ## Follow-up work
 

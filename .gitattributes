@@ -1,0 +1,52 @@
+# Normalize line endings to LF in the working tree on every platform.
+#
+# This is load-bearing, not cosmetic. Three things depend on it:
+#
+#   1. Integrity digests. A file checked out with CRLF hashes differently from
+#      the same file checked out with LF, so `skillbox doctor` would report every
+#      installed file as modified on a Windows clone (ADR-0004).
+#   2. The committed JSON Schema artifacts, which are compared byte-for-byte
+#      against freshly generated output.
+#   3. Prettier, configured with `endOfLine: "lf"`.
+#
+# Setting this here rather than relying on `core.autocrlf` is deliberate: this
+# file travels with the repository, so it applies to every clone regardless of a
+# contributor's global git configuration. A clone with the common Windows default
+# of `core.autocrlf=true` otherwise fails format checks and integrity tests.
+* text=auto eol=lf
+
+# Files that must keep LF regardless of content detection.
+*.md      text eol=lf
+*.mdc     text eol=lf
+*.ts      text eol=lf
+*.tsx     text eol=lf
+*.js      text eol=lf
+*.mjs     text eol=lf
+*.cjs     text eol=lf
+*.json    text eol=lf
+*.yaml    text eol=lf
+*.yml     text eol=lf
+*.lock    text eol=lf
+*.sh      text eol=lf
+
+# PowerShell tolerates LF, and keeping it uniform avoids a mixed-ending diff.
+*.ps1     text eol=lf
+
+# Binary content: never touched, never diffed as text.
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.webp    binary
+*.ico     binary
+*.pdf     binary
+*.zip     binary
+*.gz      binary
+*.woff    binary
+*.woff2   binary
+
+# Generated artifacts. Marked so a reviewer knows not to hand-edit them, and so
+# they do not clutter a diff.
+schemas/*.json                    linguist-generated=true
+pnpm-lock.yaml                    linguist-generated=true
+**/.skillbox/skillbox.lock        linguist-generated=true

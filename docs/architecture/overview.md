@@ -157,7 +157,9 @@ Exit codes are documented in the [CLI reference](../guides/cli-reference.md).
 
 ## 8. Cross-platform behavior
 
-Manifests always use POSIX-style relative paths; `core` translates to the host separator at install time (NFR-2). Containment is verified with `path.relative` rather than string prefix comparison, because prefix checks miss `..` segments and case-folding differences on Windows (SR-13). Git is configured with `core.autocrlf false` so integrity digests are stable across platforms.
+Manifests always use POSIX-style relative paths; `core` translates to the host separator at install time (NFR-2). Containment is verified with `path.relative` rather than string prefix comparison, because prefix checks miss `..` segments and case-folding differences on Windows (SR-13).
+
+Line endings are normalized to LF by a committed `.gitattributes`, which is what keeps integrity digests stable across platforms. Relying on a contributor's `core.autocrlf` would not work: a clone with the common Windows default reports every installed file as modified.
 
 ## 9. Technology choices
 
