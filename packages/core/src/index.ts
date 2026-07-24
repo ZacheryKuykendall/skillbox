@@ -82,3 +82,69 @@ export type {
   PlannedFile,
   PlannedResource,
 } from './plan.js';
+
+// --- project configuration --------------------------------------------------
+
+export {
+  findProjectRoot,
+  isInitialized,
+  loadProject,
+  lockfilePath,
+  projectDirectory,
+  projectManifestPath,
+  requestedResources,
+  serializeProjectManifest,
+  withResource,
+  withoutResource,
+  writeLockfile,
+  writeProjectManifest,
+} from './project.js';
+export type { Project } from './project.js';
+
+export {
+  emptyLockfile,
+  fileOwnership,
+  lockedDependents,
+  lockedResourceFor,
+  serializeLockfile,
+  withLockedResource,
+  withoutLockedResource,
+} from './lockfile.js';
+
+export { initProject, projectNameFromDirectory } from './init.js';
+export type { InitOptions, InitResult } from './init.js';
+
+// --- installation -----------------------------------------------------------
+
+export { applyPlan, assertInstallable } from './apply.js';
+export type { ApplyOptions, InstallResult } from './apply.js';
+
+export {
+  isTextPath,
+  referencedVariables,
+  substituteInFile,
+  substituteVariables,
+} from './variables.js';
+
+export { planRemove, removeResource } from './remove.js';
+export type { RemoveOptions, RemovePlan, RemoveResult } from './remove.js';
+
+export { planUpdate } from './update.js';
+export type { UpdateCandidate, UpdateOptions, UpdateReport } from './update.js';
+
+// --- diagnostics ------------------------------------------------------------
+
+export { reportDiagnostics, runDoctor } from './doctor.js';
+export type {
+  CheckStatus,
+  DoctorCheck,
+  DoctorOptions,
+  DoctorReport,
+} from './doctor.js';
+
+export { validateDirectory } from './validate.js';
+export type {
+  ValidateOptions,
+  ValidationReport,
+  ValidationTarget,
+} from './validate.js';
