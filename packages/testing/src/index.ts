@@ -6,8 +6,11 @@
  * valid and an invalid resource look like.
  */
 
-export { createTempDir, withTempDir } from './temp.js';
+export { createTempDir, KIND_DIRECTORY, withTempDir } from './temp.js';
 export type { TempDir } from './temp.js';
+
+export { buildManifest, writeRegistry, writeResource } from './registry.js';
+export type { ResourceSpec } from './registry.js';
 
 export {
   INVALID_MANIFESTS,

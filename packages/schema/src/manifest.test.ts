@@ -268,10 +268,25 @@ describe('checkEnvelope', () => {
     expect(problem).toEqual({ kind: 'unsupported-api-version', found: 'other/v1' });
   });
 
-  it('reports a non-string apiVersion as unsupported', () => {
-    expect(checkEnvelope({ apiVersion: 42, kind: 'prompt' })?.kind).toBe(
-      'unsupported-api-version',
-    );
+  // A bare String() would render a mapping as "[object Object]", telling the
+  // reader nothing about what they actually wrote.
+  it.each([
+    [42, '42'],
+    [true, 'true'],
+    [null, 'null'],
+    [{ nested: 1 }, 'a mapping'],
+    [['a'], 'a list'],
+  ])('describes a non-string apiVersion %s as %s', (apiVersion, expected) => {
+    const problem = checkEnvelope({ apiVersion, kind: 'prompt' });
+
+    expect(problem?.kind).toBe('unsupported-api-version');
+    expect(problem).toMatchObject({ found: expected });
+  });
+
+  it('describes a symbol apiVersion by its type', () => {
+    const problem = checkEnvelope({ apiVersion: Symbol('x'), kind: 'prompt' });
+
+    expect(problem).toMatchObject({ found: 'symbol' });
   });
 
   it('reports a missing kind', () => {

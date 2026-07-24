@@ -70,10 +70,10 @@ function hintFor(issue: z.core.$ZodIssue, path: string): string | undefined {
       return `Remove ${keys}, or check for a typo. Unknown fields are rejected so a misspelling fails loudly rather than being ignored.`;
     }
     case 'invalid_type':
-      if (issue.input === undefined) {
-        return `Add the required field "${path}".`;
-      }
-      return `Change "${path}" to a ${String(issue.expected)}.`;
+      // Zod 4 does not carry the received value on the issue, so a missing field
+      // and a wrong-typed one are indistinguishable here. One hint that is
+      // accurate for both beats guessing from the message text.
+      return `"${path}" must be a ${String(issue.expected)}. Add it, or correct its type.`;
     case 'too_small':
       return `"${path}" needs at least ${String(issue.minimum)} ${issue.origin === 'array' ? 'items' : 'characters'}.`;
     case 'too_big':

@@ -126,8 +126,8 @@ export function wrapError(
   return new SkillboxError({
     code: options.code,
     message: options.message,
-    ...(options.location === undefined ? {} : { location: options.location }),
-    ...(options.hint === undefined ? {} : { hint: options.hint }),
+    location: options.location,
+    hint: options.hint,
     details: [detail],
     cause: value,
   });

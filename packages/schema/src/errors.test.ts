@@ -92,12 +92,12 @@ describe('toDiagnostics', () => {
     }
   });
 
-  it('adds a hint for a missing required field', () => {
+  it('names the expected type for a missing required field', () => {
     const result = z.object({ name: z.string() }).safeParse({});
 
     if (!result.success) {
       const [diagnostic] = toDiagnostics(result.error);
-      expect(diagnostic?.hint).toContain('Add the required field');
+      expect(diagnostic?.hint).toContain('"name" must be a string');
     }
   });
 
@@ -126,6 +126,55 @@ describe('toDiagnostics', () => {
     if (!result.success) {
       const [diagnostic] = toDiagnostics(result.error);
       expect(diagnostic?.hint).toContain('5');
+    }
+  });
+
+  it('omits a hint when nothing more useful than the message can be said', () => {
+    // A vague hint is worse than none: it adds a line without adding guidance.
+    const result = z
+      .object({
+        a: z.string().refine(() => false, { message: 'business rule failed' }),
+      })
+      .safeParse({ a: 'x' });
+
+    if (!result.success) {
+      const [diagnostic] = toDiagnostics(result.error);
+      expect(diagnostic?.message).toBe('business rule failed');
+      expect(diagnostic?.hint).toBeUndefined();
+    }
+  });
+
+  it('reports the minimum for a too-short array', () => {
+    const result = z.object({ a: z.array(z.string()).min(2) }).safeParse({ a: ['x'] });
+
+    if (!result.success) {
+      const [diagnostic] = toDiagnostics(result.error);
+      expect(diagnostic?.hint).toContain('items');
+    }
+  });
+
+  it('reports the maximum for a too-long string', () => {
+    const result = z.object({ a: z.string().max(3) }).safeParse({ a: 'toolong' });
+
+    if (!result.success) {
+      const [diagnostic] = toDiagnostics(result.error);
+      expect(diagnostic?.hint).toContain('characters');
+    }
+  });
+
+  it('gives the same accurate hint whether a field is absent or wrong-typed', () => {
+    // Zod 4 omits the received value from the issue, so the hint deliberately
+    // covers both cases rather than guessing which one occurred.
+    const absent = z.object({ a: z.string() }).safeParse({});
+    const wrongType = z.object({ a: z.string() }).safeParse({ a: 42 });
+
+    if (!absent.success && !wrongType.success) {
+      expect(toDiagnostics(absent.error)[0]?.hint).toBe(
+        '"a" must be a string. Add it, or correct its type.',
+      );
+      expect(toDiagnostics(wrongType.error)[0]?.hint).toBe(
+        '"a" must be a string. Add it, or correct its type.',
+      );
     }
   });
 

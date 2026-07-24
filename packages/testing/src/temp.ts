@@ -2,6 +2,11 @@ import { mkdtemp, rm, mkdir, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
+import { KIND_DIRECTORIES } from '@skillbox/schema';
+
+/** Registry subdirectory for each kind. Re-exported so fixtures need one import. */
+export const KIND_DIRECTORY = KIND_DIRECTORIES;
+
 /**
  * Temporary-directory helpers for filesystem tests.
  *
