@@ -8,5 +8,16 @@
 
 export { EXIT_CODES, exitCodeFor } from './exit-codes.js';
 export type { ExitCode } from './exit-codes.js';
+
 export { createProgram, run } from './run.js';
+export type { RunEnvironment } from './run.js';
+
+export { createContext, defaultRegistryPath } from './context.js';
+export type { CommandContext, CreateContextOptions, GlobalOptions } from './context.js';
+
+export { createWriter, pad, pluralize, shouldUseColor, table } from './output.js';
+export type { CreateWriterOptions, OutputOptions, Style, Writer } from './output.js';
+
+export { renderError } from './errors.js';
+
 export { CLI_VERSION } from './version.js';

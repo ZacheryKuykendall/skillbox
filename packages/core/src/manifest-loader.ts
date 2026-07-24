@@ -57,31 +57,38 @@ function parseManifestYaml(
   try {
     return { ok: true, value: parseYaml(contents) };
   } catch (error) {
-    const message =
-      error instanceof YAMLParseError
-        ? // YAMLParseError carries a linePos; surfacing it turns "invalid YAML"
-          // into something a user can navigate to.
-          `${error.message.split('\n')[0] ?? error.message}${
-            error.linePos?.[0] === undefined
-              ? ''
-              : ` (line ${String(error.linePos[0].line)}, column ${String(error.linePos[0].col)})`
-          }`
-        : error instanceof Error
-          ? error.message
-          : String(error);
-
     return {
       ok: false,
       diagnostics: [
         {
           severity: 'error',
           path: '',
-          message: `Could not parse ${MANIFEST_FILENAME}: ${message}`,
+          message: `Could not parse ${MANIFEST_FILENAME}: ${describeYamlError(error)}`,
           hint: 'Check indentation and quoting. Version ranges such as ">=1.0.0" must be quoted.',
         },
       ],
     };
   }
+}
+
+/**
+ * Describe a YAML parse failure.
+ *
+ * A `YAMLParseError` carries `linePos`; surfacing it turns "invalid YAML" into
+ * something the reader can navigate to. The message's first line is the useful
+ * part; the rest is a source excerpt that duplicates the position.
+ */
+function describeYamlError(error: unknown): string {
+  if (!(error instanceof YAMLParseError)) {
+    return error instanceof Error ? error.message : String(error);
+  }
+
+  const [summary = error.message] = error.message.split('\n');
+  const position = error.linePos?.[0];
+
+  if (position === undefined) return summary;
+
+  return `${summary} (line ${String(position.line)}, column ${String(position.col)})`;
 }
 
 /**

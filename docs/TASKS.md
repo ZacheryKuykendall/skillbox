@@ -605,8 +605,8 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Build the Commander program with the binary entrypoint, global options, and version reporting.
 - **Acceptance criteria:** `skillbox --help` and `--version` work; `--json` and `--no-color` are honored globally; unknown commands exit non-zero.
 - **Status:** Complete
-- **Completion evidence:** `packages/cli/src/program.ts` and `bin/skillbox.js` with tests.
-- **Related files:** `packages/cli/src/program.ts`
+- **Completion evidence:** `packages/cli/src/run.ts`, `context.ts`, and `bin/skillbox.js`. Commander's own help and usage output is routed through the injected streams so tests capture it and `--json` stdout stays pipeable. `run` returns an exit code rather than calling `process.exit`, so the launcher owns termination.
+- **Related files:** `packages/cli/src/run.ts`, `packages/cli/src/context.ts`, `packages/cli/bin/skillbox.js`
 
 - [x] SBX-060: CLI program wiring
 
@@ -617,7 +617,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Centralize terminal output using `node:util` `styleText`, with machine-readable JSON output and a single error renderer.
 - **Acceptance criteria:** Color is disabled when not a TTY or when `NO_COLOR` is set; errors show cause and remediation; no secret values are printed.
 - **Status:** Complete
-- **Completion evidence:** `packages/cli/src/output.ts` and `errors.ts` with tests.
+- **Completion evidence:** `packages/cli/src/output.ts` and `errors.ts`, with tests for every color-decision path. Two bugs were found and fixed here: `styleText` validates the output stream by default, which silently overrode an explicit `--color`; and Commander sets `color: true` by default for the negated `--no-color` option, so the "user asked for color" branch always fired and TTY detection never ran.
 - **Related files:** `packages/cli/src/output.ts`, `packages/cli/src/errors.ts`
 
 - [x] SBX-061: Output and error presentation
@@ -629,7 +629,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Implement `init`, `search`, `list`, `inspect`, `add`, `remove`, `validate`, `update`, and `doctor` as thin adapters over `@skillbox/core`.
 - **Acceptance criteria:** Every command delegates business logic to core, returns documented exit codes, and supports `--json`; `add` shows a plan and supports `--dry-run` and `--yes`.
 - **Status:** Complete
-- **Completion evidence:** `packages/cli/src/commands/*.ts` with per-command tests.
+- **Completion evidence:** Nine command modules under `packages/cli/src/commands/`, each with text and `--json` tests in `commands.test.ts` and `run.test.ts`. `inspect` and `add` state explicitly that permissions are declared by the author and not enforced, so the list is not misread as a sandbox guarantee.
 - **Related files:** `packages/cli/src/commands/**`
 
 - [x] SBX-062: Commands
@@ -641,8 +641,9 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Spawn the built CLI against temporary projects and assert stdout, stderr, and exit codes.
 - **Acceptance criteria:** The full init, search, inspect, add, list, validate, doctor, remove lifecycle is covered end to end; failure paths assert non-zero exit codes.
 - **Status:** Complete
-- **Completion evidence:** `packages/cli/test/integration.test.ts` executing the built binary through `node`.
+- **Completion evidence:** `packages/cli/test/integration.test.ts` spawns `bin/skillbox.js` in a real subprocess, so it verifies the compiled output, the shebang launcher, and the real process exit code rather than in-process behavior. 19 tests cover the full lifecycle, every documented exit code, JSON output, and three security guarantees: no execution during install, rejection of an escaping install target, and no environment value in output.
 - **Related files:** `packages/cli/test/integration.test.ts`
+- **Note:** Subprocess tests are not instrumented for coverage, which is why the in-process `commands.test.ts` exists alongside them.
 
 - [x] SBX-063: CLI integration tests
 
