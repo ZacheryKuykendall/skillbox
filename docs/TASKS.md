@@ -305,7 +305,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Implement namespace, name, and semantic version validation plus parsing and formatting of `namespace/name@version` references.
 - **Acceptance criteria:** Names and namespaces match the documented pattern; reserved and malformed inputs are rejected with actionable messages; round-trip parse and format is lossless.
 - **Status:** Complete
-- **Completion evidence:** `packages/schema/src/identifier.ts` with tests in `identifier.test.ts`.
+- **Completion evidence:** `packages/schema/src/identifier.ts` with 86 tests in `identifier.test.ts`, covering the round trip, every rejection path with its message, and the rule that a prerelease never satisfies a plain range (FR-4.5). An npm-style `@scope/name` is rejected so there is exactly one canonical form.
 - **Related files:** `packages/schema/src/identifier.ts`
 
 - [x] SBX-030: Identifier and version primitives
@@ -329,8 +329,8 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Define shared spec fields: entrypoint, files, install target, inputs, outputs, dependencies, environment variables, permissions, runtime, compatibility.
 - **Acceptance criteria:** Relative POSIX paths only; absolute paths, `..` segments, and Windows drive prefixes are rejected at the schema layer; permissions use a closed vocabulary.
 - **Status:** Complete
-- **Completion evidence:** `packages/schema/src/spec.ts` with path-rejection tests.
-- **Related files:** `packages/schema/src/spec.ts`
+- **Completion evidence:** `packages/schema/src/spec.ts` and `paths.ts`, with 45 path tests asserting each rejection vector individually so a regression names the specific form that stopped being rejected. A test confirms `envVarSchema` has no field for a value and rejects one, which is the mechanism the entire secret-handling guarantee rests on (SR-7).
+- **Related files:** `packages/schema/src/spec.ts`, `packages/schema/src/paths.ts`
 
 - [x] SBX-032: Common specification fields
 
@@ -341,8 +341,8 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Define the spec schema for each of the seven kinds, adding only the fields that are meaningful to that kind.
 - **Acceptance criteria:** Every kind has a schema; no kind is forced to declare irrelevant fields; each kind has a passing and a failing fixture.
 - **Status:** Complete
-- **Completion evidence:** `packages/schema/src/kinds/*.ts` with per-kind tests.
-- **Related files:** `packages/schema/src/kinds/**`
+- **Completion evidence:** `packages/schema/src/kinds.ts`, with a test per kind validating its fixture and a test confirming a prompt declaring `interpreter` is rejected (FR-1.12). Design note: each kind schema is written out rather than produced by a generic helper, because a generic `defineSpec<T>` loses Zod's inference through the shape merge and degrades the `superRefine` argument to `Record<string, unknown>`.
+- **Related files:** `packages/schema/src/kinds.ts`
 
 - [x] SBX-033: Kind-specific specifications
 
@@ -353,8 +353,8 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Compose a discriminated union on `kind` and reject unsupported `apiVersion` values.
 - **Acceptance criteria:** A manifest with an unknown `apiVersion` produces a dedicated error naming the supported version; an unknown `kind` lists valid kinds.
 - **Status:** Complete
-- **Completion evidence:** `packages/schema/src/manifest.ts` with tests covering both rejection paths.
-- **Related files:** `packages/schema/src/manifest.ts`
+- **Completion evidence:** `packages/schema/src/manifest.ts` and `validate-manifest.ts`. `checkEnvelope` runs before the body so an unsupported `apiVersion` yields exactly one diagnostic rather than a cascade; a test asserts the diagnostic count is 1 and that the message names the supported version.
+- **Related files:** `packages/schema/src/manifest.ts`, `packages/schema/src/validate-manifest.ts`
 
 - [x] SBX-034: Manifest union and apiVersion gating
 
@@ -365,7 +365,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Convert Zod issues into stable, path-qualified, human-readable diagnostics.
 - **Acceptance criteria:** Every diagnostic reports a dotted path and a remediation hint; output ordering is deterministic; no input values that could be secrets are echoed for environment fields.
 - **Status:** Complete
-- **Completion evidence:** `packages/schema/src/errors.ts` with tests including redaction.
+- **Completion evidence:** `packages/schema/src/errors.ts`. Redaction is proven with a sentinel value placed in `env[].name`, `auth.tokenEnv`, and `baseUrlEnv`; each test asserts the sentinel appears nowhere in the serialized diagnostics. Ordering is sorted by path then message, with a test asserting two runs on the same input produce identical output. An unexpected value is described by shape (`a mapping`) rather than stringified, avoiding `[object Object]`.
 - **Related files:** `packages/schema/src/errors.ts`
 
 - [x] SBX-035: Validation error formatting
@@ -377,8 +377,8 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Emit JSON Schema for the manifest and project files using Zod's native `z.toJSONSchema()`.
 - **Acceptance criteria:** `pnpm schema:generate` writes deterministic artifacts under `schemas/`; a test fails if committed artifacts drift from the schemas.
 - **Status:** Complete
-- **Completion evidence:** `packages/schema/src/json-schema.ts`, generator script, `schemas/*.json`, and a drift test.
-- **Related files:** `packages/schema/src/json-schema.ts`, `schemas/**`
+- **Completion evidence:** `packages/schema/src/json-schema.ts`, `scripts/generate-json-schema.ts`, and three committed artifacts under `schemas/`. A drift test compares committed bytes against freshly generated output and names the fix command on failure. Zod 4's native `z.toJSONSchema()` is used, so no converter dependency was needed. `reused: 'ref'` extracts the shared spec into `$defs`, taking the manifest artifact from 70 kB to 23 kB — inlined output was too large to review in a diff.
+- **Related files:** `packages/schema/src/json-schema.ts`, `scripts/generate-json-schema.ts`, `schemas/**`
 
 - [x] SBX-036: JSON Schema generation
 
@@ -389,7 +389,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Provide valid and invalid manifest fixtures in `@skillbox/testing` for reuse across packages.
 - **Acceptance criteria:** At least one valid fixture per kind and invalid fixtures for each documented failure mode.
 - **Status:** Complete
-- **Completion evidence:** `packages/testing/src/fixtures.ts` consumed by schema and core tests.
+- **Completion evidence:** `packages/testing/src/fixtures.ts` provides `VALID_MANIFESTS` for all seven kinds and 31 entries in `INVALID_MANIFESTS`, each labelled with the reason it must be rejected. Fixtures are deep-cloned on access so a mutation in one test cannot leak into another. Consumed by the schema suite now and by the core suite from Phase 4.
 - **Related files:** `packages/testing/src/fixtures.ts`
 
 - [x] SBX-037: Manifest fixtures

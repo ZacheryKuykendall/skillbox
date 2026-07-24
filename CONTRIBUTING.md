@@ -48,6 +48,7 @@ pnpm test:coverage   # Vitest with the 90% coverage gate
 pnpm build           # tsc -b over project references
 pnpm format          # apply Prettier
 pnpm format:check    # verify formatting
+pnpm schema:generate # regenerate the committed JSON Schema artifacts
 pnpm validate:registry   # validate every catalog resource
 ```
 
@@ -61,8 +62,11 @@ pnpm test:coverage
 pnpm build
 pnpm format
 pnpm format:check
+pnpm schema:generate
 pnpm validate:registry
 ```
+
+The files under `schemas/` are generated from the Zod schemas and committed. If you change a schema, run `pnpm schema:generate` and commit the result — a test fails when the committed artifacts drift.
 
 To run one package's tests, use a filter:
 

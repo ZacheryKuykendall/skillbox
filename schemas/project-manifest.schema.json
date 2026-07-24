@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "skillbox.dev/v1alpha1/project-manifest",
+  "title": "Skillbox project manifest",
+  "description": "A Skillbox project manifest (.skillbox/skillbox.yaml). Generated from the Zod schemas; do not edit by hand.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "skillbox.dev/v1alpha1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "Project"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "resources": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "variables": {
+          "$ref": "#/$defs/__schema2"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "__schema0": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]([a-z0-9-]*[a-z0-9])?$"
+    },
+    "__schema1": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "resource",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "__schema2": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "#/$defs/__schema0"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

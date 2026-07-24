@@ -8,3 +8,14 @@
 
 export { createTempDir, withTempDir } from './temp.js';
 export type { TempDir } from './temp.js';
+
+export {
+  INVALID_MANIFESTS,
+  manifestWith,
+  manifestWithMetadata,
+  manifestWithSpec,
+  VALID_MANIFESTS,
+  validManifest,
+  validPromptManifest,
+} from './fixtures.js';
+export type { InvalidManifestFixture } from './fixtures.js';

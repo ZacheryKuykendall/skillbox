@@ -1,0 +1,1010 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "skillbox.dev/v1alpha1/resource-manifest",
+  "title": "Skillbox resource manifest",
+  "description": "A Skillbox resource manifest (skillbox.yaml). Generated from the Zod schemas; do not edit by hand.",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "metadata": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "kind": {
+          "type": "string",
+          "const": "prompt"
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "entrypoint": {
+              "$ref": "#/$defs/__schema4"
+            },
+            "files": {
+              "$ref": "#/$defs/__schema5"
+            },
+            "install": {
+              "$ref": "#/$defs/__schema6"
+            },
+            "inputs": {
+              "$ref": "#/$defs/__schema7"
+            },
+            "outputs": {
+              "$ref": "#/$defs/__schema15"
+            },
+            "dependencies": {
+              "$ref": "#/$defs/__schema16"
+            },
+            "env": {
+              "$ref": "#/$defs/__schema18"
+            },
+            "permissions": {
+              "$ref": "#/$defs/__schema19"
+            },
+            "runtime": {
+              "$ref": "#/$defs/__schema20"
+            },
+            "compatibility": {
+              "$ref": "#/$defs/__schema21"
+            },
+            "format": {
+              "$ref": "#/$defs/__schema23"
+            },
+            "model": {
+              "$ref": "#/$defs/__schema24"
+            }
+          },
+          "required": [
+            "entrypoint",
+            "files"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "metadata",
+        "kind",
+        "spec"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "metadata": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "kind": {
+          "type": "string",
+          "const": "skill"
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "entrypoint": {
+              "$ref": "#/$defs/__schema4"
+            },
+            "files": {
+              "$ref": "#/$defs/__schema5"
+            },
+            "install": {
+              "$ref": "#/$defs/__schema6"
+            },
+            "inputs": {
+              "$ref": "#/$defs/__schema7"
+            },
+            "outputs": {
+              "$ref": "#/$defs/__schema15"
+            },
+            "dependencies": {
+              "$ref": "#/$defs/__schema16"
+            },
+            "env": {
+              "$ref": "#/$defs/__schema18"
+            },
+            "permissions": {
+              "$ref": "#/$defs/__schema19"
+            },
+            "runtime": {
+              "$ref": "#/$defs/__schema20"
+            },
+            "compatibility": {
+              "$ref": "#/$defs/__schema21"
+            },
+            "instructions": {
+              "$ref": "#/$defs/__schema25"
+            },
+            "resources": {
+              "$ref": "#/$defs/__schema26"
+            }
+          },
+          "required": [
+            "entrypoint",
+            "files"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "metadata",
+        "kind",
+        "spec"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "metadata": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "kind": {
+          "type": "string",
+          "const": "agent"
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "entrypoint": {
+              "$ref": "#/$defs/__schema4"
+            },
+            "files": {
+              "$ref": "#/$defs/__schema5"
+            },
+            "install": {
+              "$ref": "#/$defs/__schema6"
+            },
+            "inputs": {
+              "$ref": "#/$defs/__schema7"
+            },
+            "outputs": {
+              "$ref": "#/$defs/__schema15"
+            },
+            "dependencies": {
+              "$ref": "#/$defs/__schema16"
+            },
+            "env": {
+              "$ref": "#/$defs/__schema18"
+            },
+            "permissions": {
+              "$ref": "#/$defs/__schema19"
+            },
+            "runtime": {
+              "$ref": "#/$defs/__schema20"
+            },
+            "compatibility": {
+              "$ref": "#/$defs/__schema21"
+            },
+            "role": {
+              "$ref": "#/$defs/__schema27"
+            },
+            "tools": {
+              "$ref": "#/$defs/__schema28"
+            },
+            "prompts": {
+              "$ref": "#/$defs/__schema29"
+            }
+          },
+          "required": [
+            "entrypoint",
+            "files",
+            "role"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "metadata",
+        "kind",
+        "spec"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "metadata": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "kind": {
+          "type": "string",
+          "const": "script"
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "entrypoint": {
+              "$ref": "#/$defs/__schema4"
+            },
+            "files": {
+              "$ref": "#/$defs/__schema5"
+            },
+            "install": {
+              "$ref": "#/$defs/__schema6"
+            },
+            "inputs": {
+              "$ref": "#/$defs/__schema7"
+            },
+            "outputs": {
+              "$ref": "#/$defs/__schema15"
+            },
+            "dependencies": {
+              "$ref": "#/$defs/__schema16"
+            },
+            "env": {
+              "$ref": "#/$defs/__schema18"
+            },
+            "permissions": {
+              "$ref": "#/$defs/__schema19"
+            },
+            "runtime": {
+              "$ref": "#/$defs/__schema20"
+            },
+            "compatibility": {
+              "$ref": "#/$defs/__schema21"
+            },
+            "interpreter": {
+              "$ref": "#/$defs/__schema30"
+            },
+            "args": {
+              "$ref": "#/$defs/__schema31"
+            },
+            "executable": {
+              "$ref": "#/$defs/__schema32"
+            }
+          },
+          "required": [
+            "entrypoint",
+            "files",
+            "interpreter"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "metadata",
+        "kind",
+        "spec"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "metadata": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "kind": {
+          "type": "string",
+          "const": "api"
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "entrypoint": {
+              "$ref": "#/$defs/__schema4"
+            },
+            "files": {
+              "$ref": "#/$defs/__schema5"
+            },
+            "install": {
+              "$ref": "#/$defs/__schema6"
+            },
+            "inputs": {
+              "$ref": "#/$defs/__schema7"
+            },
+            "outputs": {
+              "$ref": "#/$defs/__schema15"
+            },
+            "dependencies": {
+              "$ref": "#/$defs/__schema16"
+            },
+            "env": {
+              "$ref": "#/$defs/__schema18"
+            },
+            "permissions": {
+              "$ref": "#/$defs/__schema19"
+            },
+            "runtime": {
+              "$ref": "#/$defs/__schema20"
+            },
+            "compatibility": {
+              "$ref": "#/$defs/__schema21"
+            },
+            "protocol": {
+              "$ref": "#/$defs/__schema33"
+            },
+            "baseUrlEnv": {
+              "$ref": "#/$defs/__schema34"
+            },
+            "auth": {
+              "$ref": "#/$defs/__schema36"
+            },
+            "operations": {
+              "$ref": "#/$defs/__schema37"
+            }
+          },
+          "required": [
+            "entrypoint",
+            "files",
+            "protocol"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "metadata",
+        "kind",
+        "spec"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "metadata": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "kind": {
+          "type": "string",
+          "const": "workflow"
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "entrypoint": {
+              "$ref": "#/$defs/__schema4"
+            },
+            "files": {
+              "$ref": "#/$defs/__schema5"
+            },
+            "install": {
+              "$ref": "#/$defs/__schema6"
+            },
+            "inputs": {
+              "$ref": "#/$defs/__schema7"
+            },
+            "outputs": {
+              "$ref": "#/$defs/__schema15"
+            },
+            "dependencies": {
+              "$ref": "#/$defs/__schema16"
+            },
+            "env": {
+              "$ref": "#/$defs/__schema18"
+            },
+            "permissions": {
+              "$ref": "#/$defs/__schema19"
+            },
+            "runtime": {
+              "$ref": "#/$defs/__schema20"
+            },
+            "compatibility": {
+              "$ref": "#/$defs/__schema21"
+            },
+            "steps": {
+              "$ref": "#/$defs/__schema38"
+            }
+          },
+          "required": [
+            "entrypoint",
+            "files",
+            "steps"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "metadata",
+        "kind",
+        "spec"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "metadata": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "kind": {
+          "type": "string",
+          "const": "component"
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "entrypoint": {
+              "$ref": "#/$defs/__schema4"
+            },
+            "files": {
+              "$ref": "#/$defs/__schema5"
+            },
+            "install": {
+              "$ref": "#/$defs/__schema6"
+            },
+            "inputs": {
+              "$ref": "#/$defs/__schema7"
+            },
+            "outputs": {
+              "$ref": "#/$defs/__schema15"
+            },
+            "dependencies": {
+              "$ref": "#/$defs/__schema16"
+            },
+            "env": {
+              "$ref": "#/$defs/__schema18"
+            },
+            "permissions": {
+              "$ref": "#/$defs/__schema19"
+            },
+            "runtime": {
+              "$ref": "#/$defs/__schema20"
+            },
+            "compatibility": {
+              "$ref": "#/$defs/__schema21"
+            },
+            "language": {
+              "$ref": "#/$defs/__schema40"
+            },
+            "exports": {
+              "$ref": "#/$defs/__schema41"
+            },
+            "peerDependencies": {
+              "$ref": "#/$defs/__schema42"
+            }
+          },
+          "required": [
+            "entrypoint",
+            "files",
+            "language"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "metadata",
+        "kind",
+        "spec"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$defs": {
+    "__schema0": {
+      "type": "string",
+      "const": "skillbox.dev/v1alpha1"
+    },
+    "__schema1": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "name": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "version": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 200
+        },
+        "tags": {
+          "maxItems": 10,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema2"
+          }
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "homepage": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "object",
+          "properties": {
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "replacement": {
+              "$ref": "#/$defs/__schema3"
+            }
+          },
+          "required": [
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "namespace",
+        "name",
+        "version",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "__schema2": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]([a-z0-9-]*[a-z0-9])?$"
+    },
+    "__schema3": {
+      "type": "string"
+    },
+    "__schema4": {
+      "type": "string"
+    },
+    "__schema5": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema4"
+      }
+    },
+    "__schema6": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "$ref": "#/$defs/__schema4"
+        },
+        "strategy": {
+          "type": "string",
+          "enum": [
+            "directory",
+            "flat"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "__schema7": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema8"
+      }
+    },
+    "__schema8": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "type": {
+          "$ref": "#/$defs/__schema9"
+        },
+        "description": {
+          "$ref": "#/$defs/__schema10"
+        },
+        "required": {
+          "$ref": "#/$defs/__schema11"
+        },
+        "default": {
+          "$ref": "#/$defs/__schema12"
+        },
+        "values": {
+          "$ref": "#/$defs/__schema13"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "__schema9": {
+      "type": "string",
+      "enum": [
+        "string",
+        "number",
+        "boolean",
+        "enum",
+        "array",
+        "object",
+        "path"
+      ]
+    },
+    "__schema10": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "__schema11": {
+      "type": "boolean"
+    },
+    "__schema12": {},
+    "__schema13": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema14"
+      }
+    },
+    "__schema14": {
+      "type": "string",
+      "minLength": 1
+    },
+    "__schema15": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/$defs/__schema2"
+          },
+          "type": {
+            "$ref": "#/$defs/__schema9"
+          },
+          "description": {
+            "$ref": "#/$defs/__schema10"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "__schema16": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "$ref": "#/$defs/__schema3"
+          },
+          "version": {
+            "$ref": "#/$defs/__schema17"
+          },
+          "optional": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "resource",
+          "version"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "__schema17": {
+      "type": "string"
+    },
+    "__schema18": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          },
+          "description": {
+            "$ref": "#/$defs/__schema10"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "secret": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "__schema19": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "filesystem:read",
+          "filesystem:write",
+          "network:outbound",
+          "process:spawn",
+          "env:read",
+          "secrets:read",
+          "model:invoke"
+        ]
+      }
+    },
+    "__schema20": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "node",
+            "python",
+            "shell",
+            "powershell",
+            "none"
+          ]
+        },
+        "version": {
+          "$ref": "#/$defs/__schema17"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "__schema21": {
+      "type": "object",
+      "properties": {
+        "skillbox": {
+          "$ref": "#/$defs/__schema17"
+        },
+        "platforms": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema22"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "__schema22": {
+      "type": "string",
+      "enum": [
+        "win32",
+        "linux",
+        "darwin"
+      ]
+    },
+    "__schema23": {
+      "type": "string",
+      "enum": [
+        "markdown",
+        "text"
+      ]
+    },
+    "__schema24": {
+      "type": "object",
+      "properties": {
+        "providers": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema2"
+          }
+        },
+        "minContextTokens": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "additionalProperties": false
+    },
+    "__schema25": {
+      "$ref": "#/$defs/__schema4"
+    },
+    "__schema26": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema4"
+      }
+    },
+    "__schema27": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 200
+    },
+    "__schema28": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema2"
+      }
+    },
+    "__schema29": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema3"
+      }
+    },
+    "__schema30": {
+      "type": "string",
+      "enum": [
+        "node",
+        "python",
+        "bash",
+        "powershell"
+      ]
+    },
+    "__schema31": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema8"
+      }
+    },
+    "__schema32": {
+      "type": "boolean"
+    },
+    "__schema33": {
+      "type": "string",
+      "enum": [
+        "rest",
+        "graphql",
+        "grpc"
+      ]
+    },
+    "__schema34": {
+      "$ref": "#/$defs/__schema35"
+    },
+    "__schema35": {
+      "type": "string",
+      "maxLength": 128,
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "__schema36": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "none",
+            "bearer",
+            "basic",
+            "apiKey"
+          ]
+        },
+        "tokenEnv": {
+          "$ref": "#/$defs/__schema35"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "__schema37": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/$defs/__schema2"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE",
+              "HEAD",
+              "OPTIONS"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "required": [
+          "name",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "__schema38": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema39"
+      }
+    },
+    "__schema39": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "uses": {
+          "$ref": "#/$defs/__schema3"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "with": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {}
+        }
+      },
+      "required": [
+        "name",
+        "uses",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "__schema40": {
+      "type": "string",
+      "enum": [
+        "typescript",
+        "javascript",
+        "python"
+      ]
+    },
+    "__schema41": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    },
+    "__schema42": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

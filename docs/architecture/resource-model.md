@@ -453,6 +453,11 @@ Validation fails fast in stages, so an error names the earliest real cause rathe
 
 Stages 1–4 need only the manifest. Stage 5 needs the resource directory. Stages 6–7 need a catalog and a project. This layering is why `@skillbox/schema` can validate without filesystem access (NFR-3).
 
+Two details of diagnostic output follow from this:
+
+- An unexpected value is described by shape rather than stringified, so a mapping supplied where a string belongs reports `a mapping` instead of `[object Object]`.
+- Values supplied to `env` fields, `baseUrlEnv`, and `auth.tokenEnv` are never echoed. An author may paste a real token where a variable _name_ belongs, and an error quoting the input would place that secret in logs and CI output (SR-8). Those diagnostics substitute `[redacted]` and omit their hint.
+
 ## 9. JSON Schema
 
 JSON Schema artifacts are generated from the Zod schemas with `z.toJSONSchema()` and committed under `schemas/`:
