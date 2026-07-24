@@ -1,0 +1,87 @@
+---
+description: Testing standards and coverage requirements for Skillbox
+globs: ["**/*.test.ts", "**/test/**", "vitest.config.ts"]
+alwaysApply: false
+---
+
+# Testing Rules
+
+## Coverage gate
+
+**90% repository-wide** for lines, statements, functions, and branches. New or modified files reach at least 80%. Below the gate is a hard CI failure.
+
+```powershell
+pnpm test
+pnpm test:coverage
+```
+
+```bash
+pnpm test
+pnpm test:coverage
+```
+
+Coverage is a floor, not a goal. A well-tested module has tests for its failure paths, not just enough lines executed to clear a threshold.
+
+## Layout
+
+- Unit tests beside their subject: `src/paths.test.ts` next to `src/paths.ts`.
+- Integration tests in `test/`: anything needing a built binary, a temporary project, or several modules together.
+- Security tests in `test/security-*.test.ts`.
+
+## Non-negotiables
+
+**Never write into the repository tree.** Filesystem tests use `fs.mkdtemp` via the helpers in `@skillbox/testing`, and clean up in `afterEach`.
+
+**Never claim a test passed without running it.** If a test cannot run, report the exact command, the failure, the likely reason, whether it predates the current change, and the task opened to fix it.
+
+**Explicit assertions over snapshots.** Assert the specific field or message. A snapshot failure says "something changed"; an explicit assertion says what.
+
+**One behavior per test.** A test name should describe the behavior: `rejects an install target containing a parent segment`, not `test paths 3`.
+
+## What to test
+
+Every new behavior needs at least one happy path and one edge case.
+
+Required coverage per [requirements.md](mdc:docs/product/requirements.md):
+
+- Every resource kind, valid and invalid.
+- Unsupported `apiVersion`; unknown `kind`.
+- Invalid names, namespaces, and versions.
+- Missing and undeclared entrypoints; undeclared files.
+- Search matching and ranking.
+- Exact and range version resolution; unsatisfiable ranges.
+- Missing dependencies; circular dependencies; diamond dependencies; version conflicts.
+- Install planning; conflict classification.
+- Successful install; file conflicts; rollback under injected failure.
+- Lockfile generation and byte determinism.
+- Removal, including modified-file refusal and dependent protection.
+- Update behavior including no-op.
+- Path traversal, per vector.
+- CLI exit codes and error output.
+
+## Security tests
+
+Mandatory suites that may not be weakened without an ADR. See [security-model.md](mdc:docs/architecture/security-model.md).
+
+Assert **each traversal vector individually** rather than in a loop, so a failure names the vector that regressed: `../etc/passwd`, `a/../../etc/passwd`, `/etc/passwd`, `C:\Windows\...`, `C:evil.txt`, `\\server\share\evil`, leading separators, NUL injection, symlink escape.
+
+Secret-leakage tests set a sentinel value in the environment, run the full lifecycle, and assert the sentinel appears in no captured stream and no written artifact.
+
+Rollback tests inject a failure mid-apply and assert no new files remain, overwritten content is restored, and the manifest and lockfile are untouched.
+
+## Determinism tests
+
+Lockfile serialization is tested by serializing the same state twice and comparing bytes, plus reinstalling and asserting the file is unchanged. Assert no timestamp and no absolute path appear in output.
+
+## Style
+
+- Vitest with `describe` and `it`. `it` reads as a sentence completing "it ...".
+- Prefer real filesystem operations in temporary directories over mocking `node:fs`. Mocks of the filesystem tend to encode assumptions that the real thing violates, especially across platforms.
+- Mock only what is genuinely unavailable or nondeterministic.
+- No shared mutable state between tests. Each test creates its own temporary project.
+- Assert on error `code` — the stable machine-readable field — rather than on message text, which is presentation.
+- CLI integration tests spawn the built binary with `node` and assert stdout, stderr, and exit code.
+
+## Cross-platform
+
+Tests run on Windows and POSIX. Do not hard-code `/` or `\` in expected paths; build them with `path.join`, or normalize before comparing. Windows-specific vectors (drive-relative, UNC) are asserted on all platforms, since the validation is platform-independent by design.

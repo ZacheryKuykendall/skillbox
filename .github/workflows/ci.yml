@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Keep CI honest: a missing peer dependency should fail rather than warn.
+  # ADR-0007 exists because a floating TypeScript would have broken linting silently.
+  NPM_CONFIG_STRICT_PEER_DEPENDENCIES: 'true'
+
+jobs:
+  verify:
+    name: Verify (Node ${{ matrix.node }} on ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # Windows and Linux both run because path containment and lockfile
+        # determinism are platform-sensitive by nature (NFR-1, NFR-2).
+        os: [ubuntu-latest, windows-latest]
+        node: ['24.x']
+        include:
+          - os: ubuntu-latest
+            node: '20.19'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.1
+
+      - name: Set up Node ${{ matrix.node }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test with coverage
+        run: pnpm test:coverage
+
+      - name: Validate the resource catalog
+        run: pnpm validate:registry
+
+      - name: Verify generated JSON Schema is current
+        run: pnpm schema:generate
+        # A drift test also covers this, but running the generator and checking
+        # for a dirty tree catches a stale commit that the test could miss.
+
+      - name: Fail if generated files drifted
+        shell: bash
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Generated files are out of date. Run 'pnpm schema:generate' and commit the result."
+            git status --porcelain
+            git diff
+            exit 1
+          fi
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.os }}-node${{ matrix.node }}
+          path: coverage/
+          retention-days: 7
+          if-no-files-found: ignore

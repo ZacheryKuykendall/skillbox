@@ -1,0 +1,134 @@
+name: Bug report
+description: Report incorrect behavior in Skillbox
+title: '[bug] '
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug.
+
+        **If this is a security vulnerability, stop here.** Do not open a public issue.
+        Follow [SECURITY.md](../blob/main/SECURITY.md) to report it privately.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight
+      options:
+        - label: This is not a security vulnerability (those go through private reporting)
+          required: true
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I am on the latest version, or I have stated my version below
+          required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you observe?
+      placeholder: Running `skillbox add` reported success but no files were written.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Exact commands, starting from a fresh project. A minimal reproduction is far more valuable than a description.
+      value: |
+        1. `mkdir repro && cd repro`
+        2. `skillbox init`
+        3. `skillbox add skillbox/...`
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Exact output
+      description: |
+        Full command output including any error and stack trace. Re-run with `--json` if it helps.
+
+        Redact any credentials before pasting.
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: exit-code
+    attributes:
+      label: Exit code
+      description: 'PowerShell: `$LASTEXITCODE`. bash: `echo $?`.'
+      placeholder: '1'
+
+  - type: textarea
+    id: manifest
+    attributes:
+      label: Relevant manifest or configuration
+      description: The `skillbox.yaml`, `.skillbox/skillbox.yaml`, or lockfile section involved. Redact anything sensitive.
+      render: yaml
+
+  - type: input
+    id: skillbox-version
+    attributes:
+      label: Skillbox version
+      description: Output of `skillbox --version`, or the commit SHA.
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node version
+      description: Output of `node --version`.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: shell
+    attributes:
+      label: Shell
+      options:
+        - PowerShell
+        - Command Prompt
+        - bash
+        - zsh
+        - fish
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: doctor
+    attributes:
+      label: skillbox doctor output
+      description: If the project is initialized, paste `skillbox doctor` output.
+      render: text
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Workarounds you found, when it started, or whether it worked before.

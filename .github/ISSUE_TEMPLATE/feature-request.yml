@@ -1,0 +1,107 @@
+name: Feature request
+description: Propose a change or addition to Skillbox
+title: '[feature] '
+labels: [enhancement, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the proposal.
+
+        Before filing, please check the [roadmap](../blob/main/docs/roadmap.md) — many
+        capabilities are already planned and deliberately deferred until the v0.1.0
+        acceptance criteria are met. If your idea is already there, comment on the
+        roadmap item instead so discussion stays in one place.
+
+        To propose a **catalog resource** rather than a product change, use the
+        New resource template.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I checked the roadmap and this is not already planned
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you unable to do today? Describe the problem, not the solution — it makes room for better solutions than the one you have in mind.
+      placeholder: I cannot tell which installed resources have newer versions without checking each one.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What you think should happen. Include the command shape or manifest field if relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches, and why this one is better. Include what you do today as a workaround.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - CLI
+        - Resource manifest format
+        - Validation
+        - Resolution or dependencies
+        - Installation or lockfile
+        - Security model
+        - Registry or catalog
+        - Documentation
+        - Build or tooling
+        - Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: breaking
+    attributes:
+      label: Would this be a breaking change?
+      options:
+        - 'No'
+        - 'Yes, for resource authors'
+        - 'Yes, for CLI users'
+        - 'Yes, changes the manifest format'
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: security
+    attributes:
+      label: Security considerations
+      description: |
+        Does this involve executing code, reading environment variables, writing outside
+        the project directory, or handling credentials? Skillbox is deny-by-default and
+        never executes resource code — see the [security model](../blob/main/docs/architecture/security-model.md).
+
+        Say "none" if it does not apply.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Why now
+      description: Is this needed for the v0.1.0 MVP, or is it post-MVP? MVP scope is defined in [requirements.md](../blob/main/docs/product/requirements.md).
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I would be willing to implement this

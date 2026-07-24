@@ -1,0 +1,77 @@
+---
+description: Documentation standards for Skillbox
+globs: ["**/*.md", "**/*.mdc"]
+alwaysApply: false
+---
+
+# Documentation Rules
+
+Documentation is part of the implementation, not a cleanup step. A change that alters documented behavior updates the documentation in the same change.
+
+## Normative documents
+
+Some documents are authoritative. If code disagrees with them, the code is the bug.
+
+| Document | Authority |
+| --- | --- |
+| [docs/architecture/resource-model.md](mdc:docs/architecture/resource-model.md) | The manifest specification. `@skillbox/schema` implements this. |
+| [docs/product/requirements.md](mdc:docs/product/requirements.md) | Numbered requirements (`FR-`, `SR-`, `NFR-`, `AC-`) referenced by tests. |
+| [docs/architecture/security-model.md](mdc:docs/architecture/security-model.md) | Security guarantees and the tests that enforce them. |
+| [docs/product/terminology.md](mdc:docs/product/terminology.md) | Canonical vocabulary. |
+
+Changing a manifest field means updating `resource-model.md` **first**, then the schema, then the generated JSON Schema, then fixtures and tests.
+
+## Terminology
+
+Use the vocabulary from [terminology.md](mdc:docs/product/terminology.md). These terms are load-bearing.
+
+Say **resource**, not package, plugin, or tool. Say **registry** for the source and **catalog** for the loaded index. Say **project manifest** for `.skillbox/skillbox.yaml` and **lockfile** for `.skillbox/skillbox.lock`. Say **install plan** and keep planning and applying distinct.
+
+Never write "install script" — Skillbox has no install scripts and no lifecycle hooks, and saying otherwise misstates the security model.
+
+Renaming a core concept requires updating every affected document in the same change.
+
+## Writing standards
+
+- Lead with what the reader needs. No preamble.
+- Complete sentences. Technical terms spelled out, not abbreviated into arrow chains.
+- Backticks for files, directories, functions, commands, and field names.
+- Tables for enumerable facts; prose for explanation. Do not hide reasoning in table cells.
+- Code blocks always specify a language.
+- **PowerShell first, then bash.** Note real differences (`;` vs `&&`, `$env:` vs `export`, path separators).
+- Relative links between documents. Verify they resolve.
+- No emoji.
+- Mermaid for architecture and flow. No spaces in node IDs; quote labels containing parentheses or colons; no explicit colors.
+
+## Required content
+
+Every document must be substantive. Placeholder documents are prohibited.
+
+**A resource README** covers what it does, inputs and outputs, installation and where files land, required permissions and why, required environment variables by name, configuration, and a usage example.
+
+**An ADR** has Status, Date, Tasks, Context, Decision, Alternatives considered, Consequences, and Follow-up work. Alternatives must state why each was rejected — that is the part worth reading later.
+
+**A guide** is followable start to finish by someone who has not read the code.
+
+## Accuracy
+
+- Do not document a flag, field, or command that does not exist. Verify against the implementation.
+- Do not claim a command passed unless it was run.
+- Link official documentation when citing an external API or flag.
+- When permissions are mentioned, state that they are declarative and not enforced in v0.1.0. Never imply a sandbox exists.
+- Never include a real credential, token, key, or credential-bearing URL. Mark placeholders obviously.
+
+## Task ledger
+
+[docs/TASKS.md](mdc:docs/TASKS.md) is canonical. Each entry carries an ID, description, phase, dependencies, acceptance criteria, status, completion evidence, related files, and follow-up work.
+
+Mark `[x]` only when implementation, tests, docs, and evidence are all present. Never mark a partially implemented task complete. Record blockers explicitly rather than leaving a task silently stalled.
+
+## At the end of a phase
+
+1. Update affected documentation.
+2. Record architectural decisions as ADRs.
+3. Cross off completed tasks and add completion evidence.
+4. Record newly discovered work.
+5. Update the roadmap if scope changed.
+6. Verify no document contradicts another.

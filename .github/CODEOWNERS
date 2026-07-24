@@ -1,0 +1,28 @@
+# Code owners for Skillbox
+#
+# Syntax: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# TODO(SBX-018): Assign real owners.
+#
+# No ownership entries are defined yet because no GitHub user or team has been
+# provided for this repository. Inventing a handle would create a CODEOWNERS
+# file that silently fails to request reviews, which is worse than an empty one.
+#
+# When an owner exists, add entries below and enable "Require review from Code
+# Owners" in branch protection. Suggested starting point:
+#
+#   *                          @OWNER
+#   /packages/schema/          @OWNER
+#   /packages/core/            @OWNER
+#   /packages/cli/             @OWNER
+#   /registry/                 @OWNER
+#   /docs/architecture/        @OWNER
+#   /.github/workflows/        @OWNER
+#
+# Paths worth requiring extra review on, because a mistake there is expensive:
+#
+#   /packages/core/src/paths.ts        Security boundary: path containment
+#   /packages/core/src/apply.ts        Filesystem mutation and rollback
+#   /packages/core/src/lockfile.ts     Lockfile determinism
+#   /docs/architecture/decisions/      Architectural decision records
+#   /docs/architecture/security-model.md

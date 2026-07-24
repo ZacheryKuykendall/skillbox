@@ -1,0 +1,167 @@
+name: New resource
+description: Propose a resource for the Skillbox catalog
+title: '[resource] '
+labels: [resource, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a resource.
+
+        Please open this **before** writing the resource. It catches duplication and
+        scope problems early, which is much cheaper than finding them in review.
+
+        Read [contributing a resource](../blob/main/docs/guides/contributing-a-resource.md)
+        and [creating a resource](../blob/main/docs/guides/creating-a-resource.md) first.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight
+      options:
+        - label: I ran `skillbox search` and no existing resource covers this
+          required: true
+        - label: This is general enough to be useful to someone who did not write it
+          required: true
+        - label: This contains no credentials, tokens, keys, or internal-only details
+          required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      description: If two seem to fit, ask what a consumer does with it — read it, run it, or import it.
+      options:
+        - prompt
+        - skill
+        - agent
+        - script
+        - api
+        - workflow
+        - component
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Proposed name
+      description: 'Lowercase, hyphens allowed inside only. Must match `^[a-z0-9]([a-z0-9-]*[a-z0-9])?$`.'
+      placeholder: release-notes
+    validations:
+      required: true
+
+  - type: input
+    id: description
+    attributes:
+      label: Description
+      description: 10 to 200 characters, one line. This is what shows in search results, so say what it does.
+      placeholder: Turns a commit range into user-facing release notes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: purpose
+    attributes:
+      label: What it does
+      description: The capability it provides and the problem it solves.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reuse
+    attributes:
+      label: Why it belongs in the catalog
+      description: Who else would use this, and what are they rebuilding today without it?
+    validations:
+      required: true
+
+  - type: textarea
+    id: inputs-outputs
+    attributes:
+      label: Inputs and outputs
+      description: Name, type, and whether required.
+      placeholder: |
+        Inputs:
+          - commits (string, required) — commit log for the release range
+          - audience (enum: users | developers, default users) — who the notes are for
+
+        Outputs:
+          - notes (string) — markdown release notes
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: permissions
+    attributes:
+      label: Required permissions
+      description: |
+        Declare the minimum. Permissions are shown to users before installation, and an
+        over-broad list is a reason to skip a resource.
+
+        These are **declarative, not enforced** in v0.1.0 — Skillbox has no runtime to
+        police them — so their value depends entirely on authors being accurate.
+      options:
+        - label: 'filesystem:read'
+        - label: 'filesystem:write'
+        - label: 'network:outbound'
+        - label: 'process:spawn'
+        - label: 'env:read'
+        - label: 'secrets:read'
+        - label: 'model:invoke'
+        - label: None
+
+  - type: textarea
+    id: permission-justification
+    attributes:
+      label: Why each permission is needed
+      description: One line per permission. Write "none" if none are required.
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Required environment variables
+      description: |
+        **Names only.** Never include a value, here or in the resource.
+
+        Write "none" if none are required.
+      placeholder: |
+        SKILLBOX_EXAMPLE_API_BASE_URL — base URL of the target service (required)
+        SKILLBOX_EXAMPLE_API_TOKEN — bearer token (required, secret)
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies on other resources
+      description: Resource references and version ranges. Write "none" if standalone.
+      placeholder: skillbox/implementation-planner ^0.1.0
+
+  - type: input
+    id: install-target
+    attributes:
+      label: Install target
+      description: Relative path from the project root. Leave blank to use the kind default.
+      placeholder: .skillbox/prompts/release-notes
+
+  - type: textarea
+    id: external-services
+    attributes:
+      label: External services
+      description: |
+        Any service this depends on. Reviewers must be able to evaluate the resource, so
+        do not contribute something that only works against a service they cannot reach.
+
+        Write "none" if it is self-contained.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I would be willing to author this resource

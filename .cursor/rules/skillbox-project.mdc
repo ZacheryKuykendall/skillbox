@@ -1,0 +1,79 @@
+---
+description: Skillbox project conventions, architecture boundaries, and security rules
+alwaysApply: true
+---
+
+# Skillbox Project Rules
+
+Read [AGENTS.md](mdc:AGENTS.md) and [docs/TASKS.md](mdc:docs/TASKS.md) before starting work.
+
+## What Skillbox is
+
+A toolkit for packaging, discovering, installing, and reusing software capabilities. A **resource** is a versioned, validated unit of capability identified as `namespace/name@version`. Seven kinds: `prompt`, `skill`, `agent`, `script`, `api`, `workflow`, `component`.
+
+Scope is the v0.1.0 MVP with a local catalog. Remote registry, portal, extensions, and execution are roadmap items — do not start them.
+
+## Package layering
+
+The dependency direction is `cli -> core -> schema` and never reverses.
+
+| Package | Owns | Never |
+| --- | --- | --- |
+| `@skillbox/schema` | Manifest types, validation, JSON Schema | Touches the filesystem |
+| `@skillbox/core` | Discovery, resolution, planning, install, lockfiles | Writes to stdout or imports `cli` |
+| `@skillbox/cli` | Argument parsing, terminal output, exit codes | Holds business logic |
+| `@skillbox/testing` | Fixtures and temp-project helpers | Ships as a runtime dependency |
+
+A command handler that makes a decision is a sign the logic belongs in `core`. This is enforced by ESLint, not just convention.
+
+## Plan, then apply
+
+Every mutating operation splits in two:
+
+1. **Plan** — pure. Reads state, returns an immutable `InstallPlan`. Writes nothing.
+2. **Apply** — journaled. Records creations and overwrites so any failure restores the prior state.
+
+Never write during planning. Never skip the journal during application. The manifest and lockfile are written last, after all file operations succeed.
+
+## Security rules
+
+These are not negotiable. See [docs/architecture/security-model.md](mdc:docs/architecture/security-model.md).
+
+1. **Never execute resource code.** No lifecycle hooks, no `postinstall`, no `exec` of an entrypoint. Installing a script and running a script are separate actions.
+2. **Containment via `path.relative`**, never `startsWith`. A path is inside a root only when the relative path is non-empty, does not start with `..`, and is not absolute.
+3. **Reject** absolute paths, `..` segments, drive prefixes, UNC paths, and NUL bytes in manifest path fields.
+4. **Never read an environment variable's value** for a declared `env` entry. Check presence with `name in process.env`.
+5. **Never print, store, or substitute a secret value** — not in output, errors, logs, the lockfile, or the project manifest.
+6. Show declared permissions before installation.
+7. Permissions are **declarative, not enforced**. Say so wherever they are described; do not imply a sandbox exists.
+
+## Determinism
+
+Lockfiles must be byte-identical for identical inputs: sorted keys, no timestamps, no absolute paths, no machine data. Catalog ordering is deterministic. Manifest paths are POSIX-style and translated at install time.
+
+## Conventions
+
+- TypeScript strict, ESM only, `.js` extensions in relative imports (`NodeNext` resolution).
+- Cross-package imports go through `index.ts`. Never import a deep path from another package.
+- Errors are typed `SkillboxError` with a stable `code`, a message, and a remediation hint.
+- Unit tests sit beside their subject as `src/foo.test.ts`; integration tests live in `test/`.
+- Filesystem tests run in temporary directories. Never write into the repository tree.
+- Commands: PowerShell block first, then bash.
+
+## Task tracking
+
+Every meaningful change has an `SBX-###` task in [docs/TASKS.md](mdc:docs/TASKS.md). Add it before implementing. Mark `[x]` only when implementation, tests, docs, and completion evidence are all present.
+
+Any `TODO` must cite a task: `// TODO(SBX-041): Add remote registry authentication.` Untracked TODOs are prohibited.
+
+## Do not
+
+- Reverse the package dependency direction.
+- Add a runtime dependency without justifying it. Prefer Node built-ins — `node:util` `styleText` for color, `node:crypto` for hashing.
+- Create an abstraction with no current caller.
+- Change an accepted ADR. Supersede it with a new one.
+- Rename a core concept without updating every affected document.
+- Refactor broadly while unrelated tests fail.
+- Claim a command passed without running it.
+- Commit secrets, credentials, tokens, or keys.
+- Hard-code author, company, license, or registry details not provided by the user.
