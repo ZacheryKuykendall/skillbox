@@ -174,16 +174,16 @@ templates/                   Copyable manifest templates, one per kind
 
 ## Where a change belongs
 
-| Change | Location |
-| --- | --- |
-| A manifest field or validation rule | `packages/schema/src/` |
-| A new resource kind | `packages/schema/src/kinds/`, plus a `registry/` example and docs |
-| Discovery, resolution, install, lockfile logic | `packages/core/src/` |
-| A command, flag, or terminal output | `packages/cli/src/` |
-| A shared fixture | `packages/testing/src/` |
-| A catalog resource | `registry/<kind-plural>/<name>/` |
-| An architectural decision | `docs/architecture/decisions/` |
-| The normative manifest spec | `docs/architecture/resource-model.md` |
+| Change                                         | Location                                                          |
+| ---------------------------------------------- | ----------------------------------------------------------------- |
+| A manifest field or validation rule            | `packages/schema/src/`                                            |
+| A new resource kind                            | `packages/schema/src/kinds/`, plus a `registry/` example and docs |
+| Discovery, resolution, install, lockfile logic | `packages/core/src/`                                              |
+| A command, flag, or terminal output            | `packages/cli/src/`                                               |
+| A shared fixture                               | `packages/testing/src/`                                           |
+| A catalog resource                             | `registry/<kind-plural>/<name>/`                                  |
+| An architectural decision                      | `docs/architecture/decisions/`                                    |
+| The normative manifest spec                    | `docs/architecture/resource-model.md`                             |
 
 ## Excluded from version control
 

@@ -18,15 +18,15 @@ Skillbox treats those assets as first-class packages. A resource declares what i
 
 ## Supported resource kinds
 
-| Kind | Purpose |
-| --- | --- |
-| `prompt` | A reusable instruction template for a language model |
-| `skill` | A packaged capability with instructions and supporting files |
-| `agent` | An autonomous role definition composed of prompts and tools |
-| `script` | An executable automation, installed but never auto-run |
-| `api` | A client integration for an external service |
-| `workflow` | An ordered composition of other resources |
-| `component` | Application source intended to be copied into a codebase |
+| Kind        | Purpose                                                      |
+| ----------- | ------------------------------------------------------------ |
+| `prompt`    | A reusable instruction template for a language model         |
+| `skill`     | A packaged capability with instructions and supporting files |
+| `agent`     | An autonomous role definition composed of prompts and tools  |
+| `script`    | An executable automation, installed but never auto-run       |
+| `api`       | A client integration for an external service                 |
+| `workflow`  | An ordered composition of other resources                    |
+| `component` | Application source intended to be copied into a codebase     |
 
 ## Quick start
 

@@ -1,6 +1,6 @@
 name: New resource
 description: Propose a resource for the Skillbox catalog
-title: '[resource] '
+title: "[resource] "
 labels: [resource, needs-triage]
 body:
   - type: markdown
@@ -46,7 +46,7 @@ body:
     id: name
     attributes:
       label: Proposed name
-      description: 'Lowercase, hyphens allowed inside only. Must match `^[a-z0-9]([a-z0-9-]*[a-z0-9])?$`.'
+      description: "Lowercase, hyphens allowed inside only. Must match `^[a-z0-9]([a-z0-9-]*[a-z0-9])?$`."
       placeholder: release-notes
     validations:
       required: true
@@ -102,13 +102,13 @@ body:
         These are **declarative, not enforced** in v0.1.0 — Skillbox has no runtime to
         police them — so their value depends entirely on authors being accurate.
       options:
-        - label: 'filesystem:read'
-        - label: 'filesystem:write'
-        - label: 'network:outbound'
-        - label: 'process:spawn'
-        - label: 'env:read'
-        - label: 'secrets:read'
-        - label: 'model:invoke'
+        - label: "filesystem:read"
+        - label: "filesystem:write"
+        - label: "network:outbound"
+        - label: "process:spawn"
+        - label: "env:read"
+        - label: "secrets:read"
+        - label: "model:invoke"
         - label: None
 
   - type: textarea

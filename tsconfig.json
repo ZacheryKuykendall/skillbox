@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+
+  // The "check everything" configuration: every source file, every test, every
+  // repository script, and the root tool configs. Used by the editor, by
+  // `pnpm typecheck`, and by typescript-eslint's project service.
+  //
+  // Emitting is driven by tsconfig.build.json instead, so tests never reach
+  // dist/. Deliberately the only tsconfig.json in the tree: the project service
+  // resolves a file's project by walking up to the nearest tsconfig.json, so a
+  // per-package one would shadow this and leave test files projectless.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "incremental": false,
+
+    // Resolve workspace imports to source so checking does not require a build.
+    "paths": {
+      "@skillbox/schema": ["./packages/schema/src/index.ts"],
+      "@skillbox/core": ["./packages/core/src/index.ts"],
+      "@skillbox/cli": ["./packages/cli/src/index.ts"],
+      "@skillbox/testing": ["./packages/testing/src/index.ts"]
+    }
+  },
+  "include": [
+    "packages/*/src/**/*.ts",
+    "packages/*/test/**/*.ts",
+    "scripts/**/*.ts",
+    "*.ts"
+  ],
+  "exclude": ["**/dist/**", "**/node_modules/**", "coverage"]
+}

@@ -132,11 +132,11 @@ The vocabulary is deliberate: **planning** computes, **applying** mutates. Nothi
 
 A condition that would make an install unsafe. Three classified varieties:
 
-| Conflict | Meaning |
-| --- | --- |
-| Untracked existing file | A file already exists at the destination and Skillbox did not put it there |
-| Owned by another resource | The destination is recorded as owned by a different resource |
-| Locally modified | Skillbox installed the file, but its content no longer matches the recorded digest |
+| Conflict                  | Meaning                                                                            |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| Untracked existing file   | A file already exists at the destination and Skillbox did not put it there         |
+| Owned by another resource | The destination is recorded as owned by a different resource                       |
+| Locally modified          | Skillbox installed the file, but its content no longer matches the recorded digest |
 
 ### Integrity digest
 
@@ -192,11 +192,11 @@ The default assumption about every resource. Drives the deny-by-default posture:
 
 ## Deprecated or avoided terms
 
-| Avoid | Use instead | Reason |
-| --- | --- | --- |
-| Package | Resource | "Package" implies a published archive and invites confusion with npm packages |
-| Plugin | Resource, or the specific kind | Implies runtime loading, which Skillbox does not do |
-| Tool | The specific kind | Overloaded, especially in AI contexts |
-| Install script | Not applicable | Skillbox has no install scripts and no lifecycle hooks; saying otherwise misstates the security model |
-| Repository (for the catalog) | Registry, or catalog | Reserved for the git repository |
-| Secret (in a manifest) | Required environment variable | Manifests never contain secrets, only variable names |
+| Avoid                        | Use instead                    | Reason                                                                                                |
+| ---------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| Package                      | Resource                       | "Package" implies a published archive and invites confusion with npm packages                         |
+| Plugin                       | Resource, or the specific kind | Implies runtime loading, which Skillbox does not do                                                   |
+| Tool                         | The specific kind              | Overloaded, especially in AI contexts                                                                 |
+| Install script               | Not applicable                 | Skillbox has no install scripts and no lifecycle hooks; saying otherwise misstates the security model |
+| Repository (for the catalog) | Registry, or catalog           | Reserved for the git repository                                                                       |
+| Secret (in a manifest)       | Required environment variable  | Manifests never contain secrets, only variable names                                                  |

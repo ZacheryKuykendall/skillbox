@@ -51,12 +51,12 @@ Full detail: [docs/architecture/repository-structure.md](docs/architecture/repos
 
 ## 4. Package responsibilities
 
-| Package | Owns | Must not |
-| --- | --- | --- |
-| `@skillbox/schema` | Resource kinds, manifest types, runtime validation, JSON Schema generation, name and version rules, permission and dependency declarations | Touch the filesystem or depend on `core`/`cli` |
-| `@skillbox/core` | Catalog discovery, resolution, dependency graphs, install planning, file copying, conflict detection, lockfiles, integrity, variable substitution, safe paths | Import CLI presentation logic or write to stdout |
-| `@skillbox/cli` | Command parsing, terminal output, user-facing errors, confirmations, exit codes | Hold business logic that belongs in `core` |
-| `@skillbox/testing` | Fixtures for valid and invalid resources, temp project helpers, assertion utilities | Be published as a runtime dependency |
+| Package             | Owns                                                                                                                                                          | Must not                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `@skillbox/schema`  | Resource kinds, manifest types, runtime validation, JSON Schema generation, name and version rules, permission and dependency declarations                    | Touch the filesystem or depend on `core`/`cli`   |
+| `@skillbox/core`    | Catalog discovery, resolution, dependency graphs, install planning, file copying, conflict detection, lockfiles, integrity, variable substitution, safe paths | Import CLI presentation logic or write to stdout |
+| `@skillbox/cli`     | Command parsing, terminal output, user-facing errors, confirmations, exit codes                                                                               | Hold business logic that belongs in `core`       |
+| `@skillbox/testing` | Fixtures for valid and invalid resources, temp project helpers, assertion utilities                                                                           | Be published as a runtime dependency             |
 
 The dependency direction is strictly `cli -> core -> schema`. `testing` may depend on any of them.
 

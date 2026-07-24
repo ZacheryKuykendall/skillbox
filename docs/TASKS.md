@@ -183,7 +183,10 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Create `pnpm-workspace.yaml`, the root `package.json`, `.npmrc`, `.gitignore`, and `.editorconfig`.
 - **Acceptance criteria:** `pnpm install` succeeds; the workspace resolves `packages/*` and `examples/*`; the root package is private.
 - **Status:** Complete
-- **Completion evidence:** `pnpm install` completed successfully; lockfile written; workspace links verified via `pnpm ls -r --depth -1`.
+- **Completion evidence:**
+  - `pnpm install` exited 0 with no unmet peer dependencies, confirming the pinned versions in [ADR-0006](architecture/decisions/ADR-0006-build-orchestration.md) are mutually compatible.
+  - `pnpm ls -r --depth -1` lists all four packages as private workspace members.
+  - `@eslint/js@10.0.1` had to be added explicitly: ESLint 10 no longer depends on it, and pnpm's strict layout does not hoist it.
 - **Related files:** `pnpm-workspace.yaml`, `package.json`, `.npmrc`, `.gitignore`, `.editorconfig`
 
 - [x] SBX-020: pnpm workspace configuration
@@ -192,11 +195,14 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 
 - **Phase:** 2
 - **Dependencies:** SBX-020
-- **Description:** Create `tsconfig.base.json` with strict settings and per-package `tsconfig.json` files using project references.
-- **Acceptance criteria:** `pnpm typecheck` passes; `pnpm build` emits declaration files; strict mode and `verbatimModuleSyntax` are enabled.
+- **Description:** Create `tsconfig.base.json` with strict settings, a root config that checks every file, and per-package composite build configs using project references.
+- **Acceptance criteria:** `pnpm typecheck` passes; `pnpm build` emits declaration files; strict mode and `verbatimModuleSyntax` are enabled; test files are type-checked but never emitted to `dist/`.
 - **Status:** Complete
-- **Completion evidence:** `pnpm typecheck` and `pnpm build` both exited 0.
-- **Related files:** `tsconfig.base.json`, `tsconfig.json`, `packages/*/tsconfig.json`
+- **Completion evidence:**
+  - `pnpm typecheck` and `pnpm build` both exited 0.
+  - `dist/` contains no `*.test.js`, verified by listing build output.
+  - Design note: the tree contains exactly one `tsconfig.json`, at the root. typescript-eslint's project service resolves a file's project by walking up to the nearest `tsconfig.json`, so a per-package one would shadow the root config and leave test files without a project. Builds are driven by `tsconfig.build.json` instead.
+- **Related files:** `tsconfig.base.json`, `tsconfig.json`, `tsconfig.build.json`, `packages/*/tsconfig.build.json`
 
 - [x] SBX-021: TypeScript configuration
 
@@ -205,9 +211,9 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Phase:** 2
 - **Dependencies:** SBX-021
 - **Description:** Create a flat `eslint.config.js` using `typescript-eslint` with type-aware rules, plus a rule enforcing the package dependency direction.
-- **Acceptance criteria:** `pnpm lint` passes with zero warnings; `no-restricted-imports` prevents `core` from importing `cli`.
+- **Acceptance criteria:** `pnpm lint` passes with zero warnings; `no-restricted-imports` prevents `core` from importing `cli` and prevents `schema` from importing `node:fs`.
 - **Status:** Complete
-- **Completion evidence:** `pnpm lint` exited 0 with `--max-warnings 0`.
+- **Completion evidence:** `pnpm lint` exited 0 with `--max-warnings 0`. Type-aware rules (`no-floating-promises`, `no-misused-promises`, `await-thenable`) are active, which is the reason TypeScript is pinned to 5.9.3 per [ADR-0007](architecture/decisions/ADR-0007-typescript-version-pin.md).
 - **Related files:** `eslint.config.js`
 
 - [x] SBX-022: ESLint configuration
@@ -231,7 +237,10 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Configure Vitest with a workspace projects setup and `@vitest/coverage-v8` thresholds at 90% for lines, statements, functions, and branches.
 - **Acceptance criteria:** `pnpm test` runs all package suites; `pnpm test:coverage` fails when coverage drops below 90%.
 - **Status:** Complete
-- **Completion evidence:** `pnpm test` and `pnpm test:coverage` both exited 0 with thresholds enforced.
+- **Completion evidence:**
+  - `pnpm test` exited 0 with 86 tests passing across 6 files.
+  - The gate was observed working rather than assumed: an initial run failed with `Coverage for lines (67.24%) does not meet global threshold (90%)` because `run.ts` was untested. After adding `run.test.ts`, coverage reached 96.72% statements, 94.11% branches, 100% functions, 96.72% lines.
+  - Workspace imports are aliased to source in `vitest.config.ts` so unit tests run without a prior build and coverage attributes to `.ts` files.
 - **Related files:** `vitest.config.ts`
 
 - [x] SBX-024: Vitest configuration and coverage gate
@@ -268,10 +277,22 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Create `packages/testing` exposing temporary-directory helpers and fixture builders.
 - **Acceptance criteria:** The package builds, is private, and is consumable from other packages' tests.
 - **Status:** Complete
-- **Completion evidence:** `@skillbox/testing` builds and is consumed by schema, core, and cli test suites.
+- **Completion evidence:** `@skillbox/testing` builds and is listed as a private workspace member. `createTempDir` and `withTempDir` are covered by `temp.test.ts`, including the case where the callback throws so a failing assertion cannot leave directories behind. Manifest fixtures are added in SBX-037; consumption by the core and CLI suites begins in Phase 4.
 - **Related files:** `packages/testing/**`
 
 - [x] SBX-027: Testing package scaffold
+
+### SBX-028: Foundational error and vocabulary modules
+
+- **Phase:** 2
+- **Dependencies:** SBX-021
+- **Description:** Add the modules every later phase depends on: the resource-format vocabulary in `@skillbox/schema`, the `SkillboxError` type in `@skillbox/core`, and exit-code mapping plus program wiring in `@skillbox/cli`. These exist in Phase 2 so the toolchain gate exercises real code rather than stubs.
+- **Acceptance criteria:** Constants match the normative resource model; every error code maps to a non-zero exit status; all modules are covered by tests.
+- **Status:** Complete
+- **Completion evidence:** `constants.ts`, `errors.ts`, `exit-codes.ts`, `run.ts`, and `version.ts` with tests. A test asserts every `ERROR_CODE` maps to a non-zero exit code, so a failure can never be invisible to a calling script (FR-13.6). Another asserts `CLI_VERSION` matches `package.json` so the hand-maintained constant cannot drift.
+- **Related files:** `packages/schema/src/constants.ts`, `packages/core/src/errors.ts`, `packages/cli/src/exit-codes.ts`, `packages/cli/src/run.ts`
+
+- [x] SBX-028: Foundational error and vocabulary modules
 
 ---
 

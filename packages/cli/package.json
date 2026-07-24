@@ -1,0 +1,35 @@
+{
+  "name": "@skillbox/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The Skillbox command-line interface.",
+  "license": "MIT",
+  "bin": {
+    "skillbox": "./bin/skillbox.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean"
+  },
+  "dependencies": {
+    "@skillbox/core": "workspace:*",
+    "@skillbox/schema": "workspace:*",
+    "commander": "15.0.0"
+  }
+}

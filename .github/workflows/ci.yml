@@ -17,7 +17,7 @@ permissions:
 env:
   # Keep CI honest: a missing peer dependency should fail rather than warn.
   # ADR-0007 exists because a floating TypeScript would have broken linting silently.
-  NPM_CONFIG_STRICT_PEER_DEPENDENCIES: 'true'
+  NPM_CONFIG_STRICT_PEER_DEPENDENCIES: "true"
 
 jobs:
   verify:
@@ -29,10 +29,10 @@ jobs:
         # Windows and Linux both run because path containment and lockfile
         # determinism are platform-sensitive by nature (NFR-1, NFR-2).
         os: [ubuntu-latest, windows-latest]
-        node: ['24.x']
+        node: ["24.x"]
         include:
           - os: ubuntu-latest
-            node: '20.19'
+            node: "20.19"
     steps:
       - name: Checkout
         uses: actions/checkout@v5

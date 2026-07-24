@@ -172,21 +172,21 @@ The threat model and the tests enforcing these requirements are in [../architect
 
 Skillbox v0.1.0 is ready only when a developer can do all fourteen of the following. Evidence for each is recorded in [../v0.1.0-readiness.md](../v0.1.0-readiness.md).
 
-| # | Criterion |
-| --- | --- |
-| AC-1 | Clone the repository. |
-| AC-2 | Install dependencies using the documented command. |
-| AC-3 | Run linting, tests, and the build successfully. |
-| AC-4 | Initialize Skillbox in an example project. |
-| AC-5 | Search the local catalog. |
-| AC-6 | Inspect a resource. |
-| AC-7 | Install a resource. |
-| AC-8 | See the installed resource in the project configuration. |
-| AC-9 | See exact resolution information in the lockfile. |
-| AC-10 | Validate the project. |
-| AC-11 | Remove the resource safely. |
-| AC-12 | Understand how to create and contribute a new resource. |
-| AC-13 | Review one working example of every supported resource kind. |
+| #     | Criterion                                                         |
+| ----- | ----------------------------------------------------------------- |
+| AC-1  | Clone the repository.                                             |
+| AC-2  | Install dependencies using the documented command.                |
+| AC-3  | Run linting, tests, and the build successfully.                   |
+| AC-4  | Initialize Skillbox in an example project.                        |
+| AC-5  | Search the local catalog.                                         |
+| AC-6  | Inspect a resource.                                               |
+| AC-7  | Install a resource.                                               |
+| AC-8  | See the installed resource in the project configuration.          |
+| AC-9  | See exact resolution information in the lockfile.                 |
+| AC-10 | Validate the project.                                             |
+| AC-11 | Remove the resource safely.                                       |
+| AC-12 | Understand how to create and contribute a new resource.           |
+| AC-13 | Review one working example of every supported resource kind.      |
 | AC-14 | Understand the security implications before installing resources. |
 
 Compiling is not completion. Every criterion requires demonstrated behavior.

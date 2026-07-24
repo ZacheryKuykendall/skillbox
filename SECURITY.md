@@ -5,9 +5,9 @@
 Skillbox is pre-1.0. Only the latest released version receives security fixes.
 
 | Version | Supported |
-| --- | --- |
-| 0.1.x | Yes |
-| < 0.1 | No |
+| ------- | --------- |
+| 0.1.x   | Yes       |
+| < 0.1   | No        |
 
 ## Reporting a vulnerability
 

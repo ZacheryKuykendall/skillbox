@@ -4,15 +4,15 @@ An ADR captures a decision that would be expensive to reverse, along with the co
 
 ## Index
 
-| ADR | Title | Status |
-| --- | --- | --- |
-| [0001](ADR-0001-monorepo-structure.md) | Monorepo structure and toolchain | Accepted |
-| [0002](ADR-0002-resource-manifest-format.md) | Resource manifest format | Accepted |
-| [0003](ADR-0003-local-registry-first.md) | Local registry first | Accepted |
-| [0004](ADR-0004-lockfile-design.md) | Lockfile design and determinism | Accepted |
-| [0005](ADR-0005-security-model.md) | Deny-by-default security model | Accepted |
-| [0006](ADR-0006-build-orchestration.md) | Build orchestration and dependency restraint | Accepted |
-| [0007](ADR-0007-typescript-version-pin.md) | TypeScript version pin | Accepted |
+| ADR                                          | Title                                        | Status   |
+| -------------------------------------------- | -------------------------------------------- | -------- |
+| [0001](ADR-0001-monorepo-structure.md)       | Monorepo structure and toolchain             | Accepted |
+| [0002](ADR-0002-resource-manifest-format.md) | Resource manifest format                     | Accepted |
+| [0003](ADR-0003-local-registry-first.md)     | Local registry first                         | Accepted |
+| [0004](ADR-0004-lockfile-design.md)          | Lockfile design and determinism              | Accepted |
+| [0005](ADR-0005-security-model.md)           | Deny-by-default security model               | Accepted |
+| [0006](ADR-0006-build-orchestration.md)      | Build orchestration and dependency restraint | Accepted |
+| [0007](ADR-0007-typescript-version-pin.md)   | TypeScript version pin                       | Accepted |
 
 ## When to write one
 
@@ -41,9 +41,13 @@ Required sections:
 - **Tasks:** SBX-###
 
 ## Context
+
 ## Decision
+
 ## Alternatives considered
+
 ## Consequences
+
 ## Follow-up work
 ```
 

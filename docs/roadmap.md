@@ -64,7 +64,7 @@ Once resources come from strangers, structural validation stops being enough.
 
 The largest and most security-sensitive area. Skillbox does not execute resource code today, and that is a deliberate guarantee, not a gap to be filled casually.
 
-**SBX-119 — Sandboxed script execution.** Process isolation with filesystem and network policy. This is the prerequisite for making permissions *enforced* rather than declarative — the single most likely thing for users to misread about the current model.
+**SBX-119 — Sandboxed script execution.** Process isolation with filesystem and network policy. This is the prerequisite for making permissions _enforced_ rather than declarative — the single most likely thing for users to misread about the current model.
 
 **SBX-118 — Hosted workflow execution.** Running `workflow` resources as orchestrated steps. Requires SBX-119.
 

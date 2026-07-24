@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+
+  // Build solution file. `tsc -b` derives the correct order from the reference
+  // graph, which is why no separate task orchestrator is needed (ADR-0006).
+  "files": [],
+  "references": [
+    { "path": "./packages/schema/tsconfig.build.json" },
+    { "path": "./packages/core/tsconfig.build.json" },
+    { "path": "./packages/cli/tsconfig.build.json" },
+    { "path": "./packages/testing/tsconfig.build.json" }
+  ]
+}

@@ -1,6 +1,6 @@
 name: Feature request
 description: Propose a change or addition to Skillbox
-title: '[feature] '
+title: "[feature] "
 labels: [enhancement, needs-triage]
 body:
   - type: markdown
@@ -72,10 +72,10 @@ body:
     attributes:
       label: Would this be a breaking change?
       options:
-        - 'No'
-        - 'Yes, for resource authors'
-        - 'Yes, for CLI users'
-        - 'Yes, changes the manifest format'
+        - "No"
+        - "Yes, for resource authors"
+        - "Yes, for CLI users"
+        - "Yes, changes the manifest format"
         - Not sure
     validations:
       required: true

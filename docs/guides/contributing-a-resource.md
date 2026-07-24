@@ -169,12 +169,12 @@ This is where contributions most often need changes.
 
 Bump the version according to consumer impact:
 
-| Change | Bump |
-| --- | --- |
-| Fix wording, typo, or bug with compatible behavior | patch |
-| Add an optional input or capability | minor |
+| Change                                                                | Bump  |
+| --------------------------------------------------------------------- | ----- |
+| Fix wording, typo, or bug with compatible behavior                    | patch |
+| Add an optional input or capability                                   | minor |
 | Remove or rename an input, change output shape, change install target | major |
-| Change behavior enough to break a consumer | major |
+| Change behavior enough to break a consumer                            | major |
 
 For prompts and skills, rewording instructions enough to change the output shape is a **major** change even though no manifest field moved. The interface is the behavior.
 

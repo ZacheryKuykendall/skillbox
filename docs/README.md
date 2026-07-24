@@ -4,18 +4,18 @@ Start here.
 
 ## If you want to...
 
-| Goal | Read |
-| --- | --- |
-| Use Skillbox in a project | [Getting started](guides/getting-started.md) |
-| Look up a command or exit code | [CLI reference](guides/cli-reference.md) |
-| Build your own resource | [Creating a resource](guides/creating-a-resource.md) |
-| Contribute a resource to the catalog | [Contributing a resource](guides/contributing-a-resource.md) |
-| Understand how the code is organized | [Architecture overview](architecture/overview.md) |
-| Look up a manifest field | [Resource model](architecture/resource-model.md) |
-| Know what Skillbox guarantees about untrusted resources | [Security model](architecture/security-model.md) |
-| Contribute code | [CONTRIBUTING.md](../CONTRIBUTING.md) and [AGENTS.md](../AGENTS.md) |
-| See what is planned | [Roadmap](roadmap.md) |
-| Find the current state of work | [Task ledger](TASKS.md) |
+| Goal                                                    | Read                                                                |
+| ------------------------------------------------------- | ------------------------------------------------------------------- |
+| Use Skillbox in a project                               | [Getting started](guides/getting-started.md)                        |
+| Look up a command or exit code                          | [CLI reference](guides/cli-reference.md)                            |
+| Build your own resource                                 | [Creating a resource](guides/creating-a-resource.md)                |
+| Contribute a resource to the catalog                    | [Contributing a resource](guides/contributing-a-resource.md)        |
+| Understand how the code is organized                    | [Architecture overview](architecture/overview.md)                   |
+| Look up a manifest field                                | [Resource model](architecture/resource-model.md)                    |
+| Know what Skillbox guarantees about untrusted resources | [Security model](architecture/security-model.md)                    |
+| Contribute code                                         | [CONTRIBUTING.md](../CONTRIBUTING.md) and [AGENTS.md](../AGENTS.md) |
+| See what is planned                                     | [Roadmap](roadmap.md)                                               |
+| Find the current state of work                          | [Task ledger](TASKS.md)                                             |
 
 ## Product
 

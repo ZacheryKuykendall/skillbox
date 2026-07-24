@@ -78,12 +78,12 @@ pnpm --filter @skillbox/core test
 
 The dependency direction is strict: `cli` depends on `core`, `core` depends on `schema`. Never reverse it.
 
-| Change | Package |
-| --- | --- |
-| A manifest field, validation rule, or kind | `packages/schema` |
-| Discovery, resolution, planning, installation, lockfiles | `packages/core` |
-| A command, flag, or anything printed to a terminal | `packages/cli` |
-| A shared fixture or test helper | `packages/testing` |
+| Change                                                   | Package            |
+| -------------------------------------------------------- | ------------------ |
+| A manifest field, validation rule, or kind               | `packages/schema`  |
+| Discovery, resolution, planning, installation, lockfiles | `packages/core`    |
+| A command, flag, or anything printed to a terminal       | `packages/cli`     |
+| A shared fixture or test helper                          | `packages/testing` |
 
 Business logic does not belong in the CLI. If a command grows a decision, move that decision into `core` and let the command present the result. `core` must not write to stdout or import anything from `cli`.
 

@@ -28,35 +28,35 @@ node ~/skillbox/packages/cli/bin/skillbox.js <command>
 
 ## Global options
 
-| Option | Description |
-| --- | --- |
+| Option              | Description                                                                                       |
+| ------------------- | ------------------------------------------------------------------------------------------------- |
 | `--registry <path>` | Path to the resource catalog. Defaults to `SKILLBOX_REGISTRY`, then the repository's `registry/`. |
-| `--project <path>` | Project root. Defaults to the nearest ancestor containing `.skillbox/`. |
-| `--json` | Machine-readable JSON output. |
-| `--no-color` | Disable color. Also honored via `NO_COLOR`. |
-| `-h, --help` | Show help. |
-| `-V, --version` | Show version. |
+| `--project <path>`  | Project root. Defaults to the nearest ancestor containing `.skillbox/`.                           |
+| `--json`            | Machine-readable JSON output.                                                                     |
+| `--no-color`        | Disable color. Also honored via `NO_COLOR`.                                                       |
+| `-h, --help`        | Show help.                                                                                        |
+| `-V, --version`     | Show version.                                                                                     |
 
 ## Environment variables
 
-| Variable | Effect |
-| --- | --- |
-| `SKILLBOX_REGISTRY` | Default catalog path |
-| `SKILLBOX_PROJECT` | Default project root |
-| `NO_COLOR` | Disables color when set to any value |
+| Variable            | Effect                               |
+| ------------------- | ------------------------------------ |
+| `SKILLBOX_REGISTRY` | Default catalog path                 |
+| `SKILLBOX_PROJECT`  | Default project root                 |
+| `NO_COLOR`          | Disables color when set to any value |
 
 ## Exit codes
 
-| Code | Meaning |
-| --- | --- |
-| `0` | Success |
-| `1` | General runtime error |
-| `2` | Validation failure |
-| `3` | Resource not found, or no version satisfies the request |
-| `4` | Conflict: destination file conflict, or already-initialized project |
-| `5` | Project not initialized |
-| `6` | Dependency error: missing, circular, or version conflict |
-| `7` | Usage error: unknown command, bad arguments |
+| Code | Meaning                                                             |
+| ---- | ------------------------------------------------------------------- |
+| `0`  | Success                                                             |
+| `1`  | General runtime error                                               |
+| `2`  | Validation failure                                                  |
+| `3`  | Resource not found, or no version satisfies the request             |
+| `4`  | Conflict: destination file conflict, or already-initialized project |
+| `5`  | Project not initialized                                             |
+| `6`  | Dependency error: missing, circular, or version conflict            |
+| `7`  | Usage error: unknown command, bad arguments                         |
 
 Every failure exits non-zero. Scripts should test the exit code rather than parse output; use `--json` for structured results.
 
@@ -70,10 +70,10 @@ Create `.skillbox/` with a project manifest and an empty lockfile.
 skillbox init [--name <name>] [--force]
 ```
 
-| Option | Description |
-| --- | --- |
+| Option          | Description                                   |
+| --------------- | --------------------------------------------- |
 | `--name <name>` | Project name. Defaults to the directory name. |
-| `--force` | Overwrite existing configuration. |
+| `--force`       | Overwrite existing configuration.             |
 
 Refuses to overwrite an existing configuration without `--force`, and changes nothing when it refuses. Exits `4` if already initialized.
 
@@ -96,11 +96,11 @@ Search the catalog by name, namespace, description, kind, and tags.
 skillbox search [query] [--kind <kind>] [--tag <tag>] [--limit <n>]
 ```
 
-| Option | Description |
-| --- | --- |
-| `--kind <kind>` | Filter by kind |
-| `--tag <tag>` | Filter by tag; repeatable |
-| `--limit <n>` | Maximum results, default 20 |
+| Option          | Description                 |
+| --------------- | --------------------------- |
+| `--kind <kind>` | Filter by kind              |
+| `--tag <tag>`   | Filter by tag; repeatable   |
+| `--limit <n>`   | Maximum results, default 20 |
 
 Matching is case-insensitive. Name matches rank above description matches. An empty query lists everything. Finding nothing is not an error — it exits `0` with an empty result.
 
@@ -159,12 +159,12 @@ Install a resource and its dependencies.
 skillbox add <resource> [--target <path>] [--dry-run] [--yes] [--force]
 ```
 
-| Option | Description |
-| --- | --- |
+| Option            | Description                                                    |
+| ----------------- | -------------------------------------------------------------- |
 | `--target <path>` | Override the install destination, relative to the project root |
-| `--dry-run` | Show the plan and exit without changing anything |
-| `--yes` | Skip confirmation |
-| `--force` | Overwrite conflicting files |
+| `--dry-run`       | Show the plan and exit without changing anything               |
+| `--yes`           | Skip confirmation                                              |
+| `--force`         | Overwrite conflicting files                                    |
 
 Sequence: resolve the reference, resolve dependencies, build a plan, detect conflicts, show the plan with declared permissions, install in dependency order, then update the manifest and lockfile.
 
@@ -200,10 +200,10 @@ Remove an installed resource.
 skillbox remove <resource> [--force] [--yes]
 ```
 
-| Option | Description |
-| --- | --- |
+| Option    | Description                                          |
+| --------- | ---------------------------------------------------- |
 | `--force` | Remove modified files, and remove despite dependents |
-| `--yes` | Skip confirmation |
+| `--yes`   | Skip confirmation                                    |
 
 Deletes only files the lockfile records as owned by that resource. **Refuses to delete a file you modified** unless forced, and refuses to remove a resource another installed resource depends on. Directories left empty are cleaned up; a directory containing unrelated files is left alone.
 
@@ -228,11 +228,11 @@ Validate manifests and project configuration.
 skillbox validate [path] [--strict]
 ```
 
-| Argument | Behavior |
-| --- | --- |
-| omitted | Validate the current project and its installed resources |
-| a resource directory | Validate that resource |
-| a directory of resources | Validate all resources beneath it |
+| Argument                 | Behavior                                                 |
+| ------------------------ | -------------------------------------------------------- |
+| omitted                  | Validate the current project and its installed resources |
+| a resource directory     | Validate that resource                                   |
+| a directory of resources | Validate all resources beneath it                        |
 
 `--strict` treats warnings as errors.
 
@@ -278,15 +278,15 @@ skillbox doctor [--strict]
 
 Checks:
 
-| Check | Detects |
-| --- | --- |
-| Configuration | Missing or invalid project manifest |
-| Lockfile consistency | Manifest and lockfile disagreement |
-| Missing files | An installed file that is gone |
-| Integrity | A file whose content no longer matches its digest |
-| Dependencies | Unsatisfied or orphaned entries |
-| Runtime | Declared runtime requirements against the current environment |
-| Environment | Required variables that are unset |
+| Check                | Detects                                                       |
+| -------------------- | ------------------------------------------------------------- |
+| Configuration        | Missing or invalid project manifest                           |
+| Lockfile consistency | Manifest and lockfile disagreement                            |
+| Missing files        | An installed file that is gone                                |
+| Integrity            | A file whose content no longer matches its digest             |
+| Dependencies         | Unsatisfied or orphaned entries                               |
+| Runtime              | Declared runtime requirements against the current environment |
+| Environment          | Required variables that are unset                             |
 
 ```text
 Skillbox doctor
@@ -325,7 +325,7 @@ Shape:
 {
   "ok": true,
   "command": "search",
-  "data": { }
+  "data": {}
 }
 ```
 

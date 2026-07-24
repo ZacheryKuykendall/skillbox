@@ -8,17 +8,17 @@ The complete field specification is in [resource-model.md](../architecture/resou
 
 ## 1. Pick a kind
 
-| Kind | Use when the resource is... |
-| --- | --- |
-| `prompt` | A reusable instruction template for a language model |
-| `skill` | A capability with instructions plus supporting reference files |
-| `agent` | An autonomous role definition, usually composing prompts and tools |
-| `script` | An executable automation the user runs themselves |
-| `api` | A client integration for an external service |
-| `workflow` | An ordered composition of other resources |
-| `component` | Application source meant to be copied into a codebase |
+| Kind        | Use when the resource is...                                        |
+| ----------- | ------------------------------------------------------------------ |
+| `prompt`    | A reusable instruction template for a language model               |
+| `skill`     | A capability with instructions plus supporting reference files     |
+| `agent`     | An autonomous role definition, usually composing prompts and tools |
+| `script`    | An executable automation the user runs themselves                  |
+| `api`       | A client integration for an external service                       |
+| `workflow`  | An ordered composition of other resources                          |
+| `component` | Application source meant to be copied into a codebase              |
 
-If two kinds seem to fit, ask what the consumer does with it. Something they *read or send to a model* is a `prompt` or `skill`. Something they *run* is a `script`. Something they *import* is a `component`.
+If two kinds seem to fit, ask what the consumer does with it. Something they _read or send to a model_ is a `prompt` or `skill`. Something they _run_ is a `script`. Something they _import_ is a `component`.
 
 ## 2. Start from a template
 
@@ -95,7 +95,7 @@ spec:
 
 **Version.** Strict semver. Start at `0.1.0`. A resource declares one concrete version — ranges only appear in dependencies.
 
-**Description.** 10–200 characters, one line. It is what shows in search results, so make it say what the resource *does*.
+**Description.** 10–200 characters, one line. It is what shows in search results, so make it say what the resource _does_.
 
 **Every file must be declared.** `files` lists everything the resource owns, and every entry must exist. A file in the directory but missing from `files` is reported as undeclared and never installed.
 
@@ -145,7 +145,7 @@ Required, and validation checks it exists. Cover:
 - **Configuration**, if there is any.
 - **A usage example** concrete enough to copy.
 
-A README that only restates the manifest is not useful. The manifest says *what*; the README should say *how* and *why*.
+A README that only restates the manifest is not useful. The manifest says _what_; the README should say _how_ and _why_.
 
 ## 6. Kind-specific notes
 
@@ -163,7 +163,7 @@ spec:
     - filesystem:read
 ```
 
-`interpreter` documents how a user *would* run it. **Skillbox never executes it.** Installing and running are separate actions. Your README must tell the user the exact command to run it themselves.
+`interpreter` documents how a user _would_ run it. **Skillbox never executes it.** Installing and running are separate actions. Your README must tell the user the exact command to run it themselves.
 
 ### api
 
@@ -232,15 +232,15 @@ dependencies:
 
 Only from this closed set:
 
-| Permission | Declare when the resource... |
-| --- | --- |
-| `filesystem:read` | Reads project files |
-| `filesystem:write` | Writes project files |
-| `network:outbound` | Makes network requests |
-| `process:spawn` | Spawns a subprocess |
-| `env:read` | Reads environment variables |
-| `secrets:read` | Reads credential material |
-| `model:invoke` | Invokes a language model |
+| Permission         | Declare when the resource... |
+| ------------------ | ---------------------------- |
+| `filesystem:read`  | Reads project files          |
+| `filesystem:write` | Writes project files         |
+| `network:outbound` | Makes network requests       |
+| `process:spawn`    | Spawns a subprocess          |
+| `env:read`         | Reads environment variables  |
+| `secrets:read`     | Reads credential material    |
+| `model:invoke`     | Invokes a language model     |
 
 Declare the minimum. Permissions are shown to users before installation, and an over-broad list is a reason to skip your resource.
 

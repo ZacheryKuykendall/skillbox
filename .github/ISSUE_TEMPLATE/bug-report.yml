@@ -1,6 +1,6 @@
 name: Bug report
 description: Report incorrect behavior in Skillbox
-title: '[bug] '
+title: "[bug] "
 labels: [bug, needs-triage]
 body:
   - type: markdown
@@ -68,8 +68,8 @@ body:
     id: exit-code
     attributes:
       label: Exit code
-      description: 'PowerShell: `$LASTEXITCODE`. bash: `echo $?`.'
-      placeholder: '1'
+      description: "PowerShell: `$LASTEXITCODE`. bash: `echo $?`."
+      placeholder: "1"
 
   - type: textarea
     id: manifest

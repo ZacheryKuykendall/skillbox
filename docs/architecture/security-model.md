@@ -42,13 +42,13 @@ flowchart TD
   Env -.->|"names only, never values"| Project
 ```
 
-| Boundary | Untrusted side | Trusted side | Control |
-| --- | --- | --- | --- |
-| Manifest ingestion | `skillbox.yaml` content | Typed manifest object | Schema validation, unknown-key rejection |
-| Path handling | Any manifest path field | A resolved filesystem path | Schema constraints, then containment re-check |
-| Install destination | Declared or overridden target | The project directory | Relativity-based containment |
-| Resource content | Source files | Project files | Copied verbatim, never executed |
-| Environment | Declared variable names | Actual secret values | Names recorded, values never read |
+| Boundary            | Untrusted side                | Trusted side               | Control                                       |
+| ------------------- | ----------------------------- | -------------------------- | --------------------------------------------- |
+| Manifest ingestion  | `skillbox.yaml` content       | Typed manifest object      | Schema validation, unknown-key rejection      |
+| Path handling       | Any manifest path field       | A resolved filesystem path | Schema constraints, then containment re-check |
+| Install destination | Declared or overridden target | The project directory      | Relativity-based containment                  |
+| Resource content    | Source files                  | Project files              | Copied verbatim, never executed               |
+| Environment         | Declared variable names       | Actual secret values       | Names recorded, values never read             |
 
 Two layers guard paths on purpose. The schema rejects malformed paths as data; `core/paths.ts` re-verifies containment against the concrete project root at install time. The schema cannot do the second check because it has no filesystem access, and skipping either one would leave a gap.
 
@@ -64,17 +64,17 @@ String prefix comparison is **not** used. `startsWith` accepts `/project-evil` f
 
 Rejected before any write occurs:
 
-| Vector | Example |
-| --- | --- |
-| Traversal | `../../etc/passwd` |
-| Traversal mid-path | `a/../../../etc/passwd` |
-| POSIX absolute | `/etc/passwd` |
-| Windows absolute | `C:\Windows\System32\drivers\etc\hosts` |
-| Drive-relative | `C:evil.txt` |
-| UNC | `\\server\share\evil.txt` |
-| Leading separator | `/evil.txt`, `\evil.txt` |
-| NUL injection | `safe.txt\u0000../../evil` |
-| Symlink escape | A target directory symlinked outside the root |
+| Vector             | Example                                       |
+| ------------------ | --------------------------------------------- |
+| Traversal          | `../../etc/passwd`                            |
+| Traversal mid-path | `a/../../../etc/passwd`                       |
+| POSIX absolute     | `/etc/passwd`                                 |
+| Windows absolute   | `C:\Windows\System32\drivers\etc\hosts`       |
+| Drive-relative     | `C:evil.txt`                                  |
+| UNC                | `\\server\share\evil.txt`                     |
+| Leading separator  | `/evil.txt`, `\evil.txt`                      |
+| NUL injection      | `safe.txt\u0000../../evil`                    |
+| Symlink escape     | A target directory symlinked outside the root |
 
 Symlinks get their own treatment: a destination's real path is resolved with `fs.realpath` on its existing ancestor before writing, so an attacker cannot pre-create a symlink at the destination and have Skillbox follow it out of the project.
 
@@ -145,7 +145,7 @@ There is no execution mechanism to exploit (G2). This is a design property, not 
 
 A resource declares a variable hoping Skillbox will read and record it. Skillbox never reads values (G3).
 
-Residual risk: once you install a `script` or `api` resource and run it *yourself*, that code runs with your environment. Skillbox surfaces `env:read`, `secrets:read`, and `network:outbound` declarations before install so the risk is visible, but running installed code is your decision. Sandboxing is SBX-119.
+Residual risk: once you install a `script` or `api` resource and run it _yourself_, that code runs with your environment. Skillbox surfaces `env:read`, `secrets:read`, and `network:outbound` declarations before install so the risk is visible, but running installed code is your decision. Sandboxing is SBX-119.
 
 ### T4. Silent overwrite of your files — mitigated
 
@@ -155,7 +155,7 @@ An install target aimed at `src/index.ts` would clobber real work. Conflicts are
 
 A lockfile arrives via a pull request with tampered paths or digests. Lockfiles are schema-validated on read and every path from a lockfile passes the same containment check as a manifest path. A tampered digest causes a `doctor` mismatch rather than a silent accept.
 
-Residual risk: a lockfile with a *correct* digest for malicious content is indistinguishable by digest alone. Signing is SBX-111. Review lockfile diffs in PRs.
+Residual risk: a lockfile with a _correct_ digest for malicious content is indistinguishable by digest alone. Signing is SBX-111. Review lockfile diffs in PRs.
 
 ### T6. Dependency confusion — partially mitigated
 
@@ -185,14 +185,14 @@ This is stated plainly everywhere permissions appear. A declared permission is a
 
 Security controls are only real if tested. These suites are mandatory and may not be weakened without an ADR.
 
-| Suite | Covers |
-| --- | --- |
-| `core/test/security-paths.test.ts` | Every T1 vector individually; symlink escape; containment on both platforms |
+| Suite                                  | Covers                                                                                                                    |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `core/test/security-paths.test.ts`     | Every T1 vector individually; symlink escape; containment on both platforms                                               |
 | `core/test/security-manifests.test.ts` | Malformed YAML, invalid manifests, undeclared entrypoints, undeclared files, conflicts, missing and circular dependencies |
-| `core/test/security-secrets.test.ts` | Sentinel environment value absent from all output and artifacts |
-| `core/src/apply.test.ts` | Rollback leaves no partial state under injected failure |
-| `core/src/integrity.test.ts` | Digest stability and change detection |
-| `schema/src/spec.test.ts` | Path constraint rejection at the schema layer |
+| `core/test/security-secrets.test.ts`   | Sentinel environment value absent from all output and artifacts                                                           |
+| `core/src/apply.test.ts`               | Rollback leaves no partial state under injected failure                                                                   |
+| `core/src/integrity.test.ts`           | Digest stability and change detection                                                                                     |
+| `schema/src/spec.test.ts`              | Path constraint rejection at the schema layer                                                                             |
 
 Each vector is asserted individually rather than in a loop, so a failure names the specific vector that regressed.
 

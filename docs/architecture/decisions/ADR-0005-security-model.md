@@ -22,7 +22,7 @@ Installation copies files. Nothing more.
 
 There are no lifecycle hooks. `postinstall` and its equivalents do not exist and are not planned. This is a design property rather than a configurable control, so it cannot be misconfigured or bypassed.
 
-For a `script` resource, **installing and running are separate actions**. Skillbox installs; you run it yourself, deliberately. `spec.interpreter` documents how you *would* run it; Skillbox never acts on it.
+For a `script` resource, **installing and running are separate actions**. Skillbox installs; you run it yourself, deliberately. `spec.interpreter` documents how you _would_ run it; Skillbox never acts on it.
 
 `validate`, `inspect`, `search`, `list`, and `doctor` are read-only and equally never execute resource code.
 
@@ -87,7 +87,7 @@ Negative:
 - Resources cannot perform setup work. Any post-install step must be documented for the user to run. Accepted, and arguably better: the user sees what is happening.
 - Permissions look enforceable but are not. Mitigated by stating it explicitly wherever they appear, but it remains the most likely thing to be overread.
 - Two-layer path checking duplicates some validation. Accepted deliberately; defense in depth is worth a redundant check on the highest-risk boundary.
-- No protection against a resource whose *content* is malicious once you run it yourself. Skillbox surfaces the declarations; the decision is the user's.
+- No protection against a resource whose _content_ is malicious once you run it yourself. Skillbox surfaces the declarations; the decision is the user's.
 - No protection against a tampered file with a correctly-updated digest. Requires signing (SBX-111).
 
 ## Follow-up work

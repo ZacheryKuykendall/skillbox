@@ -64,7 +64,7 @@ Path separators are normalized to `/` before hashing so digests match across Win
 
 **A flat list of resources instead of a keyed map.** Rejected: a map keyed by `namespace/name` makes lookup direct and gives sorting a single obvious definition. A list requires deciding and enforcing a sort order separately.
 
-**Store only a resource-level digest, not per-file digests.** Smaller file. Rejected: per-file digests are what let `remove` identify *which* file you edited and preserve exactly that one (FR-9.2), and what let `doctor` name the drifted file. A single aggregate digest can only say "something changed."
+**Store only a resource-level digest, not per-file digests.** Smaller file. Rejected: per-file digests are what let `remove` identify _which_ file you edited and preserve exactly that one (FR-9.2), and what let `doctor` name the drifted file. A single aggregate digest can only say "something changed."
 
 **No lockfile; derive state by scanning the project.** Rejected. Scanning cannot distinguish a file Skillbox installed from an identical file you wrote, cannot know the resolved version, and cannot detect modification without a recorded baseline.
 

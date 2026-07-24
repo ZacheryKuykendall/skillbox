@@ -42,23 +42,23 @@ Zod is the single source of truth for both runtime validation and static types: 
 
 The domain layer, and where nearly all logic lives.
 
-| Concern | Module |
-| --- | --- |
-| Containment-checked path resolution | `paths.ts` |
-| Manifest reading from disk | `manifest-loader.ts` |
-| Registry walking and indexing | `catalog.ts` |
-| Search and ranking | `search.ts` |
-| Semver resolution | `resolve.ts` |
-| Dependency graph and cycle detection | `graph.ts` |
-| Install plan construction and conflict detection | `plan.ts` |
-| Plan application with rollback | `apply.ts` |
-| Project manifest IO | `project.ts` |
-| Lockfile serialization | `lockfile.ts` |
-| Integrity digests | `integrity.ts` |
-| Variable substitution | `variables.ts` |
-| Removal | `remove.ts` |
-| Update planning | `update.ts` |
-| Diagnostics | `doctor.ts` |
+| Concern                                          | Module               |
+| ------------------------------------------------ | -------------------- |
+| Containment-checked path resolution              | `paths.ts`           |
+| Manifest reading from disk                       | `manifest-loader.ts` |
+| Registry walking and indexing                    | `catalog.ts`         |
+| Search and ranking                               | `search.ts`          |
+| Semver resolution                                | `resolve.ts`         |
+| Dependency graph and cycle detection             | `graph.ts`           |
+| Install plan construction and conflict detection | `plan.ts`            |
+| Plan application with rollback                   | `apply.ts`           |
+| Project manifest IO                              | `project.ts`         |
+| Lockfile serialization                           | `lockfile.ts`        |
+| Integrity digests                                | `integrity.ts`       |
+| Variable substitution                            | `variables.ts`       |
+| Removal                                          | `remove.ts`          |
+| Update planning                                  | `update.ts`          |
+| Diagnostics                                      | `doctor.ts`          |
 
 ### @skillbox/cli
 
@@ -127,18 +127,18 @@ sequenceDiagram
   C->>U: summary, exit 0
 ```
 
-Note where validation sits: every manifest is validated **during catalog load**, before resolution. Nothing downstream handles an unvalidated manifest, which is why `core` can treat manifests as trustworthy shapes while still treating their *content* as untrusted.
+Note where validation sits: every manifest is validated **during catalog load**, before resolution. Nothing downstream handles an unvalidated manifest, which is why `core` can treat manifests as trustworthy shapes while still treating their _content_ as untrusted.
 
 ## 5. Intent versus fact
 
 Project state is split across two files with different jobs.
 
-| | Project manifest | Lockfile |
-| --- | --- | --- |
-| Path | `.skillbox/skillbox.yaml` | `.skillbox/skillbox.lock` |
-| Records | What was requested | What was resolved and installed |
-| Versions | Ranges, e.g. `^0.1.0` | Exact, e.g. `0.1.0` |
-| Author | Human-editable | Machine-generated |
+|          | Project manifest               | Lockfile                                        |
+| -------- | ------------------------------ | ----------------------------------------------- |
+| Path     | `.skillbox/skillbox.yaml`      | `.skillbox/skillbox.lock`                       |
+| Records  | What was requested             | What was resolved and installed                 |
+| Versions | Ranges, e.g. `^0.1.0`          | Exact, e.g. `0.1.0`                             |
+| Author   | Human-editable                 | Machine-generated                               |
 | Contains | References, targets, variables | Integrity digests, file lists, dependency edges |
 
 The manifest states intent; the lockfile states fact. The lockfile is byte-deterministic — sorted keys, no timestamps, no absolute paths — because a lockfile that produces spurious diffs stops being reviewed ([ADR-0004](decisions/ADR-0004-lockfile-design.md)).
@@ -163,17 +163,17 @@ Manifests always use POSIX-style relative paths; `core` translates to the host s
 
 Full rationale is in the [ADR index](decisions/README.md).
 
-| Area | Choice | ADR |
-| --- | --- | --- |
-| Language | TypeScript 5.9.3, strict, ESM | [0001](decisions/ADR-0001-monorepo-structure.md), [0007](decisions/ADR-0007-typescript-version-pin.md) |
-| Workspace | pnpm workspaces | [0001](decisions/ADR-0001-monorepo-structure.md) |
-| Validation | Zod 4 with native JSON Schema output | [0002](decisions/ADR-0002-resource-manifest-format.md) |
-| Manifest format | YAML | [0002](decisions/ADR-0002-resource-manifest-format.md) |
-| Registry | Local directory | [0003](decisions/ADR-0003-local-registry-first.md) |
-| Lockfile | Deterministic YAML, no timestamps | [0004](decisions/ADR-0004-lockfile-design.md) |
-| Security | Deny-by-default, no execution | [0005](decisions/ADR-0005-security-model.md) |
-| Build | `tsc -b` project references, `pnpm -r` | [0006](decisions/ADR-0006-build-orchestration.md) |
-| Tests | Vitest with a 90% coverage gate | [0006](decisions/ADR-0006-build-orchestration.md) |
+| Area            | Choice                                 | ADR                                                                                                    |
+| --------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Language        | TypeScript 5.9.3, strict, ESM          | [0001](decisions/ADR-0001-monorepo-structure.md), [0007](decisions/ADR-0007-typescript-version-pin.md) |
+| Workspace       | pnpm workspaces                        | [0001](decisions/ADR-0001-monorepo-structure.md)                                                       |
+| Validation      | Zod 4 with native JSON Schema output   | [0002](decisions/ADR-0002-resource-manifest-format.md)                                                 |
+| Manifest format | YAML                                   | [0002](decisions/ADR-0002-resource-manifest-format.md)                                                 |
+| Registry        | Local directory                        | [0003](decisions/ADR-0003-local-registry-first.md)                                                     |
+| Lockfile        | Deterministic YAML, no timestamps      | [0004](decisions/ADR-0004-lockfile-design.md)                                                          |
+| Security        | Deny-by-default, no execution          | [0005](decisions/ADR-0005-security-model.md)                                                           |
+| Build           | `tsc -b` project references, `pnpm -r` | [0006](decisions/ADR-0006-build-orchestration.md)                                                      |
+| Tests           | Vitest with a 90% coverage gate        | [0006](decisions/ADR-0006-build-orchestration.md)                                                      |
 
 Notably absent: no bundler, no build orchestrator beyond pnpm, no color library, no JSON Schema converter. Each was evaluated and found unnecessary for four small packages (NFR-7).
 

@@ -1,0 +1,30 @@
+{
+  "name": "@skillbox/testing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared Skillbox test fixtures and helpers. Not published; test-time only.",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean"
+  },
+  "dependencies": {
+    "@skillbox/schema": "workspace:*",
+    "yaml": "2.9.0"
+  }
+}

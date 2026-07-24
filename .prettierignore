@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+pnpm-lock.yaml
+
+# Generated from the Zod schemas by `pnpm schema:generate`. Formatting is fixed
+# by the generator so the drift test compares stable bytes.
+schemas/
+
+# Lockfiles are byte-deterministic by design (ADR-0004). Reformatting them
+# would break that guarantee.
+**/.skillbox/skillbox.lock
+
+# Cursor rule frontmatter is not standard YAML front matter Prettier handles well.
+.cursor/rules/

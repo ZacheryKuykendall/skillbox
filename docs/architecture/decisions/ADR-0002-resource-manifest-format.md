@@ -55,7 +55,7 @@ Every path field must be relative, POSIX-style, free of `..`, free of drive and 
 
 **Separate top-level schema per kind with no shared envelope.** Rejected: `namespace`, `name`, `version`, and `description` would be redeclared seven times, and search and catalog code would need a per-kind branch just to read a name.
 
-**JSON Schema as the source of truth, with types generated from it.** Rejected: it inverts the ergonomics. Authoring validation in JSON Schema is verbose, composition is awkward, and the generated TypeScript is worse than Zod's inference. Generating JSON Schema *from* Zod gets both artifacts from the better authoring experience.
+**JSON Schema as the source of truth, with types generated from it.** Rejected: it inverts the ergonomics. Authoring validation in JSON Schema is verbose, composition is awkward, and the generated TypeScript is worse than Zod's inference. Generating JSON Schema _from_ Zod gets both artifacts from the better authoring experience.
 
 **`zod-to-json-schema` package.** Unnecessary. Zod 4 ships `z.toJSONSchema()` natively (verified against the [Zod JSON Schema documentation](https://zod.dev/json-schema)), so this would have been a dependency for functionality already present (NFR-7).
 

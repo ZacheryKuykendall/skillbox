@@ -42,21 +42,21 @@ Zod 4's native `z.toJSONSchema()` replaces `zod-to-json-schema`.
 
 Every dependency version was verified against the registry rather than guessed:
 
-| Package | Version | Role |
-| --- | --- | --- |
-| `typescript` | 5.9.3 | Compiler — pinned, see [ADR-0007](ADR-0007-typescript-version-pin.md) |
-| `zod` | 4.4.3 | Validation and JSON Schema |
-| `yaml` | 2.9.0 | Manifest parsing |
-| `semver` | 7.8.5 | Version resolution |
-| `commander` | 15.0.0 | CLI parsing |
-| `vitest` | 4.1.10 | Test runner |
-| `@vitest/coverage-v8` | 4.1.10 | Coverage |
-| `eslint` | 10.8.0 | Linting |
-| `typescript-eslint` | 8.65.0 | TypeScript lint rules |
-| `globals` | 17.7.0 | ESLint global definitions |
-| `prettier` | 3.9.6 | Formatting |
-| `tsx` | 4.23.1 | Running TypeScript for repo scripts |
-| `@types/node` | 26.1.1 | Node type definitions |
+| Package               | Version | Role                                                                  |
+| --------------------- | ------- | --------------------------------------------------------------------- |
+| `typescript`          | 5.9.3   | Compiler — pinned, see [ADR-0007](ADR-0007-typescript-version-pin.md) |
+| `zod`                 | 4.4.3   | Validation and JSON Schema                                            |
+| `yaml`                | 2.9.0   | Manifest parsing                                                      |
+| `semver`              | 7.8.5   | Version resolution                                                    |
+| `commander`           | 15.0.0  | CLI parsing                                                           |
+| `vitest`              | 4.1.10  | Test runner                                                           |
+| `@vitest/coverage-v8` | 4.1.10  | Coverage                                                              |
+| `eslint`              | 10.8.0  | Linting                                                               |
+| `typescript-eslint`   | 8.65.0  | TypeScript lint rules                                                 |
+| `globals`             | 17.7.0  | ESLint global definitions                                             |
+| `prettier`            | 3.9.6   | Formatting                                                            |
+| `tsx`                 | 4.23.1  | Running TypeScript for repo scripts                                   |
+| `@types/node`         | 26.1.1  | Node type definitions                                                 |
 
 Four runtime dependencies total. Each earns its place: correct YAML parsing, correct semver comparison, validation with type inference, and argument parsing.
 
