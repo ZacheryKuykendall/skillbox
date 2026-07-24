@@ -64,7 +64,7 @@ Skillbox reports peer requirements but does not install them — add them with y
 
 TODO, or "None. The component has no side effects."
 
-Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Configuration
 

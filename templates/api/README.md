@@ -54,7 +54,7 @@ Installs to `src/integrations/REPLACE-ME/` — your **source tree**, not `.skill
 | `network:outbound` | It makes HTTP requests to the configured base URL |
 | `env:read`         | It reads the two declared variables               |
 
-Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md). Installing grants nothing, because installation only copies files; the code runs when you import and call it.
+Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository). Installing grants nothing, because installation only copies files; the code runs when you import and call it.
 
 ## Requirements
 

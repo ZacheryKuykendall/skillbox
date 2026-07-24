@@ -72,7 +72,7 @@ hint   Remove the dependents first, or pass --force.
 | `filesystem:read` | The process requires reading existing code, since planning against an imagined codebase produces a change that fights the real one |
 | `model:invoke`    | Planning is performed by a language model                                                                                          |
 
-It writes nothing and makes no network requests. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+It writes nothing and makes no network requests. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Expected tools
 

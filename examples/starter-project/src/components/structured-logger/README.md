@@ -79,7 +79,7 @@ Skillbox reports the peer requirement but does not install it — add TypeScript
 | ------------------ | -------------------------------------------------------------------------- |
 | `filesystem:write` | The default writer writes to stdout and stderr, which are file descriptors |
 
-It makes no network requests and reads no environment variables. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+It makes no network requests and reads no environment variables. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Configuration
 

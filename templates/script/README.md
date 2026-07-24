@@ -10,7 +10,7 @@ TODO a short paragraph. Be explicit about side effects: what it reads, what it w
 
 **Installing a script and running a script are separate actions.** Skillbox copies the file and stops. Nothing is executed during `add`, `validate`, `inspect`, or any other command, and there are no lifecycle hooks.
 
-You run it yourself with the commands below. See the [security model](../../../docs/architecture/security-model.md).
+You run it yourself with the commands below. See the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Arguments
 

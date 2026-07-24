@@ -12,7 +12,7 @@ Useful for orienting in an unfamiliar repository, or for pasting into an issue t
 
 **Installing a script and running a script are separate actions.** Skillbox copies the file and stops. Nothing is executed during `add`, `validate`, `inspect`, or any other command, and there are no lifecycle hooks.
 
-You run it yourself, deliberately, with the commands below. See the [security model](../../../docs/architecture/security-model.md) for why this is a design guarantee rather than a default that could be changed.
+You run it yourself, deliberately, with the commands below. See the security model (docs/architecture/security-model.md in the Skillbox repository) for why this is a design guarantee rather than a default that could be changed.
 
 ## Arguments
 

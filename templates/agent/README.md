@@ -46,7 +46,7 @@ Installs to `.skillbox/agents/REPLACE-ME/`.
 | -------------- | ---- |
 | `model:invoke` | TODO |
 
-Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Expected tools
 

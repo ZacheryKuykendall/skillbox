@@ -80,7 +80,7 @@ skillbox add skillbox/plan-implement-review --dry-run
 
 The union of its dependencies' permissions, which is what `skillbox add` shows before installing. Nothing here needs `filesystem:write`, `network:outbound`, or `process:spawn`.
 
-Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Configuration
 
@@ -123,4 +123,4 @@ For "add a `--verbose` flag to the CLI", the workflow produces:
 
 The workflow is deliberately not automated end to end. The gates are where a human catches a wrong assumption cheaply, and automating past them would remove the only part that prevents a plausible-but-wrong plan from becoming a plausible-but-wrong implementation.
 
-Hosted workflow execution is on the [roadmap](../../../docs/roadmap.md) as SBX-118, sequenced after sandboxed execution. Until then, following the steps yourself is the intended use.
+Hosted workflow execution is on the roadmap (docs/roadmap.md in the Skillbox repository) as SBX-118, sequenced after sandboxed execution. Until then, following the steps yourself is the intended use.

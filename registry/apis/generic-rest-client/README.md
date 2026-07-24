@@ -88,7 +88,7 @@ skillbox add skillbox/generic-rest-client --target src/lib/http
 | `network:outbound` | It makes HTTP requests to the configured base URL        |
 | `env:read`         | `configFromEnvironment` reads the two declared variables |
 
-Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md). Installing this resource does not grant it network access; it grants nothing, because installation only copies files. The code runs when you import and call it.
+Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository). Installing this resource does not grant it network access; it grants nothing, because installation only copies files. The code runs when you import and call it.
 
 ## Requirements
 

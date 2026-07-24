@@ -58,7 +58,7 @@ skillbox add skillbox/REPLACE-ME --dry-run
 | -------------- | ---- |
 | `model:invoke` | TODO |
 
-The union of its dependencies' permissions, which is what `skillbox add` shows before installing. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+The union of its dependencies' permissions, which is what `skillbox add` shows before installing. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Configuration
 

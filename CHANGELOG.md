@@ -25,20 +25,28 @@ The first Skillbox MVP. Establishes the resource format, a local catalog, and a 
 - **Documentation** covering product vision, requirements, terminology, architecture, the resource model, the security model, seven architectural decision records, and contributor guides.
 - **Continuous integration** running format, lint, typecheck, test with a 90% coverage gate, build, and catalog validation.
 
+- **Line-ending normalization** via a committed `.gitattributes`. This is load-bearing rather than cosmetic: without it, a Windows clone with the common `core.autocrlf=true` default reports every installed file as modified, because a file checked out with CRLF hashes differently from the same file with LF.
+
 ### Security
 
 - Deny-by-default installation. Install destinations are confined to the project directory using `path.relative` containment checks; traversal, absolute, drive-relative, UNC, and symlinked destinations are rejected before any write.
 - Resource code is never executed during installation. There are no lifecycle hooks.
-- Declared permissions are shown before installation.
-- Required environment variables are recorded by name only. Values are never read, stored, or printed.
+- Declared permissions are shown before installation, alongside an explicit statement that Skillbox does not enforce them.
+- Required environment variables are recorded by name only. Values are never read, stored, or printed. Values pasted into a name field are redacted from validation errors.
 - File integrity is recorded in the lockfile and verified by `skillbox doctor`.
+- Three mandatory test suites enforce the above: per-vector path traversal including symlink escape and tampered lockfiles, malformed manifest handling, and a sentinel-based check that no environment value reaches any artifact or output.
 
 ### Known limitations
 
 - The catalog is local to this repository. There is no remote registry, publishing, or package signing.
 - Resource execution is out of scope; `script` resources are installed but never run by Skillbox.
+- Permissions are declared and displayed but not enforced, because Skillbox provides no runtime. Enforcement requires sandboxed execution.
+- `apiVersion: skillbox.dev/v1alpha1` is explicitly unstable; the manifest format may change before v1.
+- A tampered file with a correctly-updated digest is not detectable by digest alone. This requires package signing.
 - `.github/CODEOWNERS` has no ownership entries pending a repository owner decision (SBX-018).
-- The CI workflow has not been executed on a GitHub remote (SBX-099).
+- The CI workflow has not been executed on a GitHub remote (SBX-099). Every step maps to a script verified locally.
+
+Full acceptance evidence and the complete limitation list are in [docs/v0.1.0-readiness.md](docs/v0.1.0-readiness.md).
 
 [Unreleased]: https://keepachangelog.com/en/1.1.0/
 [0.1.0]: https://semver.org/spec/v2.0.0.html

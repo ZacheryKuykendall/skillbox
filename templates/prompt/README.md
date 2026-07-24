@@ -38,7 +38,7 @@ Installs to `.skillbox/prompts/REPLACE-ME/`.
 
 TODO remove any permission the resource does not need, and justify each one that remains.
 
-Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Configuration
 

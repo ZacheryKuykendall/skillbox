@@ -824,7 +824,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Confirm repository-wide coverage meets the 90% gate for lines, statements, functions, and branches.
 - **Acceptance criteria:** `pnpm test:coverage` passes with thresholds enforced, and per-file gaps below 80% are called out.
 - **Status:** Complete
-- **Completion evidence:** See the v0.1.0 readiness report for the measured numbers.
+- **Completion evidence:** On a fresh clone: 96.97% statements, 90.97% branches, 94.06% functions, 98.72% lines, across 1244 tests. No file sits below 80% on any metric. Where a branch was genuinely unreachable, the defensive code was removed rather than a test contrived for it — see the note on `manifest-loader.ts` in SBX-041.
 - **Related files:** `vitest.config.ts`, [docs/v0.1.0-readiness.md](v0.1.0-readiness.md)
 
 - [x] SBX-083: Coverage verification
@@ -836,8 +836,12 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Verify a clean checkout passes install, lint, typecheck, test, and build.
 - **Acceptance criteria:** Every documented command succeeds from a pristine clone with no manual steps beyond those documented.
 - **Status:** Complete
-- **Completion evidence:** Recorded in [docs/v0.1.0-readiness.md](v0.1.0-readiness.md).
-- **Related files:** `docs/v0.1.0-readiness.md`
+- **Completion evidence:**
+  - All seven gates pass on a clone into a directory that had never held the repository: `pnpm install --frozen-lockfile`, `format:check`, `lint`, `typecheck`, `build`, `test:coverage`, `validate:registry`.
+  - **This task found a real defect.** The first attempt failed three ways because the repository had been initialized with `core.autocrlf false` by hand, while a clean Windows clone uses the common `core.autocrlf=true` default: `format:check` reported 193 files, the JSON Schema drift test compared LF bytes to a CRLF checkout, and the example project reported every installed file as modified. The third would have made `doctor` useless for every Windows user and directly undermined [ADR-0004](architecture/decisions/ADR-0004-lockfile-design.md).
+  - Fixed by committing `.gitattributes` with `* text=auto eol=lf`, which unlike `core.autocrlf` travels with the repository. Re-verified clean afterwards.
+- **Related files:** `.gitattributes`, `docs/v0.1.0-readiness.md`
+- **Follow-up:** None. This is the clearest argument for the criterion existing: reasoning would not have found it.
 
 - [x] SBX-084: Fresh-clone verification
 
@@ -848,7 +852,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Walk the full acceptance path in a brand-new temporary project using only the built CLI.
 - **Acceptance criteria:** All fourteen MVP acceptance criteria are demonstrated with recorded command output.
 - **Status:** Complete
-- **Completion evidence:** Recorded in [docs/v0.1.0-readiness.md](v0.1.0-readiness.md).
+- **Completion evidence:** Walked `init`, `search`, `inspect`, `add`, `list`, `validate`, `doctor`, `remove` in an empty directory outside the repository, using the binary built by the fresh clone. Actual output for each is recorded in [docs/v0.1.0-readiness.md](v0.1.0-readiness.md), including the resulting project manifest and lockfile.
 - **Related files:** `docs/v0.1.0-readiness.md`
 
 - [x] SBX-085: Fresh-project walkthrough
@@ -872,8 +876,12 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Re-read every document against the implementation and reconcile contradictions.
 - **Acceptance criteria:** No document contradicts the code; all internal links resolve; no untracked TODOs remain.
 - **Status:** Complete
-- **Completion evidence:** Recorded in [docs/v0.1.0-readiness.md](v0.1.0-readiness.md).
-- **Related files:** `docs/**`
+- **Completion evidence:**
+  - Every relative link across all Markdown files was checked programmatically and resolves.
+  - Three documents were corrected during this pass: ADR-0004, `architecture/overview.md`, and `architecture/repository-structure.md` all named `core.autocrlf false` as the line-ending mechanism, which SBX-084 proved insufficient. They now describe `.gitattributes`.
+  - One inaccuracy in `examples/starter-project/README.md` was corrected: it showed `technical-documentation` with a requested range when the actual `list` output shows `(dependency)`. A test now asserts the README mentions every locked resource.
+  - The only `TODO` markers in the codebase are the deliberate placeholders in `templates/`, which exist to be replaced, plus one in `.github/CODEOWNERS` citing SBX-018.
+- **Related files:** `docs/**`, `.gitattributes`, `examples/starter-project/README.md`
 
 - [x] SBX-087: Documentation consistency review
 

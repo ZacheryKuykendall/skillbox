@@ -47,7 +47,7 @@ Installs to `.skillbox/prompts/code-review/`:
 | -------------- | -------------------------------------- |
 | `model:invoke` | The prompt is sent to a language model |
 
-It reads no files, makes no network requests, and needs no environment variables. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+It reads no files, makes no network requests, and needs no environment variables. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Configuration
 

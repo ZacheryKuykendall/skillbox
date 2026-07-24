@@ -54,7 +54,7 @@ Installs to `.skillbox/skills/technical-documentation/`:
 | `filesystem:read` | The process requires reading actual source to verify facts before documenting them |
 | `model:invoke`    | Drafting and review are performed by a language model                              |
 
-It writes nothing and makes no network requests. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the [security model](../../../docs/architecture/security-model.md).
+It writes nothing and makes no network requests. Permissions are declared by the author and are not enforced by Skillbox in v0.1.0 — see the security model (docs/architecture/security-model.md in the Skillbox repository).
 
 ## Configuration
 
