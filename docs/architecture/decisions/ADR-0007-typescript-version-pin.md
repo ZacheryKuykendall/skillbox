@@ -79,9 +79,30 @@ Negative:
 
 ## Follow-up work
 
-- SBX-100: Re-evaluate TypeScript 7 once `typescript-eslint` publishes a stable release supporting it. Verify with `npm view typescript-eslint peerDependencies` before attempting the upgrade, and expect to bump `typescript`, `typescript-eslint`, and possibly `eslint` together.
+- SBX-100: Re-evaluate TypeScript 7 once `typescript-eslint` supports it. Blocked upstream on [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940), which tracks support for TypeScript 7.1 and later. Verify with `npm view typescript-eslint peerDependencies` before attempting the upgrade, and expect to bump `typescript`, `typescript-eslint`, and possibly `eslint` together.
+
+## Verification, 2026-07-24
+
+The upgrade was attempted in an isolated probe rather than reasoned about, and the result was more decisive than this ADR originally assumed.
+
+Installing `typescript@7.0.2` alongside `typescript-eslint@8.65.0` does not merely warn. pnpm reports eight unmet peer entries and then `typescript-eslint` throws at module load:
+
+```text
+typescript-eslint does not support TS 7.0.
+Please see https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/
+to run typescript-eslint using the TS 6 API.
+See also https://github.com/typescript-eslint/typescript-eslint/issues/10940
+for tracking typescript-eslint's support for TS >=7.1
+```
+
+ESLint exits 2. So `pnpm lint` would not degrade to untyped rules, it would fail entirely — a harder failure than the "possibly silently degraded" wording this ADR first used.
+
+This also closes off one of the alternatives below. `typescript-eslint` documents a side-by-side workaround: run it against the TypeScript 6 API while building with 7. That is precisely the "two compiler versions" option rejected under Alternatives, and the reason stands — two sets of type-checking semantics means lint and build can legitimately disagree.
+
+The pin therefore remains at 5.9.3. Both `latest` (8.65.0) and `canary` (8.65.1-alpha.7) still declare `typescript: ">=4.8.4 <6.1.0"`, so there is no prerelease path either.
 
 ## References
 
 - [typescript-eslint dependency versions](https://typescript-eslint.io/users/dependency-versions/)
+- [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940) — upstream tracking issue for TypeScript 7 support
 - [TypeScript project references](https://www.typescriptlang.org/docs/handbook/project-references.html)

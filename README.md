@@ -35,7 +35,7 @@ Requirements: Node.js 20.19 or newer (Node 24 recommended) and pnpm 10.
 PowerShell:
 
 ```powershell
-git clone <repository-url> skillbox
+git clone https://github.com/ZacheryKuykendall/skillbox.git skillbox
 cd skillbox
 pnpm install
 pnpm build
@@ -44,7 +44,7 @@ pnpm build
 bash:
 
 ```bash
-git clone <repository-url> skillbox
+git clone https://github.com/ZacheryKuykendall/skillbox.git skillbox
 cd skillbox
 pnpm install
 pnpm build

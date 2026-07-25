@@ -92,9 +92,9 @@ Ordering here is non-negotiable: enforcement before execution, execution before 
 
 Small items that do not need a phase:
 
-- **SBX-018** — Populate `.github/CODEOWNERS`. Blocked on a repository owner decision.
-- **SBX-099** — Verify the CI workflow on a real GitHub remote. Every step is verified locally; the workflow has not run on GitHub.
-- **SBX-100** — Revisit TypeScript 7 once `typescript-eslint` supports it ([ADR-0007](architecture/decisions/ADR-0007-typescript-version-pin.md)).
+- **SBX-018** — Done. `.github/CODEOWNERS` assigns ownership; "Require review from Code Owners" stays off until there is a second maintainer to review, since with one code owner it would block every merge.
+- **SBX-099** — Verify the CI workflow on GitHub. The remote now exists and `main` is pushed; the first run is outstanding.
+- **SBX-100** — Revisit TypeScript 7. Blocked upstream on [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940): `typescript-eslint` throws at module load on TypeScript 7, so linting fails outright rather than degrading ([ADR-0007](architecture/decisions/ADR-0007-typescript-version-pin.md)).
 - **SBX-101** — Reconsider a caching build orchestrator if build times grow ([ADR-0006](architecture/decisions/ADR-0006-build-orchestration.md)).
 - **Manifest format stabilization** — `v1alpha1` is explicitly unstable. Reaching `v1` requires the format to survive contact with resources written by people who did not design it.
 

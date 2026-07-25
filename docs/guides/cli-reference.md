@@ -19,7 +19,7 @@ pnpm skillbox <command>
 From another directory, call the binary directly:
 
 ```powershell
-node C:\PersonalProjects\skillbox\packages\cli\bin\skillbox.js <command>
+node C:\projects\skillbox\packages\cli\bin\skillbox.js <command>
 ```
 
 ```bash

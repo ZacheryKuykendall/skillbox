@@ -2,27 +2,26 @@
 #
 # Syntax: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 #
-# TODO(SBX-018): Assign real owners.
+# This file routes review requests. It does not gate merges.
 #
-# No ownership entries are defined yet because no GitHub user or team has been
-# provided for this repository. Inventing a handle would create a CODEOWNERS
-# file that silently fails to request reviews, which is worse than an empty one.
+# "Require review from Code Owners" is deliberately left OFF in branch
+# protection while this is a solo repository. GitHub never requests a review from
+# the author of a pull request, and nobody can approve their own, so enabling it
+# with a single code owner would make every pull request unmergeable except by
+# administrator bypass. Turn it on when there is a second maintainer to review.
 #
-# When an owner exists, add entries below and enable "Require review from Code
-# Owners" in branch protection. Suggested starting point:
-#
-#   *                          @OWNER
-#   /packages/schema/          @OWNER
-#   /packages/core/            @OWNER
-#   /packages/cli/             @OWNER
-#   /registry/                 @OWNER
-#   /docs/architecture/        @OWNER
-#   /.github/workflows/        @OWNER
-#
-# Paths worth requiring extra review on, because a mistake there is expensive:
+# CODEOWNERS only takes effect from the copy on the default branch, and only for
+# owners who have write access to the repository.
+
+* @ZacheryKuykendall
+
+# Paths worth requiring extra review on once there is more than one maintainer.
+# CODEOWNERS cannot express "extra" review by itself; that needs a branch
+# protection rule. Listed here so the intent is not lost.
 #
 #   /packages/core/src/paths.ts        Security boundary: path containment
 #   /packages/core/src/apply.ts        Filesystem mutation and rollback
 #   /packages/core/src/lockfile.ts     Lockfile determinism
 #   /docs/architecture/decisions/      Architectural decision records
 #   /docs/architecture/security-model.md
+#   /.gitattributes                    Line endings, which integrity digests depend on

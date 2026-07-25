@@ -21,7 +21,7 @@ Read these in order:
 PowerShell:
 
 ```powershell
-git clone <repository-url> skillbox
+git clone https://github.com/ZacheryKuykendall/skillbox.git skillbox
 cd skillbox
 pnpm install
 pnpm build
@@ -30,7 +30,7 @@ pnpm build
 bash:
 
 ```bash
-git clone <repository-url> skillbox
+git clone https://github.com/ZacheryKuykendall/skillbox.git skillbox
 cd skillbox
 pnpm install
 pnpm build

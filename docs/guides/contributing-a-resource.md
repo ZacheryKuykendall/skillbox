@@ -96,8 +96,8 @@ Do not skip this. Validation checks structure; only an install proves the resour
 ```powershell
 mkdir C:\temp\contrib-test
 cd C:\temp\contrib-test
-$env:SKILLBOX_REGISTRY = "C:\PersonalProjects\skillbox\registry"
-$sb = "C:\PersonalProjects\skillbox\packages\cli\bin\skillbox.js"
+$env:SKILLBOX_REGISTRY = "C:\projects\skillbox\registry"
+$sb = "C:\projects\skillbox\packages\cli\bin\skillbox.js"
 node $sb init
 node $sb inspect skillbox/release-notes
 node $sb add skillbox/release-notes --dry-run

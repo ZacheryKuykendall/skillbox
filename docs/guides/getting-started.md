@@ -25,7 +25,7 @@ pnpm --version
 PowerShell:
 
 ```powershell
-git clone <repository-url> skillbox
+git clone https://github.com/ZacheryKuykendall/skillbox.git skillbox
 cd skillbox
 pnpm install
 pnpm build
@@ -34,7 +34,7 @@ pnpm build
 bash:
 
 ```bash
-git clone <repository-url> skillbox
+git clone https://github.com/ZacheryKuykendall/skillbox.git skillbox
 cd skillbox
 pnpm install
 pnpm build
@@ -65,7 +65,7 @@ PowerShell:
 ```powershell
 mkdir C:\temp\my-project
 cd C:\temp\my-project
-node C:\PersonalProjects\skillbox\packages\cli\bin\skillbox.js init
+node C:\projects\skillbox\packages\cli\bin\skillbox.js init
 ```
 
 bash:
@@ -79,7 +79,7 @@ node ~/skillbox/packages/cli/bin/skillbox.js init
 Adjust the path to wherever you cloned the repository. To save typing, set an alias for this session:
 
 ```powershell
-function skillbox { node C:\PersonalProjects\skillbox\packages\cli\bin\skillbox.js @args }
+function skillbox { node C:\projects\skillbox\packages\cli\bin\skillbox.js @args }
 ```
 
 ```bash
@@ -102,7 +102,7 @@ Next: skillbox search <query> to find resources.
 Skillbox needs to know where the catalog is. Since v0.1.0 has no remote registry, point it at the cloned repository:
 
 ```powershell
-$env:SKILLBOX_REGISTRY = "C:\PersonalProjects\skillbox\registry"
+$env:SKILLBOX_REGISTRY = "C:\projects\skillbox\registry"
 ```
 
 ```bash

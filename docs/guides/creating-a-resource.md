@@ -284,10 +284,10 @@ Install into a scratch project to confirm the files land where you intended:
 ```powershell
 mkdir C:\temp\resource-test
 cd C:\temp\resource-test
-$env:SKILLBOX_REGISTRY = "C:\PersonalProjects\skillbox\registry"
-node C:\PersonalProjects\skillbox\packages\cli\bin\skillbox.js init
-node C:\PersonalProjects\skillbox\packages\cli\bin\skillbox.js add skillbox/release-notes --dry-run
-node C:\PersonalProjects\skillbox\packages\cli\bin\skillbox.js add skillbox/release-notes
+$env:SKILLBOX_REGISTRY = "C:\projects\skillbox\registry"
+node C:\projects\skillbox\packages\cli\bin\skillbox.js init
+node C:\projects\skillbox\packages\cli\bin\skillbox.js add skillbox/release-notes --dry-run
+node C:\projects\skillbox\packages\cli\bin\skillbox.js add skillbox/release-notes
 ```
 
 ```bash

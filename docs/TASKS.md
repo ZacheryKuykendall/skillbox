@@ -31,7 +31,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
   - Blocker found and resolved: `typescript@7.0.2` is `latest` but `typescript-eslint@8.65.0` declares `typescript: ">=4.8.4 <6.1.0"`, so TypeScript is pinned to 5.9.3.
   - Two dependencies avoided: Node 24 provides `util.styleText` (no `picocolors`) and Zod 4 provides `z.toJSONSchema()` (no `zod-to-json-schema`).
 - **Related files:** [docs/architecture/overview.md](architecture/overview.md), [docs/architecture/decisions/ADR-0007-typescript-version-pin.md](architecture/decisions/ADR-0007-typescript-version-pin.md)
-- **Follow-up:** SBX-017 leaves CODEOWNERS ownership unresolved until a GitHub owner exists.
+- **Follow-up:** Resolved. CODEOWNERS ownership was assigned in SBX-018 once a GitHub account was supplied.
 
 - [x] SBX-001: Assess the repository and record constraints
 
@@ -130,23 +130,26 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Create `CODEOWNERS`, `PULL_REQUEST_TEMPLATE.md`, and the bug report, feature request, and new resource issue forms.
 - **Acceptance criteria:** Issue templates are valid GitHub issue form YAML; the PR template encodes the definition of done.
 - **Status:** Complete
-- **Completion evidence:** Files under `.github/`. CODEOWNERS contains no ownership entries yet because no GitHub owner or team has been provided; the placeholder cites SBX-018.
+- **Completion evidence:** Files under `.github/`. CODEOWNERS ownership was assigned in SBX-018.
 - **Related files:** `.github/CODEOWNERS`, `.github/PULL_REQUEST_TEMPLATE.md`, `.github/ISSUE_TEMPLATE/*.yml`
-- **Follow-up:** SBX-018
 
 - [x] SBX-017: GitHub templates and code ownership
 
 ### SBX-018: Assign code ownership
 
-- **Phase:** Backlog
+- **Phase:** 1
 - **Dependencies:** SBX-017
-- **Description:** Populate `.github/CODEOWNERS` with real reviewers once a GitHub organization or owner exists.
-- **Acceptance criteria:** CODEOWNERS references an existing GitHub user or team and branch protection requires their review.
-- **Status:** Blocked
-- **Blocker:** No GitHub owner or organization has been provided. Requires a decision from the repository owner.
+- **Description:** Populate `.github/CODEOWNERS` with a real reviewer.
+- **Acceptance criteria:** CODEOWNERS references a GitHub account that exists, and the branch protection posture is a recorded decision rather than an accident.
+- **Status:** Complete
+- **Completion evidence:**
+  - `* @ZacheryKuykendall`. The account was verified to exist against the GitHub API rather than taken on trust, which is the check that matters: a misspelled handle causes CODEOWNERS to fail **silently**, requesting no review at all.
+  - **"Require review from Code Owners" is deliberately left off**, recorded in the file itself. The original acceptance criterion demanded that branch protection require the owner's review, which is self-defeating for a single maintainer: GitHub never requests a review from a pull request's author and nobody can approve their own, so enabling it with one code owner makes every pull request unmergeable except by administrator bypass. The criterion above was amended accordingly.
+  - The per-directory suggestions were dropped. While one person owns everything, `*` already covers every path and per-path duplicates add nothing. The paths worth extra scrutiny remain as comments so the intent survives until there is a second maintainer.
 - **Related files:** `.github/CODEOWNERS`
+- **Follow-up:** Enable "Require review from Code Owners" when a second maintainer exists. CODEOWNERS also only takes effect from the copy on the default branch, and only for owners with write access.
 
-- [ ] SBX-018: Assign code ownership
+- [x] SBX-018: Assign code ownership
 
 ### SBX-019: Documentation index and roadmap
 
@@ -880,7 +883,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
   - Every relative link across all Markdown files was checked programmatically and resolves.
   - Three documents were corrected during this pass: ADR-0004, `architecture/overview.md`, and `architecture/repository-structure.md` all named `core.autocrlf false` as the line-ending mechanism, which SBX-084 proved insufficient. They now describe `.gitattributes`.
   - One inaccuracy in `examples/starter-project/README.md` was corrected: it showed `technical-documentation` with a requested range when the actual `list` output shows `(dependency)`. A test now asserts the README mentions every locked resource.
-  - The only `TODO` markers in the codebase are the deliberate placeholders in `templates/`, which exist to be replaced, plus one in `.github/CODEOWNERS` citing SBX-018.
+  - The only `TODO` markers in the codebase are the deliberate placeholders in `templates/`, which exist to be replaced. The one formerly in `.github/CODEOWNERS` was removed when SBX-018 closed.
 - **Related files:** `docs/**`, `.gitattributes`, `examples/starter-project/README.md`
 
 - [x] SBX-087: Documentation consistency review
@@ -891,9 +894,8 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 
 These tasks are tracked but deliberately out of scope for v0.1.0. See [docs/roadmap.md](roadmap.md) for the phased plan.
 
-- [ ] SBX-018: Assign code ownership in `.github/CODEOWNERS`. **Blocked** on a GitHub owner decision.
-- [ ] SBX-099: Verify the CI workflow on a real GitHub remote. **Blocked** until a remote exists; every step is verified locally.
-- [ ] SBX-100: Revisit TypeScript 7 once `typescript-eslint` supports it. See [ADR-0007](architecture/decisions/ADR-0007-typescript-version-pin.md).
+- [ ] SBX-099: Verify the CI workflow on a real GitHub remote. Unblocked: the remote is `https://github.com/ZacheryKuykendall/skillbox.git` and `main` has been pushed. Awaiting the first workflow run.
+- [ ] SBX-100: Revisit TypeScript 7. **Blocked upstream** on [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). Attempted on 2026-07-24 and rejected with evidence: `typescript-eslint` throws `typescript-eslint does not support TS 7.0` at module load, so `pnpm lint` fails outright rather than degrading. See [ADR-0007](architecture/decisions/ADR-0007-typescript-version-pin.md).
 - [ ] SBX-101: Reconsider a caching build orchestrator if build times grow. See [ADR-0006](architecture/decisions/ADR-0006-build-orchestration.md).
 - [ ] SBX-102: Remote registry service and client transport abstraction.
 - [ ] SBX-103: Registry REST API.
