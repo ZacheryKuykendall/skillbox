@@ -888,13 +888,31 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 
 - [x] SBX-087: Documentation consistency review
 
+### SBX-0991: Fix the defects found by the first CI run
+
+- **Phase:** 8
+- **Dependencies:** SBX-026, SBX-099
+- **Description:** The first CI run on GitHub failed the working-tree drift check. Diagnose and fix.
+- **Acceptance criteria:** A pushed commit produces a green run on every matrix leg, and the drift check's failure message names the actual likely causes.
+- **Status:** Complete
+- **Completion evidence:**
+  - Every substantive gate passed on the first run: install, format, lint, typecheck, build, test with coverage, catalog validation, and schema generation. Only the drift check failed, and it was right to.
+  - **Defect 1: nine files were committed with CRLF in the index.** `git ls-files --eol` showed `i/crlf` for `.cursor/rules/*.mdc`, `.editorconfig`, `.gitignore`, `.npmrc`, `.prettierignore`, `LICENSE`, and `.github/CODEOWNERS`. All are files Prettier does not process, so `pnpm format` never rewrote them to LF the way it did everything else. Once `.gitattributes` declared `eol=lf`, git wanted LF in the index, so these showed as modified on **every** clone. Fixed with `git add --renormalize .`; `git diff --cached --ignore-all-space` confirmed the change is line endings only, with no content difference.
+  - **Defect 2: `pnpm-lock.yaml` was stale.** It had no `examples/starter-project` importer, because that workspace member was added in Phase 7 after the last `pnpm install`. Fixed by running `pnpm install` and committing the result.
+  - The drift check's message was also misleading: it said "Run `pnpm schema:generate`" for any dirty file, which sent the first diagnosis toward `schemas/` when the causes were elsewhere. It now names all three likely causes, including the renormalize case.
+- **Related files:** `.github/workflows/ci.yml`, `pnpm-lock.yaml`, `.cursor/rules/*.mdc`, `.editorconfig`, `.gitignore`, `.npmrc`, `.prettierignore`, `LICENSE`
+- **Note:** This is the second time line endings caused a defect that local checks could not see, after SBX-084. The pattern is the same both times: a file outside Prettier's reach keeps CRLF and nothing notices until a clean environment compares it.
+
+- [x] SBX-0991: Fix the defects found by the first CI run
+
 ---
 
 ## Backlog and follow-up work
 
 These tasks are tracked but deliberately out of scope for v0.1.0. See [docs/roadmap.md](roadmap.md) for the phased plan.
 
-- [ ] SBX-099: Verify the CI workflow on a real GitHub remote. Unblocked: the remote is `https://github.com/ZacheryKuykendall/skillbox.git` and `main` has been pushed. Awaiting the first workflow run.
+- [ ] SBX-099: Verify the CI workflow on a real GitHub remote. In progress. The first run **found two real defects** that no local check could surface; see SBX-0991 below for detail. Awaiting a green run after the fixes.
+- [x] SBX-0991: Fix the two defects found by the first CI run.
 - [ ] SBX-100: Revisit TypeScript 7. **Blocked upstream** on [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). Attempted on 2026-07-24 and rejected with evidence: `typescript-eslint` throws `typescript-eslint does not support TS 7.0` at module load, so `pnpm lint` fails outright rather than degrading. See [ADR-0007](architecture/decisions/ADR-0007-typescript-version-pin.md).
 - [ ] SBX-101: Reconsider a caching build orchestrator if build times grow. See [ADR-0006](architecture/decisions/ADR-0006-build-orchestration.md).
 - [ ] SBX-102: Remote registry service and client transport abstraction.

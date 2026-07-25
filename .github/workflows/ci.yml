@@ -74,13 +74,23 @@ jobs:
         # A drift test also covers this, but running the generator and checking
         # for a dirty tree catches a stale commit that the test could miss.
 
-      - name: Fail if generated files drifted
+      - name: Fail if the working tree drifted
         shell: bash
         run: |
           if [ -n "$(git status --porcelain)" ]; then
-            echo "Generated files are out of date. Run 'pnpm schema:generate' and commit the result."
+            echo "The working tree is dirty after a full build. Something committed is out of date."
+            echo
+            echo "Likely causes, in the order worth checking:"
+            echo "  schemas/*.json      run 'pnpm schema:generate' and commit the result"
+            echo "  pnpm-lock.yaml      run 'pnpm install' and commit the result, usually after"
+            echo "                      adding or removing a workspace package"
+            echo "  anything else       line endings. Run 'git add --renormalize .' and commit;"
+            echo "                      .gitattributes requires LF, and a file Prettier does not"
+            echo "                      process can be committed with CRLF and go unnoticed"
+            echo
             git status --porcelain
-            git diff
+            echo
+            git diff --stat
             exit 1
           fi
 
