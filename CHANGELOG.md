@@ -44,7 +44,7 @@ The first Skillbox MVP. Establishes the resource format, a local catalog, and a 
 - `apiVersion: skillbox.dev/v1alpha1` is explicitly unstable; the manifest format may change before v1.
 - A tampered file with a correctly-updated digest is not detectable by digest alone. This requires package signing.
 - "Require review from Code Owners" is intentionally off. `.github/CODEOWNERS` assigns ownership, but requiring it in branch protection with a single code owner would make every pull request unmergeable, since GitHub never requests a review from the author (SBX-018).
-- The CI workflow has not yet completed a run on GitHub (SBX-099). Every step maps to a script verified locally.
+- CI is verified green on GitHub across Linux and Windows on Node 24, plus Linux on Node 20.19 (SBX-099).
 - TypeScript is pinned to 5.9.3. TypeScript 7 cannot be adopted until [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940) lands; `typescript-eslint` currently throws at module load on TypeScript 7, so linting fails outright (SBX-100).
 
 Full acceptance evidence and the complete limitation list are in [docs/v0.1.0-readiness.md](docs/v0.1.0-readiness.md).

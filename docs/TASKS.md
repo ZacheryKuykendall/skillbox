@@ -267,9 +267,8 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 - **Description:** Implement `.github/workflows/ci.yml` running install, format check, lint, typecheck, test with coverage, build, and registry validation.
 - **Acceptance criteria:** The workflow pins action versions, uses the repository's pnpm version, and fails on any gate.
 - **Status:** Complete
-- **Completion evidence:** Workflow committed. Every step maps to a script verified locally; GitHub-side execution requires a remote, tracked by SBX-099.
+- **Completion evidence:** Verified green on GitHub across all three matrix legs — Linux and Windows on Node 24, plus Linux on Node 20.19 — in run 30142769741. The workflow's ability to fail was also demonstrated rather than assumed: run 30142506254 failed the drift check on two genuine defects (SBX-0991). Actions were subsequently moved off the deprecated Node 20 runtime; the pnpm version now comes from `packageManager` in `package.json` rather than being duplicated in the workflow.
 - **Related files:** `.github/workflows/ci.yml`
-- **Follow-up:** SBX-099
 
 - [x] SBX-026: Continuous integration workflow
 
@@ -911,7 +910,7 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 
 These tasks are tracked but deliberately out of scope for v0.1.0. See [docs/roadmap.md](roadmap.md) for the phased plan.
 
-- [ ] SBX-099: Verify the CI workflow on a real GitHub remote. In progress. The first run **found two real defects** that no local check could surface; see SBX-0991 below for detail. Awaiting a green run after the fixes.
+- [x] SBX-099: Verify the CI workflow on a real GitHub remote. Green on all three matrix legs. The first run found two real defects; see SBX-0991.
 - [x] SBX-0991: Fix the two defects found by the first CI run.
 - [ ] SBX-100: Revisit TypeScript 7. **Blocked upstream** on [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). Attempted on 2026-07-24 and rejected with evidence: `typescript-eslint` throws `typescript-eslint does not support TS 7.0` at module load, so `pnpm lint` fails outright rather than degrading. See [ADR-0007](architecture/decisions/ADR-0007-typescript-version-pin.md).
 - [ ] SBX-101: Reconsider a caching build orchestrator if build times grow. See [ADR-0006](architecture/decisions/ADR-0006-build-orchestration.md).
