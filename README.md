@@ -1,19 +1,20 @@
 <div align="center">
 
+<img src="assets/banner.png" alt="Skillbox - skills, loop prompts, and agent modes for coding agents" width="880">
+
 # 🧰 Skillbox
 
 **A curated box of skills, loop prompts, and agent modes for coding agents.**
 
-[![Awesome](https://img.shields.io/badge/Awesome-catalogue-fc60a8?logo=awesomelists&logoColor=white)](https://github.com/sindresorhus/awesome)
 [![Skills](https://img.shields.io/badge/skills-2-1f8ceb)](#-skills)
 [![Loop prompts](https://img.shields.io/badge/loop%20prompts-3-7c4dff)](#-loop-prompts)
 [![Agent modes](https://img.shields.io/badge/agent%20modes-2-ff7043)](#-agent-modes)
 [![License](https://img.shields.io/badge/license-MIT-3da639)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
 
-[![GitHub Copilot](https://img.shields.io/badge/GitHub%20Copilot-all%20three%20types-24292f?logo=githubcopilot&logoColor=white)](docs/compatibility.md)
-[![Cursor](https://img.shields.io/badge/Cursor-all%20three%20types-0f0f0f?logo=cursor&logoColor=white)](docs/compatibility.md)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-skills-d97757?logo=anthropic&logoColor=white)](docs/compatibility.md)
+[![GitHub Copilot](https://img.shields.io/badge/GitHub%20Copilot-Available-24292f?logo=githubcopilot&logoColor=white)](docs/compatibility.md)
+[![Cursor](https://img.shields.io/badge/Cursor-Available-0f0f0f?logo=cursor&logoColor=white)](docs/compatibility.md)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Available-d97757?logo=anthropic&logoColor=white)](docs/compatibility.md)
 
 <!-- Swap these in once the repository is public. shields.io cannot query a
      private repo, so they would render as error badges today:
