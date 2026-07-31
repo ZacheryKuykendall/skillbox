@@ -1,0 +1,6 @@
+# Every change is reviewed by the repository owner.
+#
+# Note: "Require review from Code Owners" is intentionally left disabled in
+# branch protection. On a solo repository it would block the owner's own pull
+# requests, since GitHub does not count a review from the author.
+* @ZacheryKuykendall

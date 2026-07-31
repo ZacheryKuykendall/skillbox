@@ -1,0 +1,7 @@
+# OS and editor cruft. This repository contains no build output, no
+# dependencies, and no generated files, so there is nothing else to ignore.
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~

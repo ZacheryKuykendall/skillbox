@@ -1,0 +1,67 @@
+name: Report a broken or incorrect asset
+description: An asset does not load, does not work, or gives wrong instructions
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If an asset looks **unsafe** — instructions that could exfiltrate data, destroy work, or do something other than what its description claims — please say so directly. That is the main risk this repository carries and it will be treated as urgent.
+
+  - type: input
+    id: asset
+    attributes:
+      label: Which asset?
+      placeholder: skills/commit-message
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool?
+      options:
+        - GitHub Copilot / VS Code
+        - Cursor
+        - Claude Code
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of problem?
+      options:
+        - It does not appear under / at all
+        - It appears but behaves wrongly
+        - It references a flag, path, or API that does not exist
+        - A command in it fails
+        - A link is broken
+        - It looks unsafe
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect, and what happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Exact error or output
+      description: Verbatim, please. A paraphrase usually drops the detail that identifies the cause.
+      render: shell
+
+  - type: markdown
+    attributes:
+      value: |
+        **If it did not appear under `/`**, these are worth ruling out first, in order:
+
+        1. For a skill, `name` in frontmatter must exactly match the folder name. This fails silently.
+        2. The editor needs reloading after a new location is added.
+        3. On Windows, backslashes in settings JSON must be escaped as `\\`.
+        4. Prompts must end `.prompt.md` and agents `.agent.md`.

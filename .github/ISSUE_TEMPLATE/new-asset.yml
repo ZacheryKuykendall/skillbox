@@ -1,0 +1,61 @@
+name: Suggest a new asset
+description: Propose a skill, loop prompt, or agent mode that does not exist yet
+labels: ['new asset']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Suggestions are welcome, and so are pull requests — see [CONTRIBUTING.md](https://github.com/ZacheryKuykendall/skillbox/blob/main/CONTRIBUTING.md) if you would rather write it yourself.
+
+  - type: input
+    id: name
+    attributes:
+      label: Proposed name
+      description: Lowercase letters, numbers, and hyphens.
+      placeholder: terraform-plan-review
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Asset type
+      description: If two of these fit, pick skill — it is the only type that works in every tool.
+      options:
+        - Skill (reusable knowledge the agent reaches for on its own)
+        - Loop prompt (repeats a check until a condition is met)
+        - Agent mode (a persona you stay in for a conversation)
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does it solve?
+      description: Describe a situation where you actually needed this, rather than a category it would fill.
+    validations:
+      required: true
+
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: What should it do?
+      description: The steps, rules, or guardrails you would expect. A rough sketch is fine.
+    validations:
+      required: true
+
+  - type: input
+    id: loop-bound
+    attributes:
+      label: For a loop prompt — when should it give up?
+      description: Every loop prompt needs a bound. A pass count, a time limit, or a no-new-information condition.
+      placeholder: After 5 passes, or 2 passes with no change in failure count
+
+  - type: checkboxes
+    id: checked
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked the catalogue and no existing asset covers this
+          required: true

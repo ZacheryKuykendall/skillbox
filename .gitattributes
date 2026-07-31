@@ -1,0 +1,22 @@
+# Normalize line endings to LF in the working tree on every platform.
+#
+# This file travels with the repository, so it applies to every clone regardless
+# of a contributor's global git configuration. Without it, a clone made with the
+# common Windows default of `core.autocrlf=true` commits CRLF back, producing
+# whole-file diffs that hide the actual change.
+* text=auto eol=lf
+
+*.md      text eol=lf
+*.mdc     text eol=lf
+*.json    text eol=lf
+*.yaml    text eol=lf
+*.yml     text eol=lf
+
+# Binary content: never touched, never diffed as text.
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.webp    binary
+*.ico     binary
+*.pdf     binary

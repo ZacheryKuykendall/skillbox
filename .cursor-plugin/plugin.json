@@ -1,0 +1,11 @@
+{
+  "name": "skillbox",
+  "description": "Curated agent skills, loop prompts, and agent modes for coding agents.",
+  "version": "0.2.0",
+  "license": "MIT",
+  "repository": "https://github.com/ZacheryKuykendall/skillbox",
+  "keywords": ["agent-skills", "prompts", "agents", "copilot", "cursor"],
+  "skills": "skills",
+  "agents": "agents",
+  "commands": "prompts"
+}

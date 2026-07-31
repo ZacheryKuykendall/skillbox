@@ -1,0 +1,58 @@
+name: Compatibility finding
+description: Confirm or correct something in the compatibility matrix
+labels: ['compatibility']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most useful issue you can open.
+
+        [docs/compatibility.md](https://github.com/ZacheryKuykendall/skillbox/blob/main/docs/compatibility.md#not-verified) lists claims this repository has **not** verified — undocumented paths, contradictions between vendor pages, and behaviour nobody has tested. Confirming or correcting one is worth more than a new asset, because everything else depends on that table being honest.
+
+  - type: dropdown
+    id: item
+    attributes:
+      label: Which claim?
+      options:
+        - One .agent.md file loading in both Copilot and Cursor
+        - Windows path for user-level Cursor skills
+        - Cursor Remote Rule (GitHub) import behaviour with SKILL.md files
+        - A Cursor setting gating third-party skills from the / menu
+        - ~/.cursor/commands/ for user-level commands
+        - Claude Code .claude/skills/ path
+        - Something not in that table
+    validations:
+      required: true
+
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: What did you find?
+      options:
+        - Confirmed — it works as described
+        - Contradicted — it does not work as described
+        - Partially — works with a caveat
+    validations:
+      required: true
+
+  - type: textarea
+    id: how
+    attributes:
+      label: How did you test it?
+      description: Enough detail that someone else could repeat it. Tool version, OS, exact paths used.
+    validations:
+      required: true
+
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened?
+      description: Observed behaviour, and any error output verbatim.
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Documentation link, if you found one
+      description: A vendor page that settles it turns this from a finding into a citable fact.
