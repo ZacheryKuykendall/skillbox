@@ -55,7 +55,9 @@ Skills need a copy rather than a setting, since discovery is directory-based —
 
 ## Install as a local Cursor plugin
 
-The one-step route for Cursor. [.cursor-plugin/plugin.json](../.cursor-plugin/plugin.json) tells Cursor where the skills, agents, and prompts live, so a single install delivers all three.
+The one-step route for Cursor. [.cursor-plugin/plugin.json](../.cursor-plugin/plugin.json) makes the repository a plugin, so a single install delivers the whole catalogue.
+
+Cursor discovers `skills/` and `agents/` automatically. The manifest additionally maps `prompts/` onto Cursor's commands — that mapping is documented but not yet confirmed by testing, so if prompts do not appear after installing, copy them to `.cursor/commands/` by hand and please report it against [open question 2](compatibility.md#open-questions).
 
 Clone the repository, then place it in Cursor's local plugin directory:
 

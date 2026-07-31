@@ -31,7 +31,27 @@ A skill is a folder containing a file named exactly `SKILL.md`.
 
 Cursor walks the skills root recursively, so grouping skills into subfolders is safe. Identity comes from the folder directly containing `SKILL.md`, not from the path above it.
 
-**Frontmatter.** `name` and `description` are required. Cursor requires `name` to exactly match the containing folder name, using lowercase letters, numbers, and hyphens only — a mismatch breaks discovery silently, which is the single most common way a hand-authored skill fails to appear. Optional fields: `paths` to scope a skill to matching files (Cursor; the older `globs` is still accepted but deprecated), and `disable-model-invocation: true` to make a skill explicit-invoke-only.
+**Claude Code** loads skills from four scopes:
+
+| Path                        | Scope                        |
+| --------------------------- | ---------------------------- |
+| `.claude/skills/`           | Project, shared via git      |
+| `~/.claude/skills/`         | Personal, all projects       |
+| `<plugin>/skills/`          | Wherever the plugin is on    |
+| Managed settings            | Enterprise-wide              |
+
+Claude Code also reads nested `.claude/skills/` directories below the working directory, and project skills load from every parent directory up to the repository root.
+
+**Frontmatter.** `name` and `description` are required.
+
+**The folder name must match `name`.** This is not a Cursor quirk — Cursor and Anthropic both document it independently, so treat it as a universal rule. Use lowercase letters, numbers, and hyphens. A mismatch breaks discovery *silently*, which is the single most common reason a hand-authored skill never appears.
+
+Optional fields worth knowing:
+
+- `disable-model-invocation: true` makes a skill explicit-invoke-only, so it runs when a user types `/name` and never on the agent's own judgement. Cursor and Anthropic document this identically.
+- `paths` scopes a skill to files matching a glob (Cursor; the older `globs` still works but is deprecated).
+
+One field to avoid: the flag for hiding a skill from the `/` menu is spelled `user-invocable` in Anthropic's documentation and `user-invokable` in VS Code's. No asset here uses it, and until that resolves it is not worth depending on.
 
 ## Loop prompts
 
@@ -74,20 +94,33 @@ Omitting it degrades correctly: Copilot falls back to whatever is selected in th
 
 For the same reason, every agent file sets `name` explicitly. Cursor derives the name from the filename when frontmatter omits it, which would produce `debugger.agent` from `debugger.agent.md`.
 
-## Not verified
+## Open questions
 
-Everything above is drawn from vendor documentation. The following is not, and is recorded here rather than stated as fact anywhere else in this repository.
+Everything above is drawn from vendor documentation or direct observation. These three are not settled, and are listed here rather than stated as fact anywhere else in this repository.
 
-| Item | Status |
-| --- | --- |
-| Whether one `.agent.md` loads cleanly as both a Copilot custom agent and a Cursor subagent | Untested. The shared keys are `name` and `description`; each host sees the other's extras. Expected to be ignored, not documented as such. |
-| Windows path for user-level Cursor skills | Only the `~/` form is documented. `%USERPROFILE%\.cursor\skills\` is inferred from Cursor's CLI configuration table, which documents `$env:USERPROFILE\.cursor\` for a different file. |
-| Cursor's Customize to Rules to Remote Rule (GitHub) import | Cursor's own pages disagree: one describes it as scanning for `.mdc` files, another as installing skills. Behaviour for a skills-only repository is unknown, which is why this repository does not document that install route. |
-| Whether a Cursor setting must be enabled for third-party skills to appear in the `/` menu | Reported by users; not present in documentation. If it exists and defaults to off, install instructions everywhere are incomplete. |
-| `~/.cursor/commands/` for user-level commands | Stated by Cursor staff on the community forum; not in documentation. |
-| Claude Code's `.claude/skills/` path | Confirmed indirectly — both VS Code and Cursor document reading it for cross-tool compatibility. Not verified against Anthropic's own documentation in this pass. |
+They are deliberately few. A long list of hedges reads as an excuse; a short list of specific, testable questions is a to-do list. Anything that turned out not to affect how this repository is used was resolved or dropped rather than left hanging.
 
-If you test one of these, a pull request correcting this table is the single most useful contribution you can make.
+| # | Question | Why it matters | How to settle it |
+| --- | --- | --- | --- |
+| 1 | Does one `.agent.md` load cleanly as **both** a Copilot custom agent and a Cursor subagent? | Design-critical. If not, every agent needs two files and the flat layout stops working. | Copy `agents/debugger.agent.md` into `.cursor/agents/`, reload, and type `/debugger`. Then do the same into `.github/agents/` in a Copilot workspace. |
+| 2 | Does the `"commands": "prompts"` path override in the plugin manifest actually work? | If not, a Cursor plugin install silently delivers skills and agents but no prompts. | Install as a local plugin, reload, and check whether `/fix-until-green` appears. |
+| 3 | Must a Cursor setting be enabled before third-party skills appear in the `/` menu? | Reported by users, absent from documentation. If real and defaulting to off, every install instruction here is incomplete. | Install on a profile that has never had third-party skills and see whether they appear without touching settings. |
+
+All three are answered by one local plugin install and a window reload. If you run it, a pull request correcting this table is the single most useful contribution you can make.
+
+### Resolved
+
+Kept briefly so the same questions are not reopened.
+
+- **Windows path for user-level Cursor paths.** Confirmed by observation: `%USERPROFILE%\.cursor\agents\` and `%USERPROFILE%\.cursor\plugins\local\` both exist on a real Windows install, so `~/.cursor/` expands as expected.
+- **Claude Code's `.claude/skills/` path.** Confirmed in Anthropic's own documentation, along with the personal, plugin, and enterprise scopes above.
+- **Whether the folder name must match `name`.** Confirmed independently by both Cursor and Anthropic. It is a universal rule, not a Cursor quirk.
+- **Plugin manifest schema.** Validated against two working plugins installed locally. Both rely on auto-discovery of `skills/` rather than declaring paths, which is what makes question 2 worth asking.
+
+### Dropped
+
+- **Cursor's Remote Rule (GitHub) import.** Cursor's pages disagree on whether it handles `SKILL.md`, but this repository does not document that install route and has no plans to, so the ambiguity costs nothing.
+- **`~/.cursor/commands/` for user-level commands.** Forum-sourced only, and not an install route documented here. The plugin install covers the same need.
 
 ## Sources
 

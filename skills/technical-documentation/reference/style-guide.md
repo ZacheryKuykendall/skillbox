@@ -102,13 +102,7 @@ Good:
 
 Never include a real credential, token, key, connection string, or internal hostname — not even an expired one, and not even one that looks fake. Someone will copy it.
 
-Mark placeholders so they cannot be mistaken for values:
-
-```bash
-export SERVICE_API_TOKEN="<your-token>"
-```
-
-Reference environment variables by name and let the reader supply the value.
+Reference an environment variable by name and let the reader supply the value. Where a placeholder is unavoidable, write it in angle brackets so it cannot be mistaken for a value, as in `<your-token>`, and never in a form a reader could paste and accidentally run.
 
 ## Accuracy
 
