@@ -6,7 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-Nothing yet.
+### Added
+
+- Branch naming conventions in [CONTRIBUTING.md](CONTRIBUTING.md), using the same types as the commit convention.
+- [Using Skillbox in another project](docs/guides/using-skillbox-elsewhere.md) — how to install resources into a project outside this repository, and how each resource kind is used once installed. Every command in it was executed before publication.
+
+### Known limitations
+
+- `@skillbox/cli` cannot be installed as a dependency of another project. It declares its siblings as `workspace:*`, which only resolves inside this monorepo, so the CLI must be run from a clone. Tracked as SBX-0993.
 
 ## [0.1.0] - 2026-07-24
 

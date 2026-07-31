@@ -137,6 +137,34 @@ feat(schema): add compatibility constraints to the shared spec
 Implements SBX-032.
 ```
 
+## Branch names
+
+Work happens on a branch and lands on `main` through a pull request. `main` is the default branch and should always be green.
+
+Name branches `<type>/<short-description>`, using the same types as the commit convention so a branch and its commits agree:
+
+| Prefix      | For                                                               |
+| ----------- | ----------------------------------------------------------------- |
+| `feature/`  | New capability a user can observe                                 |
+| `fix/`      | A bug fix                                                         |
+| `chore/`    | Tooling, dependencies, CI, release housekeeping                   |
+| `docs/`     | Documentation only                                                |
+| `test/`     | Tests or fixtures only                                            |
+| `refactor/` | Restructuring with no behavior change                             |
+| `resource/` | A new or updated catalog resource, named `resource/<kind>-<name>` |
+
+Use lowercase and hyphens. Describe the outcome, not the mechanism:
+
+```text
+feature/remote-registry-client
+fix/lockfile-crlf-on-windows
+chore/upgrade-actions-off-node-20
+docs/clarify-permission-enforcement
+resource/prompt-release-notes
+```
+
+Prefer `chore/` over `feature/` for anything a user would never notice: dependency bumps, CI changes, tagging a release, repository configuration. Reserve `feature/` for work that changes what Skillbox can do.
+
 ## Pull requests
 
 Fill in [the template](.github/PULL_REQUEST_TEMPLATE.md). A PR is ready for review when:

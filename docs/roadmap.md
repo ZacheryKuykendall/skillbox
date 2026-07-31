@@ -26,6 +26,8 @@ The central limitation of v0.1.0 is that resources cannot leave this repository.
 
 **SBX-110 — Publishing CLI.** `skillbox publish`. Requires SBX-104.
 
+**SBX-0993 — Make the CLI installable outside the monorepo.** `@skillbox/cli` declares its siblings as `workspace:*`, so it cannot be added as a dependency of another project and must be run from a clone. A prerequisite for SBX-110, and worth doing sooner because it is what stands between Skillbox and being a normal `pnpm add -D` away. See [using Skillbox elsewhere](guides/using-skillbox-elsewhere.md).
+
 **SBX-105 — Private enterprise registries.** Self-hosted or scoped registries with access control.
 
 A git-based registry — resolving from arbitrary git URLs — is worth considering as a cheaper stepping stone. It was rejected for v0.1.0 as scope creep ([ADR-0003](architecture/decisions/ADR-0003-local-registry-first.md)) but needs no server.
