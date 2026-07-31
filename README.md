@@ -9,18 +9,13 @@
 [![Skills](https://img.shields.io/badge/skills-2-1f8ceb)](#-skills)
 [![Loop prompts](https://img.shields.io/badge/loop%20prompts-3-7c4dff)](#-loop-prompts)
 [![Agent modes](https://img.shields.io/badge/agent%20modes-2-ff7043)](#-agent-modes)
+[![Last update](https://img.shields.io/github/last-commit/ZacheryKuykendall/skillbox?label=last%20update&color=1f8ceb)](https://github.com/ZacheryKuykendall/skillbox/commits/main)
 [![License](https://img.shields.io/badge/license-MIT-3da639)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
 
 [![GitHub Copilot](https://img.shields.io/badge/GitHub%20Copilot-Available-24292f?logo=githubcopilot&logoColor=white)](docs/compatibility.md)
 [![Cursor](https://img.shields.io/badge/Cursor-Available-0f0f0f?logo=cursor&logoColor=white)](docs/compatibility.md)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Available-d97757?logo=anthropic&logoColor=white)](docs/compatibility.md)
-
-<!-- Swap these in once the repository is public. shields.io cannot query a
-     private repo, so they would render as error badges today:
-     ![Last commit](https://img.shields.io/github/last-commit/ZacheryKuykendall/skillbox)
-     ![Stars](https://img.shields.io/github/stars/ZacheryKuykendall/skillbox)
--->
 
 </div>
 

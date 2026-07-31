@@ -106,7 +106,28 @@ They are deliberately few. A long list of hedges reads as an excuse; a short lis
 | 2 | Does the `"commands": "prompts"` path override in the plugin manifest actually work? | If not, a Cursor plugin install silently delivers skills and agents but no prompts. | Install as a local plugin, reload, and check whether `/fix-until-green` appears. |
 | 3 | Must a Cursor setting be enabled before third-party skills appear in the `/` menu? | Reported by users, absent from documentation. If real and defaulting to off, every install instruction here is incomplete. | Install on a profile that has never had third-party skills and see whether they appear without touching settings. |
 
-All three are answered by one local plugin install and a window reload. If you run it, a pull request correcting this table is the single most useful contribution you can make.
+One local plugin install and a window reload settles questions 2 and 3 outright, plus the Cursor half of question 1. The Copilot half needs `agents/debugger.agent.md` dropped into `.github/agents/` in any VS Code workspace, which is a separate half-minute.
+
+Install Skillbox into Cursor as a local plugin — the repository is already a valid plugin, so this is just placing it where Cursor looks:
+
+```powershell
+Copy-Item -Recurse <path-to-clone> "$HOME\.cursor\plugins\local\skillbox"
+```
+
+```bash
+ln -s <path-to-clone> ~/.cursor/plugins/local/skillbox
+```
+
+Reload the window, type `/`, and read the result:
+
+| You see | It tells you |
+| --- | --- |
+| `/commit-message`, `/technical-documentation` | Skills load with no settings change — question 3 answered no |
+| `/fix-until-green`, `/code-review`, `/plan-implement-review` | The `commands` path override works — question 2 answered yes |
+| `/debugger`, `/implementation-planner` | A Copilot `.agent.md` is readable as a Cursor subagent — the Cursor half of question 1 |
+| Nothing at all | Either the plugin was not picked up, or question 3 is answered yes and a setting gates it |
+
+If you run this, a pull request correcting this table is the single most useful contribution you can make.
 
 ### Resolved
 
