@@ -904,6 +904,22 @@ Any `TODO` in the codebase must cite a task ID from this file, for example `// T
 
 - [x] SBX-0991: Fix the defects found by the first CI run
 
+### SBX-0992: Document branch naming and cross-project consumption
+
+- **Phase:** Post-v0.1.0
+- **Dependencies:** SBX-099
+- **Description:** Document the branch naming convention, which existed only as an unwritten habit, and write a guide for installing resources into a project that is not this repository.
+- **Acceptance criteria:** `CONTRIBUTING.md` states the branch prefixes; a guide covers getting a `skillbox` command, what lands in a consuming project, and how each resource kind is actually used. Every command in the guide is executed before being published.
+- **Status:** Complete
+- **Completion evidence:**
+  - `CONTRIBUTING.md` gains a Branch names section using the same types as the commit convention, so a branch and its commits agree. Guidance is explicit that `chore/` beats `feature/` for anything a user would never observe.
+  - `docs/guides/using-skillbox-elsewhere.md` leads by correcting the most common wrong assumption, that the repository gets copied into the consuming project. It does not: Skillbox is run from its clone and writes into the target.
+  - Every instruction was verified by running it. A scratch project outside the repository was taken through `init`, `add`, `list`, and `doctor`, confirming the CLI auto-discovers its bundled registry with no environment variable set, and that only `.skillbox/` is created.
+  - **Found a real limitation while verifying, rather than documenting an assumption:** `pnpm add -D file:packages/cli` fails outright. Recorded as SBX-0993 and documented in the guide as a "what will not work" section, since a reader will otherwise try it first.
+- **Related files:** `CONTRIBUTING.md`, `docs/guides/using-skillbox-elsewhere.md`, `docs/README.md`, `README.md`
+
+- [x] SBX-0992: Document branch naming and cross-project consumption
+
 ---
 
 ## Backlog and follow-up work
@@ -912,6 +928,8 @@ These tasks are tracked but deliberately out of scope for v0.1.0. See [docs/road
 
 - [x] SBX-099: Verify the CI workflow on a real GitHub remote. Green on all three matrix legs. The first run found two real defects; see SBX-0991.
 - [x] SBX-0991: Fix the two defects found by the first CI run.
+- [x] SBX-0992: Document branch naming conventions and how to consume Skillbox from another project.
+- [ ] SBX-0993: Make `@skillbox/cli` installable outside the monorepo. It declares its siblings as `workspace:*`, so `pnpm add -D file:packages/cli` fails with `ERR_PNPM_WORKSPACE_PKG_NOT_FOUND` and the CLI can only be run from a clone. Blocks treating Skillbox as a normal dependency, and is a prerequisite for SBX-110 (publishing CLI). Found while verifying the consumption guide.
 - [ ] SBX-100: Revisit TypeScript 7. **Blocked upstream** on [typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940). Attempted on 2026-07-24 and rejected with evidence: `typescript-eslint` throws `typescript-eslint does not support TS 7.0` at module load, so `pnpm lint` fails outright rather than degrading. See [ADR-0007](architecture/decisions/ADR-0007-typescript-version-pin.md).
 - [ ] SBX-101: Reconsider a caching build orchestrator if build times grow. See [ADR-0006](architecture/decisions/ADR-0006-build-orchestration.md).
 - [ ] SBX-102: Remote registry service and client transport abstraction.

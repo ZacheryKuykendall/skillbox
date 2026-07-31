@@ -135,6 +135,7 @@ Coverage is gated at 90% for lines, statements, functions, and branches. Run `pn
 
 - [Documentation index](docs/README.md)
 - [Getting started](docs/guides/getting-started.md)
+- [Using Skillbox in another project](docs/guides/using-skillbox-elsewhere.md)
 - [Creating a resource](docs/guides/creating-a-resource.md)
 - [Contributing a resource](docs/guides/contributing-a-resource.md)
 - [Architecture overview](docs/architecture/overview.md)
