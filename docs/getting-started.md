@@ -87,37 +87,74 @@ Note that Cursor has no mode picker entry for file-based agents — see [compati
 
 The right route when you want an asset committed alongside the code it serves, so everyone on the project gets it.
 
-**A skill** is a folder. Copy the whole thing, keeping the folder name — the `name` in its frontmatter must match the folder, or discovery fails silently.
+> ⚠️ **Copying overwrites.** These directories are shared. If you already have `.github/skills/commit-message/` or a prompt of the same name, a plain copy destroys it without asking. Check before you copy — the commands below do.
+>
+> This is the only route with that risk. Pointing your settings at a clone, or installing as a Cursor plugin, never writes into your project at all.
+
+### See what would be overwritten
+
+Run this first. It lists any Skillbox asset whose name already exists in the target directory:
 
 ```powershell
-Copy-Item -Recurse .\skills\commit-message .\.github\skills\commit-message
+$target = '.github'
+Get-ChildItem skills -Directory | Where-Object { Test-Path "$target\skills\$($_.Name)" } | ForEach-Object { "conflict: $target\skills\$($_.Name)" }
+Get-ChildItem prompts, agents -File | Where-Object { Test-Path "$target\$($_.Directory.Name)\$($_.Name)" } | ForEach-Object { "conflict: $target\$($_.Directory.Name)\$($_.Name)" }
 ```
 
 ```bash
-cp -r skills/commit-message .github/skills/commit-message
+target=.github
+for d in skills/*/; do [ -e "$target/skills/$(basename "$d")" ] && echo "conflict: $target/skills/$(basename "$d")"; done
+for f in prompts/* agents/*; do [ -e "$target/$f" ] && echo "conflict: $target/$f"; done
+true
 ```
+
+No output means nothing collides and you can copy freely.
+
+### Copy without overwriting
+
+**A skill** is a folder. Copy the whole thing, keeping the folder name — the `name` in its frontmatter must match the folder, or discovery fails silently.
+
+Guard the whole folder, so an existing skill of the same name is left completely alone:
+
+```powershell
+$dest = '.github\skills\commit-message'
+if (Test-Path $dest) { "skipped, already exists: $dest" } else { Copy-Item -Recurse .\skills\commit-message $dest }
+```
+
+```bash
+dest=.github/skills/commit-message
+if [ -e "$dest" ]; then echo "skipped, already exists: $dest"; else cp -r skills/commit-message "$dest"; fi
+```
+
+> **Why not just `cp -rn`?** Because for a folder it merges rather than skips. Your own `SKILL.md` would survive, but any file Skillbox has that you do not — a `reference/` directory, say — gets added into your folder, leaving a skill assembled from two different authors. Nothing is destroyed, but the result is a skill neither of you wrote. The guard above is all-or-nothing, which is what you want for a folder.
 
 Use `.github/skills/` for Copilot, `.cursor/skills/` for Cursor, or `.claude/skills/` for Claude Code. Cursor reads all three, so `.claude/skills/` is the most economical choice for a mixed-tool team.
 
 **A loop prompt** is one file:
 
 ```powershell
-Copy-Item .\prompts\fix-until-green.prompt.md .\.github\prompts\
+Copy-Item .\prompts\fix-until-green.prompt.md .\.github\prompts\ -Confirm
 ```
 
 ```bash
-cp prompts/fix-until-green.prompt.md .github/prompts/
+cp -n prompts/fix-until-green.prompt.md .github/prompts/
 ```
 
 **An agent mode** is one file, into `.github/agents/` for Copilot or `.cursor/agents/` for Cursor:
 
 ```powershell
-Copy-Item .\agents\debugger.agent.md .\.github\agents\
+Copy-Item .\agents\debugger.agent.md .\.github\agents\ -Confirm
 ```
 
 ```bash
-cp agents/debugger.agent.md .github/agents/
+cp -n agents/debugger.agent.md .github/agents/
 ```
+
+`-Confirm` prompts before each write; add `-WhatIf` instead to preview without writing anything. If you have already checked for conflicts and want it silent, drop the flag.
+
+### If a name does collide
+
+Renaming a Skillbox asset to avoid a clash is fine, but **rename the folder and the `name` in its frontmatter together**. They must match or the skill will not load, and nothing will tell you why.
 
 ## Download a single file
 

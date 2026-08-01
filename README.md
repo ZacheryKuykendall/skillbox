@@ -43,15 +43,17 @@ Grab one asset. A skill is a folder, so copy the whole thing and keep its name:
 
 ```powershell
 git clone https://github.com/ZacheryKuykendall/skillbox.git
-Copy-Item -Recurse .\skillbox\skills\commit-message .\.github\skills\commit-message
+Copy-Item -Recurse .\skillbox\skills\commit-message .\.github\skills\ -Confirm
 ```
 
 ```bash
 git clone https://github.com/ZacheryKuykendall/skillbox.git
-cp -r skillbox/skills/commit-message .github/skills/commit-message
+[ -e .github/skills/commit-message ] || cp -r skillbox/skills/commit-message .github/skills/
 ```
 
 Reload your editor, type `/commit-message` in chat, and it is available.
+
+> ⚠️ `.github/skills/` is shared, so copying into it can overwrite something you already have. `-Confirm` and `-rn` above stop that silently happening. [docs/getting-started.md](docs/getting-started.md#copy-into-your-project) has a one-liner that lists conflicts before you copy anything.
 
 > 💡 Prefer to install everything at once and keep it current with `git pull`? [docs/getting-started.md](docs/getting-started.md) covers pointing Copilot's settings at a clone and installing as a local Cursor plugin.
 
