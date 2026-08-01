@@ -6,7 +6,7 @@
 
 **A curated box of skills, loop prompts, and agent modes for coding agents.**
 
-[![Skills](https://img.shields.io/badge/skills-2-1f8ceb)](#-browse-the-catalogue)
+[![Skills](https://img.shields.io/badge/skills-3-1f8ceb)](#-browse-the-catalogue)
 [![Loop prompts](https://img.shields.io/badge/loop%20prompts-3-7c4dff)](#-browse-the-catalogue)
 [![Agent modes](https://img.shields.io/badge/agent%20modes-2-ff7043)](#-browse-the-catalogue)
 [![Last update](https://img.shields.io/github/last-commit/ZacheryKuykendall/skillbox?label=last%20update&color=1f8ceb)](https://github.com/ZacheryKuykendall/skillbox/commits/main)
@@ -26,6 +26,7 @@ Clone it, copy what you want, close the tab. Every asset here is a Markdown file
 - [🚀 Quick start](#-quick-start)
 - [📦 What is in the box](#-what-is-in-the-box)
 - [📂 Browse the catalogue](#-browse-the-catalogue)
+  - [🚦 Getting Started](#-getting-started)
   - [📐 Planning](#-planning)
   - [🔍 Code Review and Quality](#-code-review-and-quality)
   - [🧪 Testing and Debugging](#-testing-and-debugging)
@@ -39,7 +40,16 @@ Clone it, copy what you want, close the tab. Every asset here is a Markdown file
 
 ## 🚀 Quick start
 
-Grab one asset. A skill is a folder, so copy the whole thing and keep its name:
+**Let your agent set it up.** Paste this into Cursor, Copilot, or Claude Code:
+
+> Read https://github.com/ZacheryKuykendall/skillbox/blob/main/skills/skillbox-setup/SKILL.md and set Skillbox up in my project.
+
+It explains how Skillbox works, detects which editor you use, shows you the catalogue, asks which assets you actually want, checks for anything it would overwrite, and puts the files where your editor looks. No clone and no scripts — the setup is itself a skill.
+
+<details>
+<summary><strong>Or do it by hand</strong></summary>
+
+A skill is a folder, so copy the whole thing and keep its name:
 
 ```powershell
 git clone https://github.com/ZacheryKuykendall/skillbox.git
@@ -53,9 +63,11 @@ git clone https://github.com/ZacheryKuykendall/skillbox.git
 
 Reload your editor, type `/commit-message` in chat, and it is available.
 
-> ⚠️ `.github/skills/` is shared, so copying into it can overwrite something you already have. `-Confirm` and `-rn` above stop that silently happening. [docs/getting-started.md](docs/getting-started.md#copy-into-your-project) has a one-liner that lists conflicts before you copy anything.
+⚠️ `.github/skills/` is shared, so copying into it can overwrite work you already have. The guards above prevent that. [docs/getting-started.md](docs/getting-started.md#copy-into-your-project) has a one-liner that lists conflicts before you copy anything.
 
-> 💡 Prefer to install everything at once and keep it current with `git pull`? [docs/getting-started.md](docs/getting-started.md) covers pointing Copilot's settings at a clone and installing as a local Cursor plugin.
+</details>
+
+> 💡 Want the whole catalogue, kept current with `git pull`? [docs/getting-started.md](docs/getting-started.md) covers pointing Copilot's settings at a clone and installing as a local Cursor plugin. Neither writes into your project at all.
 
 ## 📦 What is in the box
 
@@ -73,6 +85,12 @@ Skills are the portable ones — the same folder works in every supported tool. 
 
 Grouped by what you are trying to do. The icon on each entry is its type:
 🧩 skill &nbsp;·&nbsp; 🔁 loop prompt &nbsp;·&nbsp; 🎭 agent mode
+
+### 🚦 Getting Started
+
+_Run this one from where it lives rather than installing it._
+
+- 🧩 **[skillbox-setup](skills/skillbox-setup/)** — Explains Skillbox, detects your editor, asks which assets you want, and installs them without overwriting anything you already have.
 
 ### 📐 Planning
 

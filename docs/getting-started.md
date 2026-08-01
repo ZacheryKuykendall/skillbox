@@ -6,12 +6,25 @@ Pick a route by how much you want:
 
 | You want | Use |
 | --- | --- |
+| To be walked through it and told what to pick | [Let your agent set it up](#let-your-agent-set-it-up) |
 | Everything, kept up to date with `git pull` | [Clone once and point your editor at it](#clone-once-and-point-your-editor-at-it) |
 | Everything in Cursor, in one step | [Install as a local Cursor plugin](#install-as-a-local-cursor-plugin) |
 | One or two assets, committed to a project | [Copy into your project](#copy-into-your-project) |
 | Exactly one file, right now | [Download a single file](#download-a-single-file) |
 
 If you are unsure which asset type you need, [compatibility.md](compatibility.md) says what works where. The short version: skills work everywhere, loop prompts and agent modes are host-specific.
+
+## Let your agent set it up
+
+The least work, and the right choice if you are not sure which assets you need. Paste this into Cursor, Copilot, or Claude Code:
+
+> Read https://github.com/ZacheryKuykendall/skillbox/blob/main/skills/skillbox-setup/SKILL.md and set Skillbox up in my project.
+
+The agent reads [skills/skillbox-setup/SKILL.md](../skills/skillbox-setup/SKILL.md) and works through it: what Skillbox is, which editor you use, what is in the catalogue, which assets suit what you are working on, and whether installing any of them would overwrite something you already have. It asks before writing and skips by default on any conflict.
+
+Nothing is cloned and no script runs. The setup is itself a skill, which is also the clearest demonstration of what the rest of the catalogue does.
+
+If you already know what you want, the manual routes below are faster.
 
 ## Clone once and point your editor at it
 
