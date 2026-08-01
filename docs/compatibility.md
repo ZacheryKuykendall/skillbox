@@ -100,6 +100,8 @@ Everything above is drawn from vendor documentation or direct observation. These
 
 They are deliberately few. A long list of hedges reads as an excuse; a short list of specific, testable questions is a to-do list. Anything that turned out not to affect how this repository is used was resolved or dropped rather than left hanging.
 
+They are tracked as issues, so results land in one place: [#2 covers the Cursor side](https://github.com/ZacheryKuykendall/skillbox/issues/2) and [#3 the Copilot side](https://github.com/ZacheryKuykendall/skillbox/issues/3).
+
 | # | Question | Why it matters | How to settle it |
 | --- | --- | --- | --- |
 | 1 | Does one `.agent.md` load cleanly as **both** a Copilot custom agent and a Cursor subagent? | Design-critical. If not, every agent needs two files and the flat layout stops working. | Copy `agents/debugger.agent.md` into `.cursor/agents/`, reload, and type `/debugger`. Then do the same into `.github/agents/` in a Copilot workspace. |
