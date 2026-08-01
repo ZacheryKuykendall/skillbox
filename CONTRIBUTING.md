@@ -6,7 +6,7 @@ Thanks for considering it. This repository holds no code, so contributing means 
 
 In rough order of value:
 
-1. **Testing an existing asset in a tool it has not been tried in**, and reporting what happened. Per-host coverage is what this catalogue most lacks, and [docs/compatibility.md](docs/compatibility.md#not-verified) lists specific unverified claims. Confirming or correcting one of those is worth more than a new asset.
+1. **Testing an existing asset in a tool it has not been tried in**, and reporting what happened. Per-host coverage is what this catalogue most lacks, and [docs/compatibility.md](docs/compatibility.md#open-questions) lists the specific claims still unsettled. Confirming or correcting one of those is worth more than a new asset.
 2. **Improving an existing asset.** Adding the edge case it mishandles, the guardrail it is missing, or the reason behind a rule that is currently bare.
 3. **A new asset** that solves a real problem you have actually hit.
 4. **Fixing documentation** that is wrong, stale, or unclear.
@@ -58,9 +58,11 @@ One asset per pull request, unless several are genuinely a set.
 
 ## Adding your asset to the README
 
-Add a row to the right table in the [Browse the catalogue](README.md#browse-the-catalogue) section. Match the existing style: a link, a category, and a description that says what the asset does rather than what it is.
+Add a bullet under the right category heading in the [Browse the catalogue](README.md#-browse-the-catalogue) section. Match the existing style: the type icon (🧩 skill, 🔁 loop prompt, 🎭 agent mode), a bold link, then a description that says what the asset does rather than what it is.
 
 Reuse a category if one fits. New categories are fine when nothing does, but a category with one member is usually a sign the asset belongs in an existing one.
+
+Bump the count badge at the top of the README for the type you added. It is static, and it is the only thing in the repository that can drift without CI noticing.
 
 ## Licensing
 

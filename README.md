@@ -6,9 +6,9 @@
 
 **A curated box of skills, loop prompts, and agent modes for coding agents.**
 
-[![Skills](https://img.shields.io/badge/skills-2-1f8ceb)](#-skills)
-[![Loop prompts](https://img.shields.io/badge/loop%20prompts-3-7c4dff)](#-loop-prompts)
-[![Agent modes](https://img.shields.io/badge/agent%20modes-2-ff7043)](#-agent-modes)
+[![Skills](https://img.shields.io/badge/skills-2-1f8ceb)](#-browse-the-catalogue)
+[![Loop prompts](https://img.shields.io/badge/loop%20prompts-3-7c4dff)](#-browse-the-catalogue)
+[![Agent modes](https://img.shields.io/badge/agent%20modes-2-ff7043)](#-browse-the-catalogue)
 [![Last update](https://img.shields.io/github/last-commit/ZacheryKuykendall/skillbox?label=last%20update&color=1f8ceb)](https://github.com/ZacheryKuykendall/skillbox/commits/main)
 [![License](https://img.shields.io/badge/license-MIT-3da639)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
@@ -26,9 +26,11 @@ Clone it, copy what you want, close the tab. Every asset here is a Markdown file
 - [🚀 Quick start](#-quick-start)
 - [📦 What is in the box](#-what-is-in-the-box)
 - [📂 Browse the catalogue](#-browse-the-catalogue)
-  - [🧩 Skills](#-skills)
-  - [🔁 Loop prompts](#-loop-prompts)
-  - [🎭 Agent modes](#-agent-modes)
+  - [📐 Planning](#-planning)
+  - [🔍 Code Review and Quality](#-code-review-and-quality)
+  - [🧪 Testing and Debugging](#-testing-and-debugging)
+  - [📝 Documentation](#-documentation)
+  - [🔀 Git and Release](#-git-and-release)
 - [🔌 Which tools support what](#-which-tools-support-what)
 - [🤝 Contributing](#-contributing)
 - [🔒 Security](#-security)
@@ -67,33 +69,40 @@ Skills are the portable ones — the same folder works in every supported tool. 
 
 ## 📂 Browse the catalogue
 
-### 🧩 Skills
+Grouped by what you are trying to do. The icon on each entry is its type:
+🧩 skill &nbsp;·&nbsp; 🔁 loop prompt &nbsp;·&nbsp; 🎭 agent mode
 
-_Reusable knowledge the agent pulls in on its own when the task calls for it. The most portable type: one folder, works everywhere._
+### 📐 Planning
 
-| Skill | Category | What it does |
-| --- | --- | --- |
-| 📝 [technical-documentation](skills/technical-documentation/) | Documentation | Writes or reviews docs a reader can act on, with separate structures for guides, references, explanations, and READMEs |
-| 💬 [commit-message](skills/commit-message/) | Git & Release | Writes a commit message that explains *why*, matched to whatever convention the repository already uses |
+_Deciding what to build and in what order before any code exists, and keeping the plan honest once it does._
 
-### 🔁 Loop prompts
+- 🎭 **[implementation-planner](agents/implementation-planner.agent.md)** — Turns a requirement into independently verifiable steps, each naming its files and carrying an acceptance check. Read-only by construction, so it cannot quietly start implementing.
+- 🔁 **[plan-implement-review](prompts/plan-implement-review.prompt.md)** — Runs a change through four gated steps and stops at each gate instead of pushing through.
 
-_Tasks you run deliberately, that repeat a check until a condition is met. Each one states its goal, its per-pass check, its stop condition, and a bound on when to give up — because a loop with no exit eventually starts gaming the check instead of satisfying it._
+### 🔍 Code Review and Quality
 
-| Prompt | Category | What it does |
-| --- | --- | --- |
-| 🧪 [fix-until-green](prompts/fix-until-green.prompt.md) | Testing | Drives a failing suite to passing one hypothesis at a time, and refuses to weaken a test to get there |
-| 🔍 [code-review](prompts/code-review.prompt.md) | Code Review & Quality | Reviews a diff for correctness, error handling, edge cases, and security, then gives an accept or request-changes verdict |
-| 🗺️ [plan-implement-review](prompts/plan-implement-review.prompt.md) | Planning | Runs a change through four gated steps and stops at each gate instead of pushing through |
+_Catching what the author stopped being able to see._
 
-### 🎭 Agent modes
+- 🔁 **[code-review](prompts/code-review.prompt.md)** — Reviews a diff for correctness, error handling, edge cases, and security, then gives an accept or request-changes verdict. Says a change is sound rather than inventing nitpicks to look thorough.
 
-_Personas you stay in for a whole conversation, with their own instructions and tool access. In Copilot these appear in the mode picker; in Cursor they install as subagents you delegate to._
+### 🧪 Testing and Debugging
 
-| Agent | Category | What it does |
-| --- | --- | --- |
-| 🐞 [debugger](agents/debugger.agent.md) | Debugging | Diagnoses from runtime evidence before proposing anything, and will say "I don't know yet" rather than guess |
-| 📐 [implementation-planner](agents/implementation-planner.agent.md) | Planning | Turns a requirement into independently verifiable steps. Read-only by construction, so it cannot quietly start implementing |
+_Working out why something is broken, and fixing it without destroying the evidence._
+
+- 🎭 **[debugger](agents/debugger.agent.md)** — Diagnoses from runtime evidence before proposing anything, and will say "I don't know yet" rather than guess.
+- 🔁 **[fix-until-green](prompts/fix-until-green.prompt.md)** — Drives a failing suite to passing one hypothesis at a time, under an explicit give-up bound, and refuses to weaken a test to get there.
+
+### 📝 Documentation
+
+_Writing things a reader can act on._
+
+- 🧩 **[technical-documentation](skills/technical-documentation/)** — Writes or reviews docs with separate structures for guides, references, explanations, and READMEs, and refuses to document a flag it has not verified.
+
+### 🔀 Git and Release
+
+_The paperwork around shipping._
+
+- 🧩 **[commit-message](skills/commit-message/)** — Writes a commit message that explains *why* a change was made, matched to whatever convention the repository already uses.
 
 ## 🔌 Which tools support what
 

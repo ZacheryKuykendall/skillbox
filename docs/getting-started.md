@@ -136,4 +136,4 @@ If an asset does not appear, check these in order:
 3. **The path in settings does not exist or is misspelled.** On Windows, backslashes in JSON must be escaped as `\\`.
 4. **The file extension is wrong.** Prompts must end `.prompt.md` and agents `.agent.md`. A file named `debugger.md` in an agents directory will not be treated as an agent by Copilot.
 
-There is one reported-but-undocumented Cursor setting that may gate third-party skills from appearing under `/`. It is listed in [compatibility.md](compatibility.md#not-verified) among the things this repository does not claim to have verified.
+There is one reported-but-undocumented Cursor setting that may gate third-party skills from appearing under `/`. It is listed in [compatibility.md](compatibility.md#open-questions) among the things this repository does not claim to have settled.

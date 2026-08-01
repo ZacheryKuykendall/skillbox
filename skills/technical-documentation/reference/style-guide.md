@@ -23,7 +23,7 @@ Keep documents short by cutting whole sections that do not help, not by compress
 | ------------------------- | ------------------------------------- |
 | Config → validate → apply | The config is validated, then applied |
 | Auth req'd for POST/PUT   | POST and PUT require authentication   |
-| See sec. 3 for deets      | See [Configuration](#configuration)   |
+| See sec. 3 for deets      | `See [Configuration](#configuration)` |
 
 Spell out technical terms. Write "environment variable", not "env var", in prose. Abbreviations in a table cell are fine where the column header supplies the meaning.
 

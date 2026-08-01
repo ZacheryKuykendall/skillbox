@@ -34,7 +34,7 @@
 - [ ] Every command was actually run, with real flags and real paths
 - [ ] No invented flags, paths, or APIs; anything unverified is marked as such
 - [ ] No secrets, tokens, or internal hostnames
-- [ ] Added to the catalogue table in [README.md](../README.md#browse-the-catalogue)
+- [ ] Listed under the right category in [README.md](../README.md#-browse-the-catalogue), and the type's count badge bumped
 
 ## Licensing
 

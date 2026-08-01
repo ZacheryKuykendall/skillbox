@@ -7,7 +7,7 @@ body:
       value: |
         This is the most useful issue you can open.
 
-        [docs/compatibility.md](https://github.com/ZacheryKuykendall/skillbox/blob/main/docs/compatibility.md#not-verified) lists claims this repository has **not** verified — undocumented paths, contradictions between vendor pages, and behaviour nobody has tested. Confirming or correcting one is worth more than a new asset, because everything else depends on that table being honest.
+        [docs/compatibility.md](https://github.com/ZacheryKuykendall/skillbox/blob/main/docs/compatibility.md#open-questions) lists the claims this repository has **not** settled — undocumented paths, contradictions between vendor pages, and behaviour nobody has tested. Confirming or correcting one is worth more than a new asset, because everything else depends on that table being honest.
 
   - type: dropdown
     id: item
