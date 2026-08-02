@@ -11,25 +11,52 @@ Two things make this go wrong if you rush them. **Never write over something tha
 
 Work through the steps in order. Explain as you go, in your own words, at whatever depth the person seems to want. Someone who says "just set it up" needs two sentences; someone asking what a skill is needs the tutorial.
 
-## Step 1: Find out where you are
+## Step 1: Get access to the catalogue
 
-Before anything else, establish two facts and state them back.
+You may be reading this file from a URL, with none of the repository on disk. Establish where the asset files are coming from before you promise anyone anything.
 
-**Which project am I installing into?** Usually the current working directory. If the current directory *is* the Skillbox repository, stop and ask — they almost certainly want to install into a different project, and installing Skillbox into itself is never the intent.
+Try these in order and say which one you used:
+
+1. **Already on disk.** If the Skillbox repository is the current directory, a sibling, or somewhere the user names, use it. Confirm by finding `skills/`, `prompts/`, and `agents/` alongside a `README.md`.
+2. **Clone it.** Most reliable when git is available. Clone to a temporary directory, install from there, and delete it afterwards:
+
+   ```powershell
+   git clone --depth 1 https://github.com/ZacheryKuykendall/skillbox.git "$env:TEMP\skillbox-src"
+   ```
+
+   ```bash
+   git clone --depth 1 https://github.com/ZacheryKuykendall/skillbox.git /tmp/skillbox-src
+   ```
+
+   The user did not ask to clone anything, so this is yours to clean up. Say you are doing it and say when it is gone.
+3. **Fetch over HTTPS.** When git is unavailable but you can make web requests. List a directory with the contents API and read individual files raw:
+
+   - List: `https://api.github.com/repos/ZacheryKuykendall/skillbox/contents/skills`
+   - Read: `https://raw.githubusercontent.com/ZacheryKuykendall/skillbox/main/skills/commit-message/SKILL.md`
+
+   Remember a skill is a folder. Listing `skills/<name>` shows whether it has a `reference/` directory you also need.
+
+If none of the three work, stop and say so plainly rather than reconstructing assets from memory. **Never write an asset from memory.** A file that looks right but is not what the catalogue actually contains is worse than no file, because the user has no way to tell.
+
+## Step 2: Find out where you are
+
+Establish two facts and state them back.
+
+**Which project am I installing into?** Usually the current working directory. If the current directory *is* the Skillbox repository, stop and ask — they almost certainly want a different project, and installing Skillbox into itself is never the intent.
 
 **Which editor do they use?** Look for evidence rather than asking first:
 
 | Found in the project | Suggests |
 | --- | --- |
 | `.cursor/` | Cursor |
-| `.github/` with `.github/copilot-instructions.md`, `.github/prompts/`, or `.github/agents/` | GitHub Copilot |
+| `.github/` with `copilot-instructions.md`, `prompts/`, or `agents/` inside | GitHub Copilot |
 | `.claude/` or `CLAUDE.md` | Claude Code |
 | `.vscode/` | VS Code, likely Copilot |
 | `AGENTS.md` | Several tools read this; not decisive on its own |
 
-State what you found and confirm it. A bare `.github/` directory means almost nothing on its own, since every repository has one — do not treat it as proof of Copilot. If you find evidence of more than one, ask which they want, or offer both. If you find nothing, ask.
+State what you found and confirm it. A bare `.github/` directory means almost nothing on its own, since nearly every repository has one — do not treat it as proof of Copilot. If you find evidence of more than one, ask which they want, or offer both. If you find nothing, ask.
 
-## Step 2: Explain what Skillbox is
+## Step 3: Explain what Skillbox is
 
 Keep this short unless they ask for more. The essentials:
 
@@ -43,9 +70,11 @@ There are three types, and the difference is **how the agent reaches for them**:
 
 If they want the reasoning, point at `docs/authoring.md` for how assets are written and `docs/compatibility.md` for what works where.
 
-## Step 3: Show the catalogue and let them choose
+## Step 4: Show the catalogue and let them choose
 
-List what is available with a one-line description each, grouped by category, and say which type each is. Read the current contents of `skills/`, `prompts/`, and `agents/` rather than reciting a list from memory — the catalogue grows, and a stale list is worse than no list.
+List what is available with a one-line description each, grouped by category, and say which type each is. Read the catalogue from whichever source you established in step 1 rather than reciting a list from memory — the catalogue grows, and a stale list is worse than no list.
+
+**Exclude `skillbox-setup` itself.** It is the skill you are currently running, it is not something anyone installs into their project, and offering it is confusing.
 
 Then ask what they want. Offer a sensible shortcut alongside picking individually:
 
@@ -55,7 +84,7 @@ Then ask what they want. Offer a sensible shortcut alongside picking individuall
 
 **Recommend rather than dump.** Fewer, well-matched assets beat a full install. Say why you are suggesting each one.
 
-## Step 4: Work out the destinations
+## Step 5: Work out the destinations
 
 Each type goes somewhere different, and it differs by editor:
 
@@ -74,7 +103,7 @@ Two things to tell them rather than silently work around:
 
 If they use more than one tool, `.claude/skills/` is worth suggesting for skills specifically, because Cursor reads it too.
 
-## Step 5: Check for collisions before writing anything
+## Step 6: Check for collisions before writing anything
 
 These directories are shared. Something with the same name may already be there, and it may be the user's own work.
 
@@ -92,16 +121,18 @@ Never overwrite as a default and never overwrite silently.
 
 **Copy folders all-or-nothing.** Do not merge a skill folder into an existing one of the same name. Merging preserves their `SKILL.md` but adds any file they do not have, such as a `reference/` directory, producing a skill assembled from two different authors. That is harder to notice than a clean overwrite and harder to undo.
 
-## Step 6: Install
+## Step 7: Install
 
-Create destination directories as needed. Copy each chosen asset:
+Create destination directories as needed, then copy each chosen asset from the source you established in step 1.
 
-- A **skill** is a whole folder. Copy all of it, and keep the folder name exactly — it must match the `name` in its frontmatter.
+- A **skill** is a whole folder. Copy all of it, including any `reference/` directory, and keep the folder name exactly — it must match the `name` in its frontmatter.
 - A **loop prompt** and an **agent mode** are single files. Keep the `.prompt.md` and `.agent.md` suffixes; the editor uses them to tell the types apart.
 
 Do not edit the contents while copying. If something needs renaming, change the folder name and frontmatter `name` together and tell them you did.
 
-## Step 7: Confirm it worked, and teach them to use it
+If you cloned to a temporary directory in step 1, delete it now and say so.
+
+## Step 8: Confirm it worked, and teach them to use it
 
 Tell them exactly what to do next:
 
@@ -116,16 +147,18 @@ If something does not appear, work through this in order:
 1. **A skill's folder name does not match the `name` in its frontmatter.** By far the most common cause, and it fails silently with no error.
 2. **The window was not reloaded.**
 3. **The file extension is wrong.** A prompt must end `.prompt.md` and an agent `.agent.md`. A plain `.md` in an agents directory is not treated as an agent.
-4. **The file landed in the wrong directory for that editor.** Re-check the table in step 4.
+4. **The file landed in the wrong directory for that editor.** Re-check the table in step 5.
 
 Finish with a short summary: what was installed, where it went, what was skipped and why.
 
 ## Rules
 
 - **Never overwrite without explicit per-file consent.** Skipping is always the default.
+- **Never write an asset from memory.** If you cannot reach the real file, say so and stop.
 - **Never install the whole catalogue unless asked.** More assets make matching worse, not better.
+- Never offer `skillbox-setup` as something to install.
 - Never edit an asset's content while installing it.
 - Never install Skillbox into the Skillbox repository itself.
-- Read the catalogue from disk rather than reciting it from memory.
+- Clean up any temporary clone you made.
 - If you cannot tell which editor they use, ask. Guessing wrong puts files where nothing will read them, and it fails silently.
 - Report what you actually did, including anything skipped. A summary claiming success while three assets were skipped is worse than no summary.
