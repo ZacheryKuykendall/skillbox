@@ -6,7 +6,7 @@
 
 **A curated box of skills, loop prompts, and agent modes for coding agents.**
 
-[![Skills](https://img.shields.io/badge/skills-3-1f8ceb)](#-browse-the-catalogue)
+[![Skills](https://img.shields.io/badge/skills-5-1f8ceb)](#-browse-the-catalogue)
 [![Loop prompts](https://img.shields.io/badge/loop%20prompts-3-7c4dff)](#-browse-the-catalogue)
 [![Agent modes](https://img.shields.io/badge/agent%20modes-2-ff7043)](#-browse-the-catalogue)
 [![Last update](https://img.shields.io/github/last-commit/ZacheryKuykendall/skillbox?label=last%20update&color=1f8ceb)](https://github.com/ZacheryKuykendall/skillbox/commits/main)
@@ -30,6 +30,7 @@ Clone it, copy what you want, close the tab. Every asset here is a Markdown file
   - [📐 Planning](#-planning)
   - [🔍 Code Review and Quality](#-code-review-and-quality)
   - [🧪 Testing and Debugging](#-testing-and-debugging)
+  - [☁️ DevOps and Infrastructure](#-devops-and-infrastructure)
   - [📝 Documentation](#-documentation)
   - [🔀 Git and Release](#-git-and-release)
 - [🔌 Which tools support what](#-which-tools-support-what)
@@ -111,6 +112,13 @@ _Working out why something is broken, and fixing it without destroying the evide
 
 - 🎭 **[debugger](agents/debugger.agent.md)** — Diagnoses from runtime evidence before proposing anything, and will say "I don't know yet" rather than guess.
 - 🔁 **[fix-until-green](prompts/fix-until-green.prompt.md)** — Drives a failing suite to passing one hypothesis at a time, under an explicit give-up bound, and refuses to weaken a test to get there.
+
+### ☁️ DevOps and Infrastructure
+
+_Reviewing the changes where a mistake costs more than a revert._
+
+- 🧩 **[terraform-plan-review](skills/terraform-plan-review/)** — Reads a plan for what it will actually destroy or replace, separates drift from intent, and reports its own count of stateful resources at risk alongside terraform's summary.
+- 🧩 **[dockerfile-review](skills/dockerfile-review/)** — Catches secrets baked into layers, containers running as root, cache-busting instruction order, and shell-form `CMD` that swallows `SIGTERM`.
 
 ### 📝 Documentation
 
